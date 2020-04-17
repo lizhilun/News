@@ -1,6 +1,5 @@
 package com.lizl.news.mvvm.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lizl.news.model.NewsModel
@@ -16,9 +15,18 @@ class NewsViewModel : ViewModel()
 
     fun refreshNews()
     {
-        ZhiHuDiaryRepository.getDiaryData { result, list ->
+        ZhiHuDiaryRepository.getLatestDiaryData { result, list ->
             newsLiveData.value?.clear()
             newsLiveData.postValue(list.toMutableList())
+        }
+    }
+
+    fun loadMoreNews()
+    {
+        ZhiHuDiaryRepository.getBeforeDiaryData() { result, list ->
+            val newsList = newsLiveData.value ?: mutableListOf()
+            newsList.addAll(list)
+            newsLiveData.postValue(newsList)
         }
     }
 }

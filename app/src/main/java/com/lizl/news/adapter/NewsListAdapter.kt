@@ -13,7 +13,7 @@ class NewsListAdapter : BaseQuickAdapter<NewsModel, BaseViewHolder>(R.layout.ite
 
     init
     {
-        setDiffCallback(CustomDiffUtil({ oldItem, newItem -> oldItem.title == newItem.title }, { oldItem, newItem -> oldItem == newItem }))
+        setDiffCallback(CustomDiffUtil({ oldItem, newItem -> oldItem.id == newItem.id }, { oldItem, newItem -> oldItem == newItem }))
     }
 
     override fun onItemViewHolderCreated(viewHolder: BaseViewHolder, viewType: Int)

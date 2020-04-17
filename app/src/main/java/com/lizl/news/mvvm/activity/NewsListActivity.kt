@@ -17,11 +17,17 @@ class NewsListActivity : BaseActivity<ActivityNewsListBinding>(R.layout.activity
         val newViewModel = ViewModelProvider.AndroidViewModelFactory(this.application).create(NewsViewModel::class.java)
 
         dataBinding.newsListAdapter = newsListAdapter
+
+        dataBinding.refreshLayout.setEnableRefresh(true)
+        dataBinding.refreshLayout.setEnableLoadMore(true)
+
         dataBinding.refreshLayout.setOnRefreshListener { newViewModel.refreshNews() }
+        dataBinding.refreshLayout.setOnLoadMoreListener { newViewModel.loadMoreNews() }
 
         newViewModel.getNewLiveData().observe(this, Observer {
             dataBinding.refreshLayout.finishRefresh()
-            newsListAdapter.setDiffNewData(it)
+            dataBinding.refreshLayout.finishLoadMore()
+            newsListAdapter.setDiffNewData(it.toMutableList())
         })
 
         newViewModel.refreshNews()
