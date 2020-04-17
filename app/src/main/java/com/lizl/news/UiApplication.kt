@@ -6,6 +6,7 @@ import com.blankj.utilcode.util.Utils
 import com.scwang.smartrefresh.header.DeliveryHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
+import com.zzhoujay.richtext.RichText
 
 class UiApplication : Application()
 {
@@ -24,6 +25,8 @@ class UiApplication : Application()
         super.onCreate()
 
         Utils.init(this)
+
+        RichText.initCacheDir(this)
 
         //初始化SmartRefreshLayout全局Header
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
