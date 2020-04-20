@@ -1,8 +1,8 @@
 package com.lizl.news.util
 
 import android.util.Log
+import com.lizl.news.model.ResultItem
 import okhttp3.*
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 object HttpUtil
@@ -16,33 +16,29 @@ object HttpUtil
             .build();
     }
 
-    fun requestData(url: String, resultCallBack: (Boolean, String) -> Unit)
+    fun requestData(url: String): ResultItem
     {
         Log.d(TAG, "requestData() called with: url = [$url]")
-        val request: Request = Request.Builder().url(url).get().build()
-        httpClient.newCall(request).enqueue(object : Callback
+        try
         {
-            override fun onFailure(call: Call, e: IOException)
+            val request: Request = Request.Builder().url(url).get().build()
+            val response = httpClient.newCall(request).execute()
+            return if (response.isSuccessful)
             {
-                val errorMessage = e.message.orEmpty()
-                Log.d(TAG, "onFailure() called with: errorMessage = [$errorMessage]")
-                resultCallBack.invoke(false, errorMessage)
+                val body = response.body()?.string().orEmpty()
+                Log.d(TAG, "requestData success: body = [$body]")
+                ResultItem(true, body)
             }
-
-            override fun onResponse(call: Call, response: Response)
+            else
             {
-                try
-                {
-                    val data = response.body()?.string().orEmpty()
-                    Log.d(TAG, "onResponse() called with: response = [$data]")
-                    resultCallBack.invoke(true, data)
-                }
-                catch (e: Exception)
-                {
-                    Log.d(TAG, "onResponse failed called with: response = [${e.message}]")
-                    resultCallBack.invoke(false, e.message.orEmpty())
-                }
+                Log.d(TAG, "requestData failed response not success")
+                ResultItem(false, "")
             }
-        })
+        }
+        catch (e: Exception)
+        {
+            Log.d(TAG, "requestData failed:" + e.message)
+            return ResultItem(false, e.message.orEmpty())
+        }
     }
 }

@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lizl.news.model.NewsModel
 import com.lizl.news.mvvm.repository.ZhiHuDiaryRepository
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class NewsViewModel : ViewModel()
 {
@@ -15,17 +17,17 @@ class NewsViewModel : ViewModel()
 
     fun refreshNews()
     {
-        ZhiHuDiaryRepository.getLatestDiaryData { result, list ->
+        GlobalScope.launch {
             newsLiveData.value?.clear()
-            newsLiveData.postValue(list.toMutableList())
+            newsLiveData.postValue(ZhiHuDiaryRepository.getLatestDiaryData())
         }
     }
 
     fun loadMoreNews()
     {
-        ZhiHuDiaryRepository.getBeforeDiaryData() { result, list ->
+        GlobalScope.launch {
             val newsList = newsLiveData.value ?: mutableListOf()
-            newsList.addAll(list)
+            newsList.addAll(ZhiHuDiaryRepository.getBeforeDiaryData())
             newsLiveData.postValue(newsList)
         }
     }

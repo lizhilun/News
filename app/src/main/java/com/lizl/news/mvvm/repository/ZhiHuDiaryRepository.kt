@@ -15,57 +15,61 @@ object ZhiHuDiaryRepository
 
     private lateinit var curDataDate: DateBean
 
-    fun getLatestDiaryData(resultCallback: (Boolean, List<NewsModel>) -> Unit)
+    fun getLatestDiaryData(): MutableList<NewsModel>
     {
         curDataDate = DateBean(System.currentTimeMillis())
-        getDiaryData("http://news-at.zhihu.com/api/4/news/latest", resultCallback)
+        val latestDiaryList = mutableListOf<NewsModel>()
+        latestDiaryList.addAll(getDiaryData("http://news-at.zhihu.com/api/4/news/latest"))
+        latestDiaryList.addAll(getBeforeDiaryData())
+        return latestDiaryList
     }
 
-    fun getBeforeDiaryData(resultCallback: (Boolean, List<NewsModel>) -> Unit)
+    fun getBeforeDiaryData(): MutableList<NewsModel>
     {
         curDataDate = curDataDate.lastDay()
-        getDiaryData("http://news-at.zhihu.com/api/4/news/before/${curDataDate.getDateInfo()}", resultCallback)
+        return getDiaryData("http://news-at.zhihu.com/api/4/news/before/${curDataDate.getDateInfo()}")
     }
 
-    fun getDiaryDetail(diaryUrl: String, resultCallback: (Boolean, NewsDetailModel?) -> Unit)
+    fun getDiaryDetail(diaryUrl: String): NewsDetailModel?
     {
         Log.d(TAG, "getDiaryDetail() called with: diaryUrl = [$diaryUrl]")
-        HttpUtil.requestData(diaryUrl) { result, data ->
-            Log.d(TAG, "getDiaryDetail() called with: result = [$result], data = [$data]")
-            if (result)
+        val resultItem = HttpUtil.requestData(diaryUrl)
+        Log.d(TAG, "getDiaryDetail() called with: result = [${resultItem.result}], data = [${resultItem.data}]")
+        if (resultItem.result)
+        {
+            try
             {
-                val diaryDetailModel = Gson().fromJson(data, DiaryDetailModel::class.java)
-                resultCallback.invoke(true, NewsDetailModel(diaryDetailModel.title, diaryDetailModel.body))
+                val diaryDetailModel = Gson().fromJson(resultItem.data, DiaryDetailModel::class.java)
+                return NewsDetailModel(diaryDetailModel.title, diaryDetailModel.body)
+            }
+            catch (e: Exception)
+            {
+                Log.e(TAG, "getDiaryDetail error:", e)
             }
         }
+        return null
     }
 
-    private fun getDiaryData(url: String, resultCallback: (Boolean, List<NewsModel>) -> Unit)
+    private fun getDiaryData(url: String): MutableList<NewsModel>
     {
         Log.d(TAG, "getDiaryData() called with: url = [$url]")
-
-        HttpUtil.requestData(url) { result, data ->
-            Log.d(TAG, "getDiaryData() called with: result = [$result], data = [$data]")
-            if (result)
+        val resultItem = HttpUtil.requestData(url)
+        Log.d(TAG, "getDiaryData() called with: result = [${resultItem.result}], data = [${resultItem.data}]")
+        val newsList = mutableListOf<NewsModel>()
+        if (resultItem.result)
+        {
+            try
             {
-                try
-                {
-                    val diaryDataModel = Gson().fromJson(data, DiaryDataModel::class.java)
-                    val newsList = mutableListOf<NewsModel>()
-                    diaryDataModel.storyList?.forEach {
-                        newsList.add(NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList?.first().orEmpty()))
-                    }
-                    resultCallback.invoke(true, newsList)
-                }
-                catch (e: Exception)
-                {
-                    resultCallback.invoke(false, emptyList())
+                val diaryDataModel = Gson().fromJson(resultItem.data, DiaryDataModel::class.java)
+                diaryDataModel.storyList?.forEach {
+                    newsList.add(NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList?.first().orEmpty()))
                 }
             }
-            else
+            catch (e: Exception)
             {
-                resultCallback.invoke(false, emptyList())
+                Log.e(TAG, "getDiaryData error:", e)
             }
         }
+        return newsList
     }
 }
