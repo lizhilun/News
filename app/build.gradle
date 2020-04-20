@@ -62,4 +62,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.okhttp3:okhttp:3.13.1'
     implementation 'com.zzhoujay.richtext:richtext:3.0.8'
+    implementation 'com.lxj:xpopup:1.8.13'
 }

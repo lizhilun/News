@@ -5,6 +5,7 @@ import com.lizl.news.R
 import com.lizl.news.databinding.ActivityNewsDetailBinding
 import com.lizl.news.mvvm.base.BaseActivity
 import com.lizl.news.mvvm.repository.ZhiHuDiaryRepository
+import com.lizl.news.util.PopUtil
 import com.zzhoujay.richtext.CacheType
 import com.zzhoujay.richtext.ImageHolder
 import com.zzhoujay.richtext.RichText
@@ -38,7 +39,7 @@ class NewsDetailActivity : BaseActivity<ActivityNewsDetailBinding>(R.layout.acti
             .noImage(false) // 不显示并且不加载图片
             .resetSize(false) // 默认false，是否忽略img标签中的宽高尺寸（只在img标签中存在宽高时才有效），true：忽略标签中的尺寸并触发SIZE_READY回调，false：使用img标签中的宽高尺寸，不触发SIZE_READY回调
             .clickable(true) // 是否可点击，默认只有设置了点击监听才可点击
-            .imageClick { imageUrls, position -> } // 设置图片点击回调
+            .imageClick { imageUrls, position -> PopUtil.showImageViewerPopup(imageUrls, position) } // 设置图片点击回调
             .urlClick { url -> false } // 设置链接点击回调
             .cache(CacheType.all) // 缓存类型，默认为Cache.ALL（缓存图片和图片大小信息和文本样式信息）
             .bind(this).into(dataBinding.tvContent) // 设置目标TextView

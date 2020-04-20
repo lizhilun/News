@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">News</string>
+
+    <style name="save">保存</style>
 </resources>
