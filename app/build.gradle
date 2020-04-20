@@ -64,4 +64,5 @@ dependencies {
     implementation 'com.zzhoujay.richtext:richtext:3.0.8'
     implementation 'com.lxj:xpopup:1.8.13'
     implementation 'org.jsoup:jsoup:1.13.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

@@ -2,6 +2,7 @@ package com.lizl.news.mvvm.repository
 
 import android.util.Log
 import com.google.gson.Gson
+import com.lizl.news.model.NewsAuthorModel
 import com.lizl.news.model.NewsDetailModel
 import com.lizl.news.model.NewsModel
 import com.lizl.news.model.zhihu.DateBean
@@ -42,8 +43,11 @@ object ZhiHuDiaryRepository
             {
                 val diaryDetailModel = Gson().fromJson(resultItem.data, DiaryDetailModel::class.java)
                 val doc = Jsoup.parse(diaryDetailModel.body)
-                val content = doc.getElementsByClass("content")
-                return NewsDetailModel(diaryDetailModel.title, content.toString())
+                val content = doc.getElementsByClass("content").toString()
+                val authorName = doc.getElementsByClass("author").text()
+                val authorAvatar = doc.getElementsByClass("avatar").attr("src")
+                val authorBio = doc.getElementsByClass("bio").text()
+                return NewsDetailModel(diaryDetailModel.title, content, NewsAuthorModel(authorName, authorAvatar, authorBio))
             }
             catch (e: Exception)
             {

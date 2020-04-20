@@ -6,6 +6,7 @@
     <dimen name="global_text_size_smaller">12sp</dimen>
     <dimen name="global_text_size_smallest">10sp</dimen>
     <dimen name="global_text_size_bigger">18sp</dimen>
+    <dimen name="global_text_size_biggest">20sp</dimen>
     <dimen name="global_list_item_height">60dp</dimen>
     <dimen name="global_button_height">50dp</dimen>
     <dimen name="global_text_item_height">50dp</dimen>

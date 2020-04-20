@@ -24,6 +24,7 @@ class NewsDetailActivity : BaseActivity<ActivityNewsDetailBinding>(R.layout.acti
         GlobalScope.launch {
             val newsDetailModel = ZhiHuDiaryRepository.getDiaryDetail(detailUrl)
             GlobalScope.launch(Dispatchers.Main) {
+                dataBinding.newsDetailModel = newsDetailModel
                 showNews(newsDetailModel?.content.orEmpty())
             }
         }
