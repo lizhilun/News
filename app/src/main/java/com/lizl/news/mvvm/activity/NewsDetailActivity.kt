@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+
 class NewsDetailActivity : BaseActivity<ActivityNewsDetailBinding>(R.layout.activity_news_detail)
 {
     override fun initView()

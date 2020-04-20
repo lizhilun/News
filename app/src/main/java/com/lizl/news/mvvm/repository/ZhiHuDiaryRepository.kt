@@ -8,6 +8,7 @@ import com.lizl.news.model.zhihu.DateBean
 import com.lizl.news.model.zhihu.DiaryDataModel
 import com.lizl.news.model.zhihu.DiaryDetailModel
 import com.lizl.news.util.HttpUtil
+import org.jsoup.Jsoup
 
 object ZhiHuDiaryRepository
 {
@@ -40,7 +41,9 @@ object ZhiHuDiaryRepository
             try
             {
                 val diaryDetailModel = Gson().fromJson(resultItem.data, DiaryDetailModel::class.java)
-                return NewsDetailModel(diaryDetailModel.title, diaryDetailModel.body)
+                val doc = Jsoup.parse(diaryDetailModel.body)
+                val content = doc.getElementsByClass("content")
+                return NewsDetailModel(diaryDetailModel.title, content.toString())
             }
             catch (e: Exception)
             {
