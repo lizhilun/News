@@ -18,15 +18,23 @@ class NewsListActivity : BaseActivity<ActivityNewsListBinding>(R.layout.activity
 
         dataBinding.newsListAdapter = newsListAdapter
 
-        dataBinding.refreshLayout.setEnableRefresh(true)
-        dataBinding.refreshLayout.setEnableLoadMore(true)
+        dataBinding.refreshLayout.let {
+            it.setEnableRefresh(true)
+            it.setEnableLoadMore(false)
 
-        dataBinding.refreshLayout.setOnRefreshListener { newViewModel.refreshNews() }
-        dataBinding.refreshLayout.setOnLoadMoreListener { newViewModel.loadMoreNews() }
+            it.setOnRefreshListener { newViewModel.refreshNews() }
+        }
+
+        newsListAdapter.loadMoreModule?.let {
+            it.isEnableLoadMore = true
+            it.preLoadNumber = 5
+
+            it.setOnLoadMoreListener { newViewModel.loadMoreNews() }
+        }
 
         newViewModel.getNewLiveData().observe(this, Observer {
             dataBinding.refreshLayout.finishRefresh()
-            dataBinding.refreshLayout.finishLoadMore()
+            newsListAdapter.loadMoreModule?.loadMoreComplete()
             newsListAdapter.setDiffNewData(it.toMutableList())
         })
 
