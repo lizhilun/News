@@ -28,6 +28,8 @@ class ZhiHuQuestionListAdapter(questionList: List<ZhiHuQuestionModel>) :
 
             questionModel = item
 
+            tvTitle.paint.isFakeBoldText = true
+
             RichText.from(item.answer) // 数据源
                 .autoFix(true) // 是否自动修复，默认true
                 .type(RichType.html).autoPlay(true) // gif图片是否自动播放

@@ -53,7 +53,7 @@ object ZhiHuDiaryRepository
 
                 for (index in 0 until size)
                 {
-                    questionList.add(ZhiHuQuestionModel(questionTitleElements[index].text(), contentElements[index].toString(),
+                    questionList.add(ZhiHuQuestionModel(if (size == 1) "" else "Q：${questionTitleElements[index].text()}", contentElements[index].toString(),
                             AuthorModel(authorNameElements[index].text(), authorAvatarElements[index].attr("src"), authorBioElements[index].text())))
                 }
 
