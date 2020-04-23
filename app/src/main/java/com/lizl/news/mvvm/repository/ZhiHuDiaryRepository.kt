@@ -2,12 +2,9 @@ package com.lizl.news.mvvm.repository
 
 import android.util.Log
 import com.google.gson.Gson
-import com.lizl.news.model.NewsAuthorModel
-import com.lizl.news.model.NewsDetailModel
+import com.lizl.news.model.AuthorModel
 import com.lizl.news.model.NewsModel
-import com.lizl.news.model.zhihu.DateBean
-import com.lizl.news.model.zhihu.DiaryDataModel
-import com.lizl.news.model.zhihu.DiaryDetailModel
+import com.lizl.news.model.zhihu.*
 import com.lizl.news.util.HttpUtil
 import org.jsoup.Jsoup
 
@@ -32,7 +29,7 @@ object ZhiHuDiaryRepository
         return getDiaryData("http://news-at.zhihu.com/api/4/news/before/${curDataDate.getDateInfo()}")
     }
 
-    fun getDiaryDetail(diaryUrl: String): NewsDetailModel?
+    fun getDiaryDetail(diaryUrl: String): ZhiHuDiaryDetailModel?
     {
         Log.d(TAG, "getDiaryDetail() called with: diaryUrl = [$diaryUrl]")
         val resultItem = HttpUtil.requestData(diaryUrl)
@@ -43,11 +40,24 @@ object ZhiHuDiaryRepository
             {
                 val diaryDetailModel = Gson().fromJson(resultItem.data, DiaryDetailModel::class.java)
                 val doc = Jsoup.parse(diaryDetailModel.body)
-                val content = doc.getElementsByClass("content").toString()
-                val authorName = doc.getElementsByClass("author").text()
-                val authorAvatar = doc.getElementsByClass("avatar").attr("src")
-                val authorBio = doc.getElementsByClass("bio").text()
-                return NewsDetailModel(diaryDetailModel.title, content, NewsAuthorModel(authorName, authorAvatar, authorBio))
+
+                val questionTitleElements = doc.getElementsByClass("question-title")
+                val authorNameElements = doc.getElementsByClass("author")
+                val authorAvatarElements = doc.getElementsByClass("avatar")
+                val authorBioElements = doc.getElementsByClass("bio")
+                val contentElements = doc.getElementsByClass("content")
+
+                val questionList = mutableListOf<ZhiHuQuestionModel>()
+                val size = questionTitleElements.size.coerceAtMost(
+                        authorNameElements.size.coerceAtMost(authorAvatarElements.size.coerceAtMost(authorBioElements.size.coerceAtMost(contentElements.size))))
+
+                for (index in 0 until size)
+                {
+                    questionList.add(ZhiHuQuestionModel(questionTitleElements[index].text(), contentElements[index].toString(),
+                            AuthorModel(authorNameElements[index].text(), authorAvatarElements[index].attr("src"), authorBioElements[index].text())))
+                }
+
+                return ZhiHuDiaryDetailModel(diaryDetailModel.title, diaryDetailModel.images?.first(), questionList)
             }
             catch (e: Exception)
             {

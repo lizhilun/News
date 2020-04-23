@@ -1,6 +1,7 @@
 package com.lizl.news.util
 
 import android.widget.ImageView
+import com.bumptech.glide.request.target.Target
 import com.lizl.news.GlideApp
 
 object GlideUtil
@@ -11,5 +12,13 @@ object GlideUtil
     fun displayImage(imageView: ImageView, imageUri: String)
     {
         GlideApp.with(imageView).load(imageUri).into(imageView)
+    }
+
+    /**
+     * 加载原图并显示
+     */
+    fun displayOriImage(imageView: ImageView, imageUri: Any)
+    {
+        GlideApp.with(imageView).load(imageUri).override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).into(imageView)
     }
 }

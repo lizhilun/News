@@ -7,7 +7,7 @@ import com.lxj.xpopup.core.BasePopupView
 import kotlinx.coroutines.*
 
 
-object PopUtil
+object PopupUtil
 {
     private var curPopup: BasePopupView? = null
     private var showPopupJob: Job? = null
