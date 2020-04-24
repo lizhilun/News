@@ -17,10 +17,7 @@ object ZhiHuDiaryRepository
     fun getLatestDiaryData(): MutableList<NewsModel>
     {
         curDataDate = DateBean(System.currentTimeMillis())
-        val latestDiaryList = mutableListOf<NewsModel>()
-        latestDiaryList.addAll(getDiaryData("http://news-at.zhihu.com/api/4/news/latest"))
-        latestDiaryList.addAll(getBeforeDiaryData())
-        return latestDiaryList
+        return getDiaryData("http://news-at.zhihu.com/api/4/news/latest")
     }
 
     fun getBeforeDiaryData(): MutableList<NewsModel>
@@ -49,17 +46,22 @@ object ZhiHuDiaryRepository
 
                 val questionList = mutableListOf<ZhiHuQuestionModel>()
                 val size = questionTitleElements.size.coerceAtMost(
-                        authorNameElements.size.coerceAtMost(authorAvatarElements.size.coerceAtMost(authorBioElements.size.coerceAtMost(contentElements.size))))
+                    authorNameElements.size.coerceAtMost(authorAvatarElements.size.coerceAtMost(authorBioElements.size.coerceAtMost(contentElements.size)))
+                )
 
                 for (index in 0 until size)
                 {
-                    questionList.add(ZhiHuQuestionModel(if (size == 1) "" else "Q：${questionTitleElements[index].text()}", contentElements[index].toString(),
-                            AuthorModel(authorNameElements[index].text(), authorAvatarElements[index].attr("src"), authorBioElements[index].text())))
+                    questionList.add(
+                        ZhiHuQuestionModel(
+                            if (size == 1) "" else "Q：${questionTitleElements[index].text()}",
+                            contentElements[index].toString(),
+                            AuthorModel(authorNameElements[index].text(), authorAvatarElements[index].attr("src"), authorBioElements[index].text())
+                        )
+                    )
                 }
 
                 return ZhiHuDiaryDetailModel(diaryDetailModel.title, diaryDetailModel.images?.first(), questionList)
-            }
-            catch (e: Exception)
+            } catch (e: Exception)
             {
                 Log.e(TAG, "getDiaryDetail error:", e)
             }
@@ -81,8 +83,7 @@ object ZhiHuDiaryRepository
                 diaryDataModel.storyList?.forEach {
                     newsList.add(NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList?.first().orEmpty()))
                 }
-            }
-            catch (e: Exception)
+            } catch (e: Exception)
             {
                 Log.e(TAG, "getDiaryData error:", e)
             }

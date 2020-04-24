@@ -18,8 +18,11 @@ class NewsViewModel : ViewModel()
     fun refreshNews()
     {
         GlobalScope.launch {
-            newsLiveData.value?.clear()
-            newsLiveData.postValue(ZhiHuDiaryRepository.getLatestDiaryData())
+            val newsList = mutableListOf<NewsModel>()
+            newsList.addAll(ZhiHuDiaryRepository.getLatestDiaryData())
+            newsLiveData.postValue(newsList)
+            newsList.addAll(ZhiHuDiaryRepository.getBeforeDiaryData())
+            newsLiveData.postValue(newsList)
         }
     }
 
@@ -27,6 +30,8 @@ class NewsViewModel : ViewModel()
     {
         GlobalScope.launch {
             val newsList = newsLiveData.value ?: mutableListOf()
+            newsList.addAll(ZhiHuDiaryRepository.getBeforeDiaryData())
+            newsLiveData.postValue(newsList)
             newsList.addAll(ZhiHuDiaryRepository.getBeforeDiaryData())
             newsLiveData.postValue(newsList)
         }
