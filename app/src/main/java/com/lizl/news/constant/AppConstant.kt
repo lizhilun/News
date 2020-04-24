@@ -1,4 +1,4 @@
-package com.lizl.mydiary.constant
+package com.lizl.news.constant
 
 object AppConstant
 {
@@ -7,4 +7,7 @@ object AppConstant
     const val BUNDLE_DATA_STRING = "BUNDLE_DATA_STRING"
     const val BUNDLE_DATA_BOOLEAN = "BUNDLE_DATA_BOOLEAN"
     const val BUNDLE_DATA_INT = "BUNDLE_DATA_INT"
+
+    const val NEWS_PLATFORM_ZHIHU_DIARY = "NEWS_PLATFORM_ZHIHU_DIARY"
+    const val NEWS_PLATFORM_HEADLINE = "NEWS_PLATFORM_HEADLINE"
 }

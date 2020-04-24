@@ -5,9 +5,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lizl.news.R
+import com.lizl.news.constant.AppConstant
 import com.lizl.news.custom.other.CustomDiffUtil
 import com.lizl.news.databinding.ItemNewsBinding
 import com.lizl.news.model.NewsModel
+import com.lizl.news.mvvm.activity.HeadlineDetailActivity
 import com.lizl.news.mvvm.activity.ZhiHuDetailActivity
 import com.lizl.news.util.ActivityUtil
 
@@ -30,7 +32,13 @@ class NewsListAdapter : BaseQuickAdapter<NewsModel, BaseViewHolder>(R.layout.ite
             newsModel = item
             executePendingBindings()
 
-            helper.itemView.setOnClickListener { ActivityUtil.turnToActivity(ZhiHuDetailActivity::class.java, item.detailUrl) }
+            helper.itemView.setOnClickListener {
+                ActivityUtil.turnToActivity(when (item.platform)
+                {
+                    AppConstant.NEWS_PLATFORM_ZHIHU_DIARY -> ZhiHuDetailActivity::class.java
+                    else                                  -> HeadlineDetailActivity::class.java
+                }, item.detailUrl)
+            }
         }
     }
 }

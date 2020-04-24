@@ -78,6 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/global_content_padding_content"
+            app:htmlText="@{questionModel.answer}"
             app:layout_constraintTop_toBottomOf="@+id/barrier_author_info" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

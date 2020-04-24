@@ -3,7 +3,7 @@ package com.lizl.news.util
 import android.app.Activity
 import android.content.Intent
 import com.blankj.utilcode.util.ActivityUtils
-import com.lizl.mydiary.constant.AppConstant
+import com.lizl.news.constant.AppConstant
 import java.io.Serializable
 
 object ActivityUtil

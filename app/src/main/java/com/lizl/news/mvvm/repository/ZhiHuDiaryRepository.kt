@@ -2,31 +2,32 @@ package com.lizl.news.mvvm.repository
 
 import android.util.Log
 import com.google.gson.Gson
+import com.lizl.news.constant.AppConstant
 import com.lizl.news.model.AuthorModel
 import com.lizl.news.model.NewsModel
 import com.lizl.news.model.zhihu.*
 import com.lizl.news.util.HttpUtil
 import org.jsoup.Jsoup
 
-object ZhiHuDiaryRepository
+class ZhiHuDiaryRepository : NewsDataRepository
 {
     private val TAG = "ZhiHuDiaryRepository"
 
     private lateinit var curDataDate: DateBean
 
-    fun getLatestDiaryData(): MutableList<NewsModel>
+    override fun getLatestNews(): MutableList<NewsModel>
     {
         curDataDate = DateBean(System.currentTimeMillis())
         return getDiaryData("http://news-at.zhihu.com/api/4/news/latest")
     }
 
-    fun getBeforeDiaryData(): MutableList<NewsModel>
+    override fun loadMoreNews(): MutableList<NewsModel>
     {
         curDataDate = curDataDate.lastDay()
         return getDiaryData("http://news-at.zhihu.com/api/4/news/before/${curDataDate.getDateInfo()}")
     }
 
-    fun getDiaryDetail(diaryUrl: String): ZhiHuDiaryDetailModel?
+    override fun getNewsDetail(diaryUrl: String): Any?
     {
         Log.d(TAG, "getDiaryDetail() called with: diaryUrl = [$diaryUrl]")
         val resultItem = HttpUtil.requestData(diaryUrl)
@@ -46,22 +47,17 @@ object ZhiHuDiaryRepository
 
                 val questionList = mutableListOf<ZhiHuQuestionModel>()
                 val size = questionTitleElements.size.coerceAtMost(
-                    authorNameElements.size.coerceAtMost(authorAvatarElements.size.coerceAtMost(authorBioElements.size.coerceAtMost(contentElements.size)))
-                )
+                        authorNameElements.size.coerceAtMost(authorAvatarElements.size.coerceAtMost(authorBioElements.size.coerceAtMost(contentElements.size))))
 
                 for (index in 0 until size)
                 {
-                    questionList.add(
-                        ZhiHuQuestionModel(
-                            if (size == 1) "" else "Q：${questionTitleElements[index].text()}",
-                            contentElements[index].toString(),
-                            AuthorModel(authorNameElements[index].text(), authorAvatarElements[index].attr("src"), authorBioElements[index].text())
-                        )
-                    )
+                    questionList.add(ZhiHuQuestionModel(if (size == 1) "" else "Q：${questionTitleElements[index].text()}", contentElements[index].toString(),
+                            AuthorModel(authorNameElements[index].text(), authorAvatarElements[index].attr("src"), authorBioElements[index].text())))
                 }
 
                 return ZhiHuDiaryDetailModel(diaryDetailModel.title, diaryDetailModel.images?.first(), questionList)
-            } catch (e: Exception)
+            }
+            catch (e: Exception)
             {
                 Log.e(TAG, "getDiaryDetail error:", e)
             }
@@ -81,9 +77,11 @@ object ZhiHuDiaryRepository
             {
                 val diaryDataModel = Gson().fromJson(resultItem.data, DiaryDataModel::class.java)
                 diaryDataModel.storyList?.forEach {
-                    newsList.add(NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList?.first().orEmpty()))
+                    newsList.add(NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList?.first().orEmpty(),
+                            AppConstant.NEWS_PLATFORM_ZHIHU_DIARY))
                 }
-            } catch (e: Exception)
+            }
+            catch (e: Exception)
             {
                 Log.e(TAG, "getDiaryData error:", e)
             }
