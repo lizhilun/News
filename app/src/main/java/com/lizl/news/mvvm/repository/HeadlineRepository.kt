@@ -64,4 +64,6 @@ class HeadlineRepository : NewsDataRepository
         }
         return null
     }
+
+    override fun canLoadMore() = false
 }

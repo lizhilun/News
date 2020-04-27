@@ -10,7 +10,7 @@ import com.lizl.news.constant.AppConstant
 import com.lizl.news.custom.other.CustomDiffUtil
 import com.lizl.news.databinding.ItemNewsBinding
 import com.lizl.news.model.NewsModel
-import com.lizl.news.mvvm.activity.HeadlineDetailActivity
+import com.lizl.news.mvvm.activity.WebViewActivity
 import com.lizl.news.mvvm.activity.ZhiHuDetailActivity
 import com.lizl.news.util.ActivityUtil
 
@@ -39,7 +39,7 @@ class NewsListAdapter : BaseQuickAdapter<NewsModel, BaseViewHolder>(R.layout.ite
                 ActivityUtil.turnToActivity(when (item.platform)
                 {
                     AppConstant.NEWS_PLATFORM_ZHIHU_DIARY -> ZhiHuDetailActivity::class.java
-                    else                                  -> HeadlineDetailActivity::class.java
+                    else                                  -> WebViewActivity::class.java
                 }, item.detailUrl)
             }
 

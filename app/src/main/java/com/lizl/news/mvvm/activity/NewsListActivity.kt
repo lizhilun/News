@@ -18,7 +18,7 @@ class NewsListActivity : BaseActivity<ActivityNewsListBinding>(R.layout.activity
 {
     private val newsListAdapter = NewsListAdapter()
 
-    private val newViewModel = ViewModelProvider.AndroidViewModelFactory(this.application).create(NewsViewModel::class.java)
+    private val newsViewModel = ViewModelProvider.AndroidViewModelFactory(this.application).create(NewsViewModel::class.java)
 
     override fun initView()
     {
@@ -28,21 +28,23 @@ class NewsListActivity : BaseActivity<ActivityNewsListBinding>(R.layout.activity
             it.setEnableRefresh(true)
             it.setEnableLoadMore(false)
 
-            it.setOnRefreshListener { newViewModel.refreshNews() }
+            it.setOnRefreshListener { newsViewModel.refreshNews() }
         }
 
         newsListAdapter.loadMoreModule?.let {
             it.isEnableLoadMore = true
             it.preLoadNumber = 5
 
-            it.setOnLoadMoreListener { newViewModel.loadMoreNews() }
+            it.setOnLoadMoreListener { newsViewModel.loadMoreNews() }
         }
 
-        newViewModel.getNewLiveData().observe(this, Observer {
+        newsViewModel.getNewLiveData().observe(this, Observer {
             dataBinding.refreshLayout.finishRefresh()
             newsListAdapter.loadMoreModule?.loadMoreComplete()
             newsListAdapter.setDiffNewData(it.toMutableList())
         })
+
+        newsViewModel.getHasMoreDataLiveData().observe(this, Observer { newsListAdapter.loadMoreModule?.isEnableLoadMore = it })
 
         updateNewsSource(AppConstant.NEWS_PLATFORM_ZHIHU_DIARY)
 
@@ -59,6 +61,6 @@ class NewsListActivity : BaseActivity<ActivityNewsListBinding>(R.layout.activity
     {
         newsListAdapter.setNewData(mutableListOf())
         tl_title.title = NewsUtil.getNewsSourceName(newsSource)
-        newViewModel.updateNewsSource(newsSource)
+        newsViewModel.updateNewsSource(newsSource)
     }
 }

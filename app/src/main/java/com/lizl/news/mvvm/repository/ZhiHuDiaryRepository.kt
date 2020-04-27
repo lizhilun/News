@@ -47,9 +47,9 @@ class ZhiHuDiaryRepository : NewsDataRepository
 
                 val questionList = mutableListOf<ZhiHuQuestionModel>()
 
-                val elementsSizeList = listOf(questionTitleElements.size, authorNameElements.size, authorAvatarElements.size,
-                        authorBioElements.size, contentElements.size)
-                val minSize = elementsSizeList.minBy { it }?:0
+                val elementsSizeList =
+                        listOf(questionTitleElements.size, authorNameElements.size, authorAvatarElements.size, authorBioElements.size, contentElements.size)
+                val minSize = elementsSizeList.minBy { it } ?: 0
 
                 for (index in 0 until minSize)
                 {
@@ -67,6 +67,8 @@ class ZhiHuDiaryRepository : NewsDataRepository
         return null
     }
 
+    override fun canLoadMore() = true
+
     private fun getDiaryData(url: String): MutableList<NewsModel>
     {
         Log.d(TAG, "getDiaryData() called with: url = [$url]")
@@ -79,8 +81,8 @@ class ZhiHuDiaryRepository : NewsDataRepository
             {
                 val diaryDataModel = Gson().fromJson(resultItem.data, DiaryDataModel::class.java)
                 diaryDataModel.storyList?.forEach {
-                    newsList.add(NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList.orEmpty(),
-                            AppConstant.NEWS_PLATFORM_ZHIHU_DIARY))
+                    newsList.add(
+                            NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList.orEmpty(), AppConstant.NEWS_PLATFORM_ZHIHU_DIARY))
                 }
             }
             catch (e: Exception)

@@ -15,6 +15,7 @@ object RepositoryUtil
             {
                 AppConstant.NEWS_PLATFORM_HEADLINE    -> HeadlineRepository()
                 AppConstant.NEWS_PLATFORM_ZHIHU_DIARY -> ZhiHuDiaryRepository()
+                AppConstant.NEWS_PLATFORM_ZHIHU_TOP   -> ZhiHuTopRepository()
                 else                                  -> HeadlineRepository()
             }
             repositoryMap[platform] = repository

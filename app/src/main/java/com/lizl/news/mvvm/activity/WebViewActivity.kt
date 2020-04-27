@@ -5,11 +5,11 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.lizl.news.R
 import com.lizl.news.constant.AppConstant
-import com.lizl.news.databinding.ActivityHeadlineDetailBinding
+import com.lizl.news.databinding.ActivityWebviewBinding
 import com.lizl.news.mvvm.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_headline_detail.*
+import kotlinx.android.synthetic.main.activity_webview.*
 
-class HeadlineDetailActivity : BaseActivity<ActivityHeadlineDetailBinding>(R.layout.activity_headline_detail)
+class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_webview)
 {
     override fun initView()
     {
@@ -31,7 +31,7 @@ class HeadlineDetailActivity : BaseActivity<ActivityHeadlineDetailBinding>(R.lay
             {
                 Log.d(TAG, "shouldOverrideUrlLoading:$url")
 
-                if (url.isBlank()) return true
+                if (url.isBlank() || url.contains("utm")) return true
 
                 return super.shouldOverrideUrlLoading(view, url)
             }

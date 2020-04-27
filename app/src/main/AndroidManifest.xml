@@ -29,7 +29,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".mvvm.activity.HeadlineDetailActivity"
+            android:name=".mvvm.activity.WebViewActivity"
             android:screenOrientation="portrait" />
     </application>
 
