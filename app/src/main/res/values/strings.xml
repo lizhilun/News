@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">News</string>
 
-    <style name="save">保存</style>
+    <string name="save">保存</string>
+
+    <string name="zhihu_diary">知乎日报</string>
+    <string name="headline_news">头条新闻</string>
 </resources>

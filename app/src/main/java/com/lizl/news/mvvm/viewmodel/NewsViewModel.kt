@@ -12,9 +12,15 @@ class NewsViewModel : ViewModel()
 {
     private val newsLiveData = MutableLiveData<MutableList<NewsModel>>()
 
-    private val newsDataRepository = RepositoryUtil.getRepository(AppConstant.NEWS_PLATFORM_ZHIHU_DIARY)
+    private var newsDataRepository = RepositoryUtil.getRepository(AppConstant.NEWS_PLATFORM_ZHIHU_DIARY)
 
     fun getNewLiveData() = newsLiveData
+
+    fun updateNewsSource(source: String)
+    {
+        newsDataRepository = RepositoryUtil.getRepository(source)
+        refreshNews()
+    }
 
     fun refreshNews()
     {
