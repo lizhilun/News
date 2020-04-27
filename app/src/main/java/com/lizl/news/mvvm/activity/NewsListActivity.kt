@@ -1,6 +1,5 @@
 package com.lizl.news.mvvm.activity
 
-import android.media.VolumeShaper
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.lizl.news.R
@@ -8,14 +7,11 @@ import com.lizl.news.adapter.NewsListAdapter
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.custom.function.getTitleTextView
 import com.lizl.news.databinding.ActivityNewsListBinding
-import com.lizl.news.model.NewsModel
 import com.lizl.news.model.OperationItem
 import com.lizl.news.mvvm.base.BaseActivity
 import com.lizl.news.mvvm.viewmodel.NewsViewModel
 import com.lizl.news.util.NewsUtil
 import com.lizl.news.util.PopupUtil
-import com.lxj.xpopup.XPopup
-import com.lxj.xpopup.interfaces.OnSelectListener
 import kotlinx.android.synthetic.main.activity_news_list.*
 
 class NewsListActivity : BaseActivity<ActivityNewsListBinding>(R.layout.activity_news_list)
