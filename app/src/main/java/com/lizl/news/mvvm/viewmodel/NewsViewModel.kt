@@ -10,11 +10,9 @@ import kotlinx.coroutines.launch
 
 class NewsViewModel : ViewModel()
 {
-    private val TAG = "NewsViewModel"
-
     private val newsLiveData = MutableLiveData<MutableList<NewsModel>>()
 
-    private val newsDataRepository = RepositoryUtil.getRepository(AppConstant.NEWS_PLATFORM_HEADLINE)
+    private val newsDataRepository = RepositoryUtil.getRepository(AppConstant.NEWS_PLATFORM_ZHIHU_DIARY)
 
     fun getNewLiveData() = newsLiveData
 
