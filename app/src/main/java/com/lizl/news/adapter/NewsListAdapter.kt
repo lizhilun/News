@@ -1,6 +1,7 @@
 package com.lizl.news.adapter
 
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -30,7 +31,9 @@ class NewsListAdapter : BaseQuickAdapter<NewsModel, BaseViewHolder>(R.layout.ite
     {
         helper.getBinding<ItemNewsBinding>()?.apply {
             newsModel = item
-            executePendingBindings()
+
+            rvImage.layoutManager = GridLayoutManager(context, 3)
+            rvImage.adapter = ImageGridAdapter(item.coverImageList.toMutableList())
 
             helper.itemView.setOnClickListener {
                 ActivityUtil.turnToActivity(when (item.platform)
@@ -39,6 +42,8 @@ class NewsListAdapter : BaseQuickAdapter<NewsModel, BaseViewHolder>(R.layout.ite
                     else                                  -> HeadlineDetailActivity::class.java
                 }, item.detailUrl)
             }
+
+            executePendingBindings()
         }
     }
 }

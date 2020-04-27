@@ -28,7 +28,11 @@ class HeadlineRepository : NewsDataRepository
         {
             val headlineResponseModel = GsonUtils.fromJson(resultItem.data, HeadlineResponseModel::class.java)
             headlineResponseModel.result?.headlineList?.forEach {
-                newsList.add(NewsModel(it.url, it.title, it.thumbnail_pic_s, AppConstant.NEWS_PLATFORM_HEADLINE))
+                val imageList = mutableListOf<String>()
+                if (it.thumbnail_pic_s.isNotBlank()) imageList.add(it.thumbnail_pic_s)
+                if (it.thumbnail_pic_s02.isNotBlank()) imageList.add(it.thumbnail_pic_s02)
+                if (it.thumbnail_pic_s03.isNotBlank()) imageList.add(it.thumbnail_pic_s03)
+                newsList.add(NewsModel(it.url, it.title, imageList, AppConstant.NEWS_PLATFORM_HEADLINE))
             }
         }
         catch (e: Exception)

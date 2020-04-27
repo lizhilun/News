@@ -46,12 +46,14 @@ class ZhiHuDiaryRepository : NewsDataRepository
                 val contentElements = doc.getElementsByClass("content")
 
                 val questionList = mutableListOf<ZhiHuQuestionModel>()
-                val size = questionTitleElements.size.coerceAtMost(
-                        authorNameElements.size.coerceAtMost(authorAvatarElements.size.coerceAtMost(authorBioElements.size.coerceAtMost(contentElements.size))))
 
-                for (index in 0 until size)
+                val elementsSizeList = listOf(questionTitleElements.size, authorNameElements.size, authorAvatarElements.size,
+                        authorBioElements.size, contentElements.size)
+                val minSize = elementsSizeList.minBy { it }?:0
+
+                for (index in 0 until minSize)
                 {
-                    questionList.add(ZhiHuQuestionModel(if (size == 1) "" else "Q：${questionTitleElements[index].text()}", contentElements[index].toString(),
+                    questionList.add(ZhiHuQuestionModel(if (minSize == 1) "" else "Q：${questionTitleElements[index].text()}", contentElements[index].toString(),
                             AuthorModel(authorNameElements[index].text(), authorAvatarElements[index].attr("src"), authorBioElements[index].text())))
                 }
 
@@ -77,7 +79,7 @@ class ZhiHuDiaryRepository : NewsDataRepository
             {
                 val diaryDataModel = Gson().fromJson(resultItem.data, DiaryDataModel::class.java)
                 diaryDataModel.storyList?.forEach {
-                    newsList.add(NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList?.first().orEmpty(),
+                    newsList.add(NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList.orEmpty(),
                             AppConstant.NEWS_PLATFORM_ZHIHU_DIARY))
                 }
             }
