@@ -6,7 +6,7 @@ import com.lizl.news.adapter.ZhiHuQuestionListAdapter
 import com.lizl.news.databinding.ActivityZhihuDiaryDetailBinding
 import com.lizl.news.model.zhihu.ZhiHuDiaryDetailModel
 import com.lizl.news.mvvm.base.BaseActivity
-import com.lizl.news.mvvm.repository.RepositoryUtil
+import com.lizl.news.mvvm.repository.RepositoryManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -18,7 +18,7 @@ class ZhiHuDetailActivity : BaseActivity<ActivityZhihuDiaryDetailBinding>(R.layo
     {
         val detailUrl = intent?.getStringExtra(AppConstant.BUNDLE_DATA_STRING).orEmpty()
         GlobalScope.launch {
-            val diaryDetailModel = RepositoryUtil.getRepository(AppConstant.NEWS_PLATFORM_ZHIHU_DIARY).getNewsDetail(detailUrl)
+            val diaryDetailModel = RepositoryManager.getRepository(AppConstant.NEWS_PLATFORM_ZHIHU_DIARY).getNewsDetail(detailUrl)
             GlobalScope.launch(Dispatchers.Main) {
                 if (diaryDetailModel is ZhiHuDiaryDetailModel)
                 {

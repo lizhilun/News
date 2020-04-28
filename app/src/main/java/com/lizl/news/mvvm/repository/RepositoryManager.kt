@@ -2,7 +2,7 @@ package com.lizl.news.mvvm.repository
 
 import com.lizl.news.constant.AppConstant
 
-object RepositoryUtil
+object RepositoryManager
 {
     private val repositoryMap = HashMap<String, NewsDataRepository>()
 

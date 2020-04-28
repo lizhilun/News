@@ -36,6 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:overScrollMode="never"
+                    android:padding="@dimen/global_content_padding_edge"
                     app:adapter="@{newsListAdapter}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </androidx.constraintlayout.widget.ConstraintLayout>

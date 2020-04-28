@@ -2,10 +2,12 @@ package com.lizl.news.mvvm.activity
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.lizl.news.R
 import com.lizl.news.adapter.NewsListAdapter
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.custom.function.getTitleTextView
+import com.lizl.news.custom.recylerviewitemdivider.ListDividerItemDecoration
 import com.lizl.news.databinding.ActivityNewsListBinding
 import com.lizl.news.model.OperationItem
 import com.lizl.news.mvvm.base.BaseActivity
@@ -37,6 +39,8 @@ class NewsListActivity : BaseActivity<ActivityNewsListBinding>(R.layout.activity
 
             it.setOnLoadMoreListener { newsViewModel.loadMoreNews() }
         }
+
+        rv_news_list.addItemDecoration(ListDividerItemDecoration(resources.getDimensionPixelSize(R.dimen.global_content_padding_content)))
 
         newsViewModel.getNewLiveData().observe(this, Observer {
             dataBinding.refreshLayout.finishRefresh()
