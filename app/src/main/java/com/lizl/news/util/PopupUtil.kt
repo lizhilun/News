@@ -3,6 +3,7 @@ package com.lizl.news.util
 import android.view.View
 import com.blankj.utilcode.util.ActivityUtils
 import com.lizl.news.custom.popup.PopupImageViewer
+import com.lizl.news.custom.popup.PopupInfo
 import com.lizl.news.model.OperationItem
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
@@ -35,6 +36,12 @@ object PopupUtil
         showPopup(XPopup.Builder(context).atView(view).asAttachList(operationNameArray, operationIconArray) { _, text ->
             operationList.find { it.operationName == text }?.operationItemCallBack?.invoke()
         })
+    }
+
+    fun showInfoPopup(content: String)
+    {
+        val context = ActivityUtils.getTopActivity() ?: return
+        showPopup(XPopup.Builder(context).asCustom(PopupInfo(context, content)))
     }
 
     fun dismissAll()

@@ -4,9 +4,12 @@ import java.util.*
 
 class DateBean(private val time: Long)
 {
-    private var year = 0
-    private var month = 0
-    private var day = 0
+    var year = 0
+        private set
+    var month = 0
+        private set
+    var day = 0
+        private set
 
     init
     {

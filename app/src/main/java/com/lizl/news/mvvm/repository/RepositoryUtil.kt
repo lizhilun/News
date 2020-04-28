@@ -13,10 +13,11 @@ object RepositoryUtil
         {
             repository = when (platform)
             {
-                AppConstant.NEWS_PLATFORM_HEADLINE    -> HeadlineRepository()
-                AppConstant.NEWS_PLATFORM_ZHIHU_DIARY -> ZhiHuDiaryRepository()
-                AppConstant.NEWS_PLATFORM_ZHIHU_TOP   -> ZhiHuTopRepository()
-                else                                  -> HeadlineRepository()
+                AppConstant.NEWS_PLATFORM_HEADLINE         -> HeadlineRepository()
+                AppConstant.NEWS_PLATFORM_ZHIHU_DIARY      -> ZhiHuDiaryRepository()
+                AppConstant.NEWS_PLATFORM_TODAY_IN_HISTORY -> TodayInHistoryRepository()
+                AppConstant.NEWS_PLATFORM_ZHIHU_TOP        -> ZhiHuTopRepository()
+                else                                       -> HeadlineRepository()
             }
             repositoryMap[platform] = repository
         }
