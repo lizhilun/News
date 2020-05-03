@@ -7,6 +7,9 @@ class ZhiHuAnswersResponseModel
     @SerializedName("data")
     val dataList: List<DataModel>? = null
 
+    @SerializedName("paging")
+    val paging: PagingModel? = null
+
     class DataModel
     {
         @SerializedName("id")
@@ -116,5 +119,23 @@ class ZhiHuAnswersResponseModel
 
         @SerializedName("is_privacy")
         val is_privacy = false
+    }
+
+    class PagingModel
+    {
+        @SerializedName("is_end")
+        val is_end = false
+
+        @SerializedName("is_start")
+        val is_start = false
+
+        @SerializedName("next")
+        val next = ""
+
+        @SerializedName("previous")
+        val previous = ""
+
+        @SerializedName("totals")
+        val totals = 0L
     }
 }

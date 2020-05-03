@@ -7,10 +7,8 @@ import com.lizl.news.R
 import com.lizl.news.databinding.ItemZhihuAnswerBinding
 import com.lizl.news.model.zhihu.ZhiHuQuestionModel
 
-class ZhiHuAnswerPagerAdapter(questionList: List<ZhiHuQuestionModel>) :
-        BaseQuickAdapter<ZhiHuQuestionModel, BaseViewHolder>(R.layout.item_zhihu_answer, questionList.toMutableList())
+class ZhiHuAnswerPagerAdapter : BaseQuickAdapter<ZhiHuQuestionModel, BaseViewHolder>(R.layout.item_zhihu_answer)
 {
-
     override fun onItemViewHolderCreated(viewHolder: BaseViewHolder, viewType: Int)
     {
         DataBindingUtil.bind<ItemZhihuAnswerBinding>(viewHolder.itemView)
