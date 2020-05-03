@@ -30,7 +30,7 @@ class TodayInHistoryRepository : NewsDataRepository
         {
             val todayInHistoryResponseModel = GsonUtils.fromJson(resultItem.data, TodayInHistoryResponseModel::class.java)
             todayInHistoryResponseModel.resultList?.sortedByDescending { it.year }?.forEach {
-                newsList.add(NewsModel(it.des, it.title, listOf(it.pic), AppConstant.NEWS_PLATFORM_TODAY_IN_HISTORY))
+                newsList.add(NewsModel(it.des, it.title, listOf(it.pic), AppConstant.NEWS_SOURCE_TODAY_IN_HISTORY))
             }
         }
         catch (e: Exception)

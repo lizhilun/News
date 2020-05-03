@@ -15,6 +15,8 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
     {
         val detailUrl = intent?.getStringExtra(AppConstant.BUNDLE_DATA_STRING).orEmpty()
 
+        Log.d(TAG, "initView() detailUrl：${detailUrl}")
+
         val wSetting = webview.settings
         wSetting.javaScriptEnabled = true
 

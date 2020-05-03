@@ -13,13 +13,13 @@ class NewsViewModel : ViewModel()
     private val newsLiveData = MutableLiveData<MutableList<NewsModel>>()
     private var hasMoreDataLiveData = MutableLiveData<Boolean>()
 
-    private var newsDataRepository = RepositoryManager.getRepository(AppConstant.NEWS_PLATFORM_ZHIHU_DIARY)
+    private var newsDataRepository = RepositoryManager.getRepository(AppConstant.NEWS_PLATFORM_ZHIHU)
 
     fun getNewLiveData() = newsLiveData
 
     fun getHasMoreDataLiveData() = hasMoreDataLiveData
 
-    fun updateNewsSource(source: String)
+    fun setNewsSource(source: String)
     {
         newsDataRepository = RepositoryManager.getRepository(source)
         hasMoreDataLiveData.postValue(newsDataRepository.canLoadMore())

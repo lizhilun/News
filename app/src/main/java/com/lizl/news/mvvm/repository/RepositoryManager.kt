@@ -6,20 +6,19 @@ object RepositoryManager
 {
     private val repositoryMap = HashMap<String, NewsDataRepository>()
 
-    fun getRepository(platform: String): NewsDataRepository
+    fun getRepository(newsSource: String): NewsDataRepository
     {
-        var repository = repositoryMap[platform]
+        var repository = repositoryMap[newsSource]
         if (repository == null)
         {
-            repository = when (platform)
+            repository = when (newsSource)
             {
-                AppConstant.NEWS_PLATFORM_HEADLINE         -> HeadlineRepository()
-                AppConstant.NEWS_PLATFORM_ZHIHU_DIARY      -> ZhiHuDiaryRepository()
-                AppConstant.NEWS_PLATFORM_TODAY_IN_HISTORY -> TodayInHistoryRepository()
-                AppConstant.NEWS_PLATFORM_ZHIHU_TOP        -> ZhiHuTopRepository()
-                else                                       -> HeadlineRepository()
+                AppConstant.NEWS_SOURCE_ZHIHU_DIARY      -> ZhiHuDiaryRepository()
+                AppConstant.NEWS_SOURCE_ZHIHU_TOP        -> ZhiHuTopRepository()
+                AppConstant.NEWS_SOURCE_TODAY_IN_HISTORY -> TodayInHistoryRepository()
+                else                                     -> HeadlineRepository(newsSource)
             }
-            repositoryMap[platform] = repository
+            repositoryMap[newsSource] = repository
         }
         return repository
     }

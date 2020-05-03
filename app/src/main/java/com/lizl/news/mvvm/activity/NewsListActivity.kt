@@ -1,70 +1,55 @@
 package com.lizl.news.mvvm.activity
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayoutMediator
 import com.lizl.news.R
-import com.lizl.news.adapter.NewsListAdapter
+import com.lizl.news.adapter.FragmentPagerAdapter
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.custom.function.getTitleTextView
-import com.lizl.news.custom.recylerviewitemdivider.ListDividerItemDecoration
 import com.lizl.news.databinding.ActivityNewsListBinding
 import com.lizl.news.model.OperationItem
 import com.lizl.news.mvvm.base.BaseActivity
-import com.lizl.news.mvvm.viewmodel.NewsViewModel
+import com.lizl.news.mvvm.fragment.NewsFragment
 import com.lizl.news.util.NewsUtil
 import com.lizl.news.util.PopupUtil
 import kotlinx.android.synthetic.main.activity_news_list.*
 
 class NewsListActivity : BaseActivity<ActivityNewsListBinding>(R.layout.activity_news_list)
 {
-    private val newsListAdapter = NewsListAdapter()
-
-    private val newsViewModel = ViewModelProvider.AndroidViewModelFactory(this.application).create(NewsViewModel::class.java)
+    private lateinit var fragmentPagersAdapter: FragmentPagerAdapter
+    private var tabLayoutMediator: TabLayoutMediator? = null
 
     override fun initView()
     {
-        dataBinding.newsListAdapter = newsListAdapter
+        fragmentPagersAdapter = FragmentPagerAdapter(this)
+        vp_page.adapter = fragmentPagersAdapter
 
-        dataBinding.refreshLayout.let {
-            it.setEnableRefresh(true)
-            it.setEnableLoadMore(false)
+        updateNewsPlatform(AppConstant.NEWS_PLATFORM_ZHIHU)
 
-            it.setOnRefreshListener { newsViewModel.refreshNews() }
-        }
-
-        newsListAdapter.loadMoreModule?.let {
-            it.isEnableLoadMore = true
-            it.preLoadNumber = 5
-
-            it.setOnLoadMoreListener { newsViewModel.loadMoreNews() }
-        }
-
-        rv_news_list.addItemDecoration(ListDividerItemDecoration(resources.getDimensionPixelSize(R.dimen.global_content_padding_content)))
-
-        newsViewModel.getNewLiveData().observe(this, Observer {
-            dataBinding.refreshLayout.finishRefresh()
-            newsListAdapter.loadMoreModule?.loadMoreComplete()
-            newsListAdapter.setDiffNewData(it.toMutableList())
-        })
-
-        newsViewModel.getHasMoreDataLiveData().observe(this, Observer { newsListAdapter.loadMoreModule?.isEnableLoadMore = it })
-
-        updateNewsSource(AppConstant.NEWS_PLATFORM_ZHIHU_DIARY)
-
-        tl_title.getTitleTextView()?.setOnClickListener {
+        tv_title.setOnClickListener {
             PopupUtil.showBindViewOperationListPopup(it, mutableListOf<OperationItem>().apply {
-                NewsUtil.getNewsAllSources().forEach { newsSource ->
-                    add(OperationItem(NewsUtil.getNewsSourceName(newsSource)) { updateNewsSource(newsSource) })
+                NewsUtil.getNewsAllPlatform().forEach { newsPlatform ->
+                    add(OperationItem(NewsUtil.getNewsPlatformName(newsPlatform)) { updateNewsPlatform(newsPlatform) })
                 }
             })
         }
     }
 
-    private fun updateNewsSource(newsSource: String)
+    private fun updateNewsPlatform(newsPlatform: String)
     {
-        newsListAdapter.setNewData(mutableListOf())
-        tl_title.title = NewsUtil.getNewsSourceName(newsSource)
-        newsViewModel.updateNewsSource(newsSource)
+        tv_title.text = NewsUtil.getNewsPlatformName(newsPlatform)
+        val newsSources = NewsUtil.getNewsSourceByPlatform(newsPlatform)
+        tl_source_title.isVisible = newsSources.size > 1
+        tabLayoutMediator?.detach()
+        tabLayoutMediator = TabLayoutMediator(tl_source_title, vp_page, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+            if (position >= newsSources.size) return@TabConfigurationStrategy
+            tab.text = NewsUtil.getNewsSourceName(newsSources[position])
+        })
+        tabLayoutMediator?.attach()
+        val fragmentList = mutableListOf<Fragment>().apply { newsSources.forEach { add(NewsFragment(it)) } }
+        fragmentPagersAdapter.setFragmentList(fragmentList)
+        vp_page.offscreenPageLimit = newsSources.size
+        vp_page.setCurrentItem(0, false)
     }
 }

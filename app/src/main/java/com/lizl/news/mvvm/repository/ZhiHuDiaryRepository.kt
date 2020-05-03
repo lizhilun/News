@@ -81,8 +81,8 @@ class ZhiHuDiaryRepository : NewsDataRepository
             {
                 val diaryDataModel = Gson().fromJson(resultItem.data, DiaryDataModel::class.java)
                 diaryDataModel.storyList?.forEach {
-                    newsList.add(
-                            NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList.orEmpty(), AppConstant.NEWS_PLATFORM_ZHIHU_DIARY))
+                    newsList.add(NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList.orEmpty(),
+                            AppConstant.NEWS_SOURCE_ZHIHU_DIARY))
                 }
             }
             catch (e: Exception)

@@ -8,44 +8,26 @@ import com.lizl.news.model.headline.HeadlineResponseModel
 import com.lizl.news.util.HttpUtil
 import org.jsoup.Jsoup
 
-class HeadlineRepository : NewsDataRepository
+class HeadlineRepository(private val newsSource: String) : NewsDataRepository
 {
     companion object
     {
         private const val TAG = "HeadlineRepository"
-        private const val APP_KEY = "20530621f95eb23d45be7dfcb8b5f33d"
+        private const val APP_KEY = "da06fe050a4451aad13188e4b4d145be"
     }
+
+    private var curPage = 1
 
     override fun getLatestNews(): MutableList<NewsModel>
     {
-        Log.d(TAG, "getLatestHeadlineData() called")
-        val resultItem = HttpUtil.requestData("http://v.juhe.cn/toutiao/index?type=top&key=${APP_KEY}")
-        Log.d(TAG, "getLatestHeadlineData() called with: result = [${resultItem.result}], data = [${resultItem.data}]")
-
-        val newsList = mutableListOf<NewsModel>()
-
-        try
-        {
-            val headlineResponseModel = GsonUtils.fromJson(resultItem.data, HeadlineResponseModel::class.java)
-            headlineResponseModel.result?.headlineList?.forEach {
-                val imageList = mutableListOf<String>()
-                if (it.thumbnail_pic_s.isNotBlank()) imageList.add(it.thumbnail_pic_s)
-                if (it.thumbnail_pic_s02.isNotBlank()) imageList.add(it.thumbnail_pic_s02)
-                if (it.thumbnail_pic_s03.isNotBlank()) imageList.add(it.thumbnail_pic_s03)
-                newsList.add(NewsModel(it.url, it.title, imageList, AppConstant.NEWS_PLATFORM_HEADLINE))
-            }
-        }
-        catch (e: Exception)
-        {
-            Log.e(TAG, "getLatestHeadlineData error:", e)
-        }
-
-        return newsList
+        curPage = 1
+        return getHeadlineData(curPage)
     }
 
     override fun loadMoreNews(): MutableList<NewsModel>
     {
-        return mutableListOf()
+        curPage++
+        return getHeadlineData(curPage)
     }
 
     override fun getNewsDetail(diaryUrl: String): String?
@@ -65,5 +47,46 @@ class HeadlineRepository : NewsDataRepository
         return null
     }
 
-    override fun canLoadMore() = false
+    private fun getHeadlineData(pageIndex: Int): MutableList<NewsModel>
+    {
+        Log.d(TAG, "getHeadlineData() called with: pageIndex = [$pageIndex]")
+        val resultItem =
+                HttpUtil.requestData("http://api.tianapi.com/${getNewsApiTypeFromSource(newsSource)}/index?Array&key=${APP_KEY}&num=20&page=${pageIndex}")
+        Log.d(TAG, "getHeadlineData() called with: result = [${resultItem.result}], data = [${resultItem.data}]")
+
+        val newsList = mutableListOf<NewsModel>()
+
+        try
+        {
+            val headlineResponseModel = GsonUtils.fromJson(resultItem.data, HeadlineResponseModel::class.java)
+            headlineResponseModel.newsList?.forEach {
+                newsList.add(NewsModel(it.url, it.title, listOf(it.picUrl), newsSource))
+            }
+        }
+        catch (e: Exception)
+        {
+            Log.e(TAG, "getHeadlineData error:", e)
+        }
+
+        return newsList
+    }
+
+    private fun getNewsApiTypeFromSource(newsSource: String): String
+    {
+        return when (newsSource)
+        {
+            AppConstant.NEWS_SOURCE_HEADLINE_GAME          -> "game"
+            AppConstant.NEWS_SOURCE_HEADLINE_ANIMATION     -> "dongman"
+            AppConstant.NEWS_SOURCE_HEADLINE_NBA           -> "nba"
+            AppConstant.NEWS_SOURCE_HEADLINE_IT            -> "it"
+            AppConstant.NEWS_SOURCE_HEADLINE_INTERNET      -> "internet"
+            AppConstant.NEWS_SOURCE_HEADLINE_SCIENCE       -> "keji"
+            AppConstant.NEWS_SOURCE_HEADLINE_DOMESTIC      -> "guonei"
+            AppConstant.NEWS_SOURCE_HEADLINE_INTERNATIONAL -> "world"
+            AppConstant.NEWS_SOURCE_HEADLINE_SOCIAL        -> "social"
+            else                                           -> ""
+        }
+    }
+
+    override fun canLoadMore() = true
 }

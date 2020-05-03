@@ -25,7 +25,7 @@ class ZhiHuTopRepository : NewsDataRepository
             zhiHuTopResponseModel.dataList?.forEach {
                 it.target ?: return@forEach
                 newsList.add(NewsModel("https://www.zhihu.com/question/${it.target.id}", it.target.title,
-                        listOf(it.children?.first()?.thumbnail.orEmpty()), AppConstant.NEWS_PLATFORM_ZHIHU_TOP))
+                        listOf(it.children?.first()?.thumbnail.orEmpty()), AppConstant.NEWS_SOURCE_ZHIHU_TOP))
             }
         }
         catch (e: Exception)

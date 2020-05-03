@@ -1,5 +1,6 @@
 package com.lizl.news.mvvm.base
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -58,6 +59,18 @@ abstract class BaseFragment<DB : ViewDataBinding>(private val layoutId: Int) : F
         super.onResume()
     }
 
+    override fun onAttach(context: Context)
+    {
+        Log.d(TAG, "onAttach")
+        super.onAttach(context)
+    }
+
+    override fun onAttachFragment(childFragment: Fragment)
+    {
+        Log.d(TAG, "onAttachFragment")
+        super.onAttachFragment(childFragment)
+    }
+
     override fun onPause()
     {
         Log.d(TAG, "onPause")
@@ -68,6 +81,12 @@ abstract class BaseFragment<DB : ViewDataBinding>(private val layoutId: Int) : F
     {
         Log.d(TAG, "onStop")
         super.onStop()
+    }
+
+    override fun onDetach()
+    {
+        Log.d(TAG, "onDetach")
+        super.onDetach()
     }
 
     override fun onDestroy()
