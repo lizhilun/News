@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="questionModel"
+            type="com.lizl.news.model.zhihu.ZhiHuQuestionModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/global_content_padding_edge"
+            android:paddingEnd="@dimen/global_content_padding_edge">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                style="@style/GlobalTitleTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/global_content_padding_content"
+                android:text="@{questionModel.question}"
+                android:visibility="@{TextUtils.isEmpty(questionModel.question)? View.GONE : View.VISIBLE}"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_author_avatar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="@dimen/global_content_padding_content"
+                app:imageUri="@{questionModel.author.avatar}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_author_name"
+                style="@style/GlobalSmallTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:gravity="start"
+                android:text="@{questionModel.author.name}"
+                app:layout_constraintBottom_toTopOf="@+id/tv_author_bio"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_author_avatar"
+                app:layout_constraintTop_toTopOf="@+id/iv_author_avatar"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_author_bio"
+                style="@style/GlobalSmallTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="start"
+                android:text="@{questionModel.author.briefIntroduction}"
+                android:visibility="@{TextUtils.isEmpty(questionModel.author.briefIntroduction)? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_author_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/tv_author_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_author_name" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_author_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="iv_author_avatar,tv_author_name,tv_author_bio" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_content"
+                style="@style/GlobalTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/global_content_padding_content"
+                app:htmlText="@{questionModel.answer}"
+                app:layout_constraintTop_toBottomOf="@+id/barrier_author_info" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

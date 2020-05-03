@@ -18,7 +18,7 @@ class ZhiHuDetailActivity : BaseActivity<ActivityZhihuDiaryDetailBinding>(R.layo
     {
         val detailUrl = intent?.getStringExtra(AppConstant.BUNDLE_DATA_STRING).orEmpty()
         GlobalScope.launch {
-            val diaryDetailModel = RepositoryManager.getRepository(AppConstant.NEWS_PLATFORM_ZHIHU).getNewsDetail(detailUrl)
+            val diaryDetailModel = RepositoryManager.getRepository(AppConstant.NEWS_SOURCE_ZHIHU_DIARY).getNewsDetail(detailUrl)
             GlobalScope.launch(Dispatchers.Main) {
                 if (diaryDetailModel is ZhiHuDiaryDetailModel)
                 {
