@@ -13,10 +13,9 @@ object RepositoryManager
         {
             repository = when (newsSource)
             {
-                AppConstant.NEWS_SOURCE_ZHIHU_DIARY      -> ZhiHuDiaryRepository()
-                AppConstant.NEWS_SOURCE_ZHIHU_TOP        -> ZhiHuTopRepository()
-                AppConstant.NEWS_SOURCE_TODAY_IN_HISTORY -> TodayInHistoryRepository()
-                else                                     -> HeadlineRepository(newsSource)
+                AppConstant.NEWS_SOURCE_ZHIHU_DIARY -> ZhiHuDiaryRepository()
+                AppConstant.NEWS_SOURCE_ZHIHU_TOP   -> ZhiHuTopRepository()
+                else                                -> HeadlineRepository(newsSource)
             }
             repositoryMap[newsSource] = repository
         }

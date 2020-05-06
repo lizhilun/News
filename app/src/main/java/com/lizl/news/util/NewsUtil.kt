@@ -6,7 +6,7 @@ import com.lizl.news.constant.AppConstant
 
 object NewsUtil
 {
-    fun getNewsAllPlatform() = listOf(AppConstant.NEWS_PLATFORM_ZHIHU, AppConstant.NEWS_PLATFORM_HEADLINE, AppConstant.NEWS_PLATFORM_TODAY_IN_HISTORY)
+    fun getNewsAllPlatform() = listOf(AppConstant.NEWS_PLATFORM_ZHIHU, AppConstant.NEWS_PLATFORM_HEADLINE)
 
     fun getNewsPlatformName(platform: String): String
     {
@@ -15,7 +15,6 @@ object NewsUtil
         {
             AppConstant.NEWS_PLATFORM_ZHIHU            -> context.getString(R.string.zhihu)
             AppConstant.NEWS_PLATFORM_HEADLINE         -> context.getString(R.string.headline_news)
-            AppConstant.NEWS_PLATFORM_TODAY_IN_HISTORY -> context.getString(R.string.today_in_history)
             else                                       -> ""
         }
     }
@@ -27,7 +26,6 @@ object NewsUtil
         {
             AppConstant.NEWS_SOURCE_ZHIHU_DIARY            -> context.getString(R.string.zhihu_diary)
             AppConstant.NEWS_SOURCE_ZHIHU_TOP              -> context.getString(R.string.zhihu_top)
-            AppConstant.NEWS_SOURCE_TODAY_IN_HISTORY       -> context.getString(R.string.today_in_history)
             AppConstant.NEWS_SOURCE_HEADLINE_GAME          -> context.getString(R.string.game)
             AppConstant.NEWS_SOURCE_HEADLINE_ANIMATION     -> context.getString(R.string.animation)
             AppConstant.NEWS_SOURCE_HEADLINE_NBA           -> context.getString(R.string.nba)
@@ -50,7 +48,6 @@ object NewsUtil
                     AppConstant.NEWS_SOURCE_HEADLINE_NBA, AppConstant.NEWS_SOURCE_HEADLINE_IT, AppConstant.NEWS_SOURCE_HEADLINE_INTERNET,
                     AppConstant.NEWS_SOURCE_HEADLINE_SCIENCE, AppConstant.NEWS_SOURCE_HEADLINE_DOMESTIC, AppConstant.NEWS_SOURCE_HEADLINE_INTERNATIONAL,
                     AppConstant.NEWS_SOURCE_HEADLINE_SOCIAL)
-            AppConstant.NEWS_PLATFORM_TODAY_IN_HISTORY -> listOf(AppConstant.NEWS_SOURCE_TODAY_IN_HISTORY)
             else                                       -> emptyList()
         }
     }

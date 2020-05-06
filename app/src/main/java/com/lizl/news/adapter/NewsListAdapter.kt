@@ -42,7 +42,6 @@ class NewsListAdapter : BaseQuickAdapter<NewsModel, BaseViewHolder>(R.layout.ite
                 {
                     AppConstant.NEWS_SOURCE_ZHIHU_DIARY      -> ActivityUtil.turnToActivity(ZhiHuDetailActivity::class.java, item.detailUrl)
                     AppConstant.NEWS_SOURCE_ZHIHU_TOP        -> ActivityUtil.turnToActivity(ZhiHuTopDetailActivity::class.java, item.detailUrl)
-                    AppConstant.NEWS_SOURCE_TODAY_IN_HISTORY -> PopupUtil.showInfoPopup(item.detailUrl)
                     else                                     -> ActivityUtil.turnToActivity(WebViewActivity::class.java, item.detailUrl)
                 }
             }
