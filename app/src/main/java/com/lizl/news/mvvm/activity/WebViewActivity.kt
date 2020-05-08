@@ -33,8 +33,6 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
             {
                 Log.d(TAG, "shouldOverrideUrlLoading:$url")
 
-                if (url.isBlank() || url.contains("utm")) return true
-
                 return super.shouldOverrideUrlLoading(view, url)
             }
         }

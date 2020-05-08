@@ -26,7 +26,6 @@ class ZhiHuTopDetailActivity : BaseActivity<ActivityZhihuTopDetailBinding>(R.lay
 
         vp_answer.offscreenPageLimit = 2
 
-
         viewModel.bindUrl(detailUrl)
 
         viewModel.getAnswerListLiveData().observe(this, Observer { zhiHuAnswerPagerAdapter.addData(it) })
