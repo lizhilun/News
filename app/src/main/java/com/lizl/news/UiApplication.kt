@@ -1,25 +1,17 @@
 package com.lizl.news
 
 import android.app.Application
+import android.util.Log
 import androidx.core.content.ContextCompat
+import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
 import com.scwang.smartrefresh.header.DeliveryHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.zzhoujay.richtext.RichText
 
-class UiApplication : Application()
+class UiApplication : Application(), Thread.UncaughtExceptionHandler
 {
-    init
-    {
-        instance = this
-    }
-
-    companion object
-    {
-        lateinit var instance: UiApplication
-    }
-
     override fun onCreate()
     {
         super.onCreate()
@@ -35,5 +27,12 @@ class UiApplication : Application()
         }
         //初始化SmartRefreshLayout全局Footer
         SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout -> BallPulseFooter(context) }
+
+        Thread.setDefaultUncaughtExceptionHandler(this)
+    }
+
+    override fun uncaughtException(t: Thread, e: Throwable)
+    {
+        AppUtils.relaunchApp(true)
     }
 }

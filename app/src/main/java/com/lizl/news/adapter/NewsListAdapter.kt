@@ -14,7 +14,6 @@ import com.lizl.news.mvvm.activity.WebViewActivity
 import com.lizl.news.mvvm.activity.ZhiHuDetailActivity
 import com.lizl.news.mvvm.activity.ZhiHuTopDetailActivity
 import com.lizl.news.util.ActivityUtil
-import com.lizl.news.util.PopupUtil
 
 class NewsListAdapter : BaseQuickAdapter<NewsModel, BaseViewHolder>(R.layout.item_news), LoadMoreModule
 {
