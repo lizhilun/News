@@ -8,6 +8,9 @@ import com.lizl.news.databinding.ItemImagePagerBinding
 
 class ImagePagerAdapter(imageList: MutableList<String>) : BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_image_pager, imageList)
 {
+
+    private var onOutsidePhotoTapListener: (() -> Unit)? = null
+
     override fun onItemViewHolderCreated(viewHolder: BaseViewHolder, viewType: Int)
     {
         DataBindingUtil.bind<ItemImagePagerBinding>(viewHolder.itemView)
@@ -17,7 +20,13 @@ class ImagePagerAdapter(imageList: MutableList<String>) : BaseQuickAdapter<Strin
     {
         helper.getBinding<ItemImagePagerBinding>()?.apply {
             imageUrl = item
+            pvImage.setOnOutsidePhotoTapListener { onOutsidePhotoTapListener?.invoke() }
             executePendingBindings()
         }
+    }
+
+    fun setOnOutsidePhotoTapListener(onOutsidePhotoTapListener: () -> Unit)
+    {
+        this.onOutsidePhotoTapListener = onOutsidePhotoTapListener
     }
 }

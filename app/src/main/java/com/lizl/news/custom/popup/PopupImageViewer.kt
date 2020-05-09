@@ -20,7 +20,8 @@ class PopupImageViewer(context: Context, private val imageList: MutableList<Stri
             it.popupAnimation = PopupAnimation.ScaleAlphaFromCenter
         }
 
-        rv_image_pager.adapter = ImagePagerAdapter(imageList)
+        val imagePagerAdapter = ImagePagerAdapter(imageList)
+        rv_image_pager.adapter = imagePagerAdapter
         tv_indicator.bringToFront()
 
         rv_image_pager.setCurrentItem(position, false)
@@ -31,5 +32,7 @@ class PopupImageViewer(context: Context, private val imageList: MutableList<Stri
         rv_image_pager.registerOnPageChangeCallback { position ->
             tv_indicator.text = "${position + 1}/${imageList.size}"
         }
+
+        imagePagerAdapter.setOnOutsidePhotoTapListener { dismiss() }
     }
 }
