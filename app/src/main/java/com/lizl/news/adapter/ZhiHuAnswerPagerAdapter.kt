@@ -5,7 +5,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lizl.news.R
 import com.lizl.news.databinding.ItemZhihuAnswerBinding
-import com.lizl.news.model.zhihu.ZhiHuQuestionModel
+import com.lizl.news.model.news.zhihu.ZhiHuQuestionModel
 
 class ZhiHuAnswerPagerAdapter : BaseQuickAdapter<ZhiHuQuestionModel, BaseViewHolder>(R.layout.item_zhihu_answer)
 {

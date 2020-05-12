@@ -1,4 +1,4 @@
-package com.lizl.news.model.headline
+package com.lizl.news.model.news.headline
 
 import com.google.gson.annotations.SerializedName
 

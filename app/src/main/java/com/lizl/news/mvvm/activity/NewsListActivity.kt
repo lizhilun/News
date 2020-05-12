@@ -7,7 +7,7 @@ import com.lizl.news.R
 import com.lizl.news.adapter.FragmentPagerAdapter
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.databinding.ActivityNewsListBinding
-import com.lizl.news.model.OperationItem
+import com.lizl.news.model.other.OperationItem
 import com.lizl.news.mvvm.base.BaseActivity
 import com.lizl.news.mvvm.fragment.NewsListFragment
 import com.lizl.news.util.NewsUtil
@@ -29,7 +29,9 @@ class NewsListActivity : BaseActivity<ActivityNewsListBinding>(R.layout.activity
         tv_title.setOnClickListener {
             PopupUtil.showBindViewOperationListPopup(it, mutableListOf<OperationItem>().apply {
                 NewsUtil.getNewsAllPlatform().forEach { newsPlatform ->
-                    add(OperationItem(NewsUtil.getNewsPlatformName(newsPlatform)) { updateNewsPlatform(newsPlatform) })
+                    add(OperationItem(NewsUtil.getNewsPlatformName(newsPlatform)) {
+                        updateNewsPlatform(newsPlatform)
+                    })
                 }
             })
         }

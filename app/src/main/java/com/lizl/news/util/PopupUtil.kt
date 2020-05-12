@@ -4,7 +4,7 @@ import android.view.View
 import com.blankj.utilcode.util.ActivityUtils
 import com.lizl.news.custom.popup.PopupImageViewer
 import com.lizl.news.custom.popup.PopupInfo
-import com.lizl.news.model.OperationItem
+import com.lizl.news.model.other.OperationItem
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import kotlinx.coroutines.*

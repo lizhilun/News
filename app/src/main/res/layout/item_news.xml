@@ -8,7 +8,7 @@
 
         <variable
             name="newsModel"
-            type="com.lizl.news.model.NewsModel" />
+            type="com.lizl.news.model.news.NewsModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

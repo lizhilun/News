@@ -1,6 +1,6 @@
 package com.lizl.news.mvvm.repository
 
-import com.lizl.news.model.NewsModel
+import com.lizl.news.model.news.NewsModel
 
 interface NewsDataRepository
 {

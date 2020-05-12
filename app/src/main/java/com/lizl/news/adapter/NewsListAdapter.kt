@@ -9,7 +9,7 @@ import com.lizl.news.R
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.custom.other.CustomDiffUtil
 import com.lizl.news.databinding.ItemNewsBinding
-import com.lizl.news.model.NewsModel
+import com.lizl.news.model.news.NewsModel
 import com.lizl.news.mvvm.activity.WebViewActivity
 import com.lizl.news.mvvm.activity.ZhiHuDetailActivity
 import com.lizl.news.mvvm.activity.ZhiHuTopDetailActivity

@@ -2,8 +2,8 @@ package com.lizl.news.mvvm.repository
 
 import android.util.Log
 import com.lizl.news.constant.AppConstant
-import com.lizl.news.model.NewsModel
-import com.lizl.news.model.headline.HeadlineResponseModel
+import com.lizl.news.model.news.NewsModel
+import com.lizl.news.model.news.headline.HeadlineResponseModel
 import com.lizl.news.util.HttpUtil
 
 class HeadlineRepository(private val newsSource: String) : NewsDataRepository

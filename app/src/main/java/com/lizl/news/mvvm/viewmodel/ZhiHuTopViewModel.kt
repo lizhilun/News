@@ -3,9 +3,9 @@ package com.lizl.news.mvvm.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lizl.news.constant.AppConstant
-import com.lizl.news.model.AuthorModel
-import com.lizl.news.model.zhihu.ZhiHuAnswersResponseModel
-import com.lizl.news.model.zhihu.ZhiHuQuestionModel
+import com.lizl.news.model.news.AuthorModel
+import com.lizl.news.model.news.zhihu.ZhiHuAnswersResponseModel
+import com.lizl.news.model.news.zhihu.ZhiHuQuestionModel
 import com.lizl.news.mvvm.repository.RepositoryManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -41,7 +41,8 @@ class ZhiHuTopViewModel : ViewModel()
             {
                 zhiHuAnswersResponseModel.dataList?.forEach {
                     it.author ?: return@forEach
-                    questionList.add(ZhiHuQuestionModel("", it.content, AuthorModel(it.author.name, it.author.avatar_url, it.author.headline)))
+                    questionList.add(ZhiHuQuestionModel("", it.content,
+                            AuthorModel(it.author.name, it.author.avatar_url, it.author.headline)))
                 }
                 nextUrl = zhiHuAnswersResponseModel.paging?.next.orEmpty()
                 questionTitleLiveData.postValue(zhiHuAnswersResponseModel.dataList?.first()?.question?.title)

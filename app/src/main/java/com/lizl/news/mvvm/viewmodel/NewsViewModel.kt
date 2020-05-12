@@ -3,7 +3,7 @@ package com.lizl.news.mvvm.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lizl.news.constant.AppConstant
-import com.lizl.news.model.NewsModel
+import com.lizl.news.model.news.NewsModel
 import com.lizl.news.mvvm.repository.RepositoryManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

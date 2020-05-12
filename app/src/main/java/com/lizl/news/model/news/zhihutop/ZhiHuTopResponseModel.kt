@@ -1,4 +1,4 @@
-package com.lizl.news.model.zhihutop
+package com.lizl.news.model.news.zhihutop
 
 import com.google.gson.annotations.SerializedName
 
