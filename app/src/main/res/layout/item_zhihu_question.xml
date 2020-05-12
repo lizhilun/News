@@ -10,7 +10,7 @@
 
         <variable
             name="questionModel"
-            type="com.lizl.news.model.zhihu.ZhiHuQuestionModel" />
+            type="com.lizl.news.model.news.zhihu.ZhiHuQuestionModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
