@@ -6,11 +6,10 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.lizl.news.R
 import com.lizl.news.adapter.FragmentPagerAdapter
 import com.lizl.news.constant.AppConstant
-import com.lizl.news.custom.function.getTitleTextView
 import com.lizl.news.databinding.ActivityNewsListBinding
 import com.lizl.news.model.OperationItem
 import com.lizl.news.mvvm.base.BaseActivity
-import com.lizl.news.mvvm.fragment.NewsFragment
+import com.lizl.news.mvvm.fragment.NewsListFragment
 import com.lizl.news.util.NewsUtil
 import com.lizl.news.util.PopupUtil
 import kotlinx.android.synthetic.main.activity_news_list.*
@@ -47,7 +46,7 @@ class NewsListActivity : BaseActivity<ActivityNewsListBinding>(R.layout.activity
             tab.text = NewsUtil.getNewsSourceName(newsSources[position])
         })
         tabLayoutMediator?.attach()
-        val fragmentList = mutableListOf<Fragment>().apply { newsSources.forEach { add(NewsFragment(it)) } }
+        val fragmentList = mutableListOf<Fragment>().apply { newsSources.forEach { add(NewsListFragment(it)) } }
         fragmentPagersAdapter.setFragmentList(fragmentList)
         vp_page.offscreenPageLimit = newsSources.size
         vp_page.setCurrentItem(0, false)

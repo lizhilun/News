@@ -10,7 +10,7 @@ import com.lizl.news.mvvm.base.BaseFragment
 import com.lizl.news.mvvm.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_news_list.*
 
-class NewsFragment(private val newsSource: String) : BaseFragment<FragmentNewsListBinding>(R.layout.fragment_news_list)
+class NewsListFragment(private val newsSource: String) : BaseFragment<FragmentNewsListBinding>(R.layout.fragment_news_list)
 {
     private val newsListAdapter = NewsListAdapter()
 
