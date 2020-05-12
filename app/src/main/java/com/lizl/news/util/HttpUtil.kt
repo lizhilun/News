@@ -1,9 +1,10 @@
 package com.lizl.news.util
 
 import android.util.Log
-import com.lizl.news.model.ResultItem
-import okhttp3.*
-import java.util.concurrent.TimeUnit
+import com.blankj.utilcode.util.GsonUtils
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.util.concurrent.*
 
 object HttpUtil
 {
@@ -13,32 +14,46 @@ object HttpUtil
         OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //设置超时时间
             .readTimeout(5, TimeUnit.SECONDS) //设置读取超时时间
             .writeTimeout(5, TimeUnit.SECONDS) //设置写入超时时间
-            .build();
+            .build()
     }
 
-    fun requestData(url: String): ResultItem
+    fun <T> requestData(url: String, type: Class<T>): T?
+    {
+        try
+        {
+            val result = requestData(url) ?: return null
+            return GsonUtils.fromJson(result, type)
+        }
+        catch (e: Exception)
+        {
+            Log.e(TAG, "requestData error:", e)
+        }
+        return null
+    }
+
+    fun requestData(url: String): String?
     {
         Log.d(TAG, "requestData() called with: url = [$url]")
-        try
+        return try
         {
             val request: Request = Request.Builder().url(url).get().build()
             val response = httpClient.newCall(request).execute()
-            return if (response.isSuccessful)
+            if (response.isSuccessful)
             {
-                val body = response.body()?.string().orEmpty()
+                val body = response.body()?.string()
                 Log.d(TAG, "requestData success: body = [$body]")
-                ResultItem(true, body)
+                body
             }
             else
             {
                 Log.d(TAG, "requestData failed response not success")
-                ResultItem(false, "")
+                null
             }
         }
         catch (e: Exception)
         {
-            Log.d(TAG, "requestData failed:" + e.message)
-            return ResultItem(false, e.message.orEmpty())
+            Log.e(TAG, "requestData error:", e)
+            null
         }
     }
 }

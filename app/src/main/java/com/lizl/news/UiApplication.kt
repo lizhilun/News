@@ -1,7 +1,6 @@
 package com.lizl.news
 
 import android.app.Application
-import android.util.Log
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils

@@ -1,12 +1,10 @@
 package com.lizl.news.mvvm.repository
 
 import android.util.Log
-import com.blankj.utilcode.util.GsonUtils
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.model.NewsModel
 import com.lizl.news.model.headline.HeadlineResponseModel
 import com.lizl.news.util.HttpUtil
-import org.jsoup.Jsoup
 
 class HeadlineRepository(private val newsSource: String) : NewsDataRepository
 {
@@ -30,42 +28,19 @@ class HeadlineRepository(private val newsSource: String) : NewsDataRepository
         return getHeadlineData(curPage)
     }
 
-    override fun getNewsDetail(diaryUrl: String): String?
-    {
-        Log.d(TAG, "getNewsDetail() called with: diaryUrl = [$diaryUrl]")
-        try
-        {
-            val doc = Jsoup.connect(diaryUrl).get()
-            val content = doc.getElementsByTag("html").toString()
-            Log.d(TAG, "getNewsDetail() called with: content = [$content]")
-            return content
-        }
-        catch (e: Exception)
-        {
-            Log.e(TAG, "getNewsDetail error:", e)
-        }
-        return null
-    }
+    override fun getNewsDetail(diaryUrl: String) = ""
 
     private fun getHeadlineData(pageIndex: Int): MutableList<NewsModel>
     {
         Log.d(TAG, "getHeadlineData() called with: pageIndex = [$pageIndex]")
-        val resultItem =
-                HttpUtil.requestData("http://api.tianapi.com/${getNewsApiTypeFromSource(newsSource)}/index?Array&key=${APP_KEY}&num=20&page=${pageIndex}")
-        Log.d(TAG, "getHeadlineData() called with: result = [${resultItem.result}], data = [${resultItem.data}]")
+
+        val requestUrl = "http://api.tianapi.com/${getNewsApiTypeFromSource(newsSource)}/index?Array&key=${APP_KEY}&num=20&page=${pageIndex}"
 
         val newsList = mutableListOf<NewsModel>()
 
-        try
-        {
-            val headlineResponseModel = GsonUtils.fromJson(resultItem.data, HeadlineResponseModel::class.java)
-            headlineResponseModel.newsList?.forEach {
-                newsList.add(NewsModel(it.url, it.title, listOf(it.picUrl), newsSource))
-            }
-        }
-        catch (e: Exception)
-        {
-            Log.e(TAG, "getHeadlineData error:", e)
+        val headlineResponseModel = HttpUtil.requestData(requestUrl, HeadlineResponseModel::class.java)
+        headlineResponseModel?.newsList?.forEach {
+            newsList.add(NewsModel(it.url, it.title, listOf(it.picUrl), newsSource))
         }
 
         return newsList

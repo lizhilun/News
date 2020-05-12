@@ -1,7 +1,6 @@
 package com.lizl.news.mvvm.repository
 
 import android.util.Log
-import com.blankj.utilcode.util.GsonUtils
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.model.NewsModel
 import com.lizl.news.model.zhihu.ZhiHuAnswersResponseModel
@@ -15,23 +14,14 @@ class ZhiHuTopRepository : NewsDataRepository
     override fun getLatestNews(): MutableList<NewsModel>
     {
         Log.d(TAG, "getLatestZhiHuTopNews() called")
-        val resultItem = HttpUtil.requestData("https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=50&desktop=true")
-        Log.d(TAG, "getLatestZhiHuTopNews() called with: result = [${resultItem.result}], data = [${resultItem.data}]")
-
+        val requestUrl = "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=50&desktop=true"
         val newsList = mutableListOf<NewsModel>()
 
-        try
-        {
-            val zhiHuTopResponseModel = GsonUtils.fromJson(resultItem.data, ZhiHuTopResponseModel::class.java)
-            zhiHuTopResponseModel.dataList?.forEach {
-                it.target ?: return@forEach
-                newsList.add(NewsModel("https://www.zhihu.com/question/${it.target.id}", it.target.title,
-                        listOf(it.children?.first()?.thumbnail.orEmpty()), AppConstant.NEWS_SOURCE_ZHIHU_TOP))
-            }
-        }
-        catch (e: Exception)
-        {
-            Log.e(TAG, "getLatestHeadlineData error:", e)
+        val zhiHuTopResponseModel = HttpUtil.requestData(requestUrl,ZhiHuTopResponseModel::class.java)
+        zhiHuTopResponseModel?.dataList?.forEach {
+            it.target ?: return@forEach
+            newsList.add(NewsModel("https://www.zhihu.com/question/${it.target.id}", it.target.title,
+                    listOf(it.children?.first()?.thumbnail.orEmpty()), AppConstant.NEWS_SOURCE_ZHIHU_TOP))
         }
 
         return newsList
@@ -54,20 +44,7 @@ class ZhiHuTopRepository : NewsDataRepository
              "%2Cis_nothelp%2Cis_labeled%2Cis_recognized%2Cpaid_info%2Cpaid_info_content%3Bdata%5B*%5D.mark_infos" +
              "%5B*%5D.url%3Bdata%5B*%5D.author.follower_count%2Cbadge%5B*%5D.topics&offset=&limit=3&sort_by=default&platform=desktop"
 
-        val resultItem = HttpUtil.requestData(requestUrl)
-
-        Log.d(TAG, "getZhiHuTopNewsDetail() called with: result = [${resultItem.result}], data = [${resultItem.data}]")
-
-        try
-        {
-            return GsonUtils.fromJson(resultItem.data, ZhiHuAnswersResponseModel::class.java)
-        }
-        catch (e: Exception)
-        {
-            Log.e(TAG, "getLatestHeadlineData error:", e)
-        }
-
-        return null
+        return HttpUtil.requestData(requestUrl, ZhiHuAnswersResponseModel::class.java)
     }
 
     override fun canLoadMore() = false
