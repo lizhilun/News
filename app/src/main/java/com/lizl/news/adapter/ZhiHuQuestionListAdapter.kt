@@ -20,7 +20,8 @@ class ZhiHuQuestionListAdapter(questionList: List<ZhiHuQuestionModel>) :
     {
         helper.getBinding<ItemZhihuQuestionBinding>()?.apply {
             questionModel = item
-            tvTitle.paint.isFakeBoldText = true
+            answerAdapter = ZhiHuAnswerListAdapter(item.answerList)
+
             executePendingBindings()
         }
     }

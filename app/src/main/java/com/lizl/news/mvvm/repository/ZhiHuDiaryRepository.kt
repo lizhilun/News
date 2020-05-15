@@ -2,7 +2,6 @@ package com.lizl.news.mvvm.repository
 
 import android.util.Log
 import com.lizl.news.constant.AppConstant
-import com.lizl.news.model.news.AuthorModel
 import com.lizl.news.model.news.NewsModel
 import com.lizl.news.model.news.zhihu.*
 import com.lizl.news.util.HttpUtil
@@ -33,22 +32,19 @@ class ZhiHuDiaryRepository : NewsDataRepository
         val diaryDetailModel = HttpUtil.requestData(diaryUrl, DiaryDetailModel::class.java) ?: return null
         val doc = Jsoup.parse(diaryDetailModel.body)
 
-        val questionTitleElements = doc.getElementsByClass("question-title")
-        val authorNameElements = doc.getElementsByClass("author")
-        val authorAvatarElements = doc.getElementsByClass("avatar")
-        val authorBioElements = doc.getElementsByClass("bio")
-        val contentElements = doc.getElementsByClass("content")
-
         val questionList = mutableListOf<ZhiHuQuestionModel>()
 
-        val elementsSizeList = listOf(questionTitleElements.size, authorNameElements.size, authorAvatarElements.size, authorBioElements.size, contentElements.size)
-        val minSize = elementsSizeList.minBy { it } ?: 0
-
-        for (index in 0 until minSize)
-        {
-            questionList.add(ZhiHuQuestionModel(if (minSize == 1) "" else "Q：${questionTitleElements[index].text()}", contentElements[index].toString(),
-                    AuthorModel(authorNameElements[index].text(), authorAvatarElements[index].attr("src"),
-                            authorBioElements[index].text())))
+        doc.getElementsByClass("question").forEach { questionElement ->
+            val questionTitle = questionElement.getElementsByClass("question-title")?.first()?.text().orEmpty()
+            val answerList = mutableListOf<ZhiHuAnswerModel>()
+            questionElement.getElementsByClass("answer").forEach answerForEach@{ answerElement ->
+                val authorName = answerElement.getElementsByClass("author")?.first()?.text() ?: return@answerForEach
+                val authorAvatar = answerElement.getElementsByClass("avatar")?.first()?.attr("src").orEmpty()
+                val authorBio = answerElement.getElementsByClass("bio")?.first()?.text().orEmpty()
+                val content = answerElement.getElementsByClass("content")?.first()?.toString() ?: return@answerForEach
+                answerList.add(ZhiHuAnswerModel(content, ZhiHuAuthorModel(authorName, authorAvatar, authorBio)))
+            }
+            questionList.add(ZhiHuQuestionModel(questionTitle, answerList))
         }
 
         return ZhiHuDiaryDetailModel(diaryDetailModel.title, diaryDetailModel.images?.first(), questionList)
@@ -62,8 +58,7 @@ class ZhiHuDiaryRepository : NewsDataRepository
         val newsList = mutableListOf<NewsModel>()
         val diaryDataModel = HttpUtil.requestData(url, DiaryDataModel::class.java)
         diaryDataModel?.storyList?.forEach {
-            newsList.add(NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList.orEmpty(),
-                    AppConstant.NEWS_SOURCE_ZHIHU_DIARY))
+            newsList.add(NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList.orEmpty(), AppConstant.NEWS_SOURCE_ZHIHU_DIARY))
         }
         return newsList
     }

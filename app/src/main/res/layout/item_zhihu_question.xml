@@ -11,6 +11,10 @@
         <variable
             name="questionModel"
             type="com.lizl.news.model.news.zhihu.ZhiHuQuestionModel" />
+
+        <variable
+            name="answerAdapter"
+            type="com.lizl.news.adapter.ZhiHuAnswerListAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,63 +28,17 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/global_content_padding_content"
             android:text="@{questionModel.question}"
-            android:visibility="@{TextUtils.isEmpty(questionModel.question)? View.GONE : View.VISIBLE}"
+            android:visibility="@{(TextUtils.isEmpty(questionModel.question) || answerAdapter.itemCount &lt; 2)? View.GONE : View.VISIBLE}"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_author_avatar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="@dimen/global_content_padding_content"
-            app:imageUri="@{questionModel.author.avatar}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_author_name"
-            style="@style/GlobalSmallTextStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:gravity="start"
-            android:text="@{questionModel.author.name}"
-            app:layout_constraintBottom_toTopOf="@+id/tv_author_bio"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_author_avatar"
-            app:layout_constraintTop_toTopOf="@+id/iv_author_avatar"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_author_bio"
-            style="@style/GlobalSmallTextStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="start"
-            android:text="@{questionModel.author.briefIntroduction}"
-            android:visibility="@{TextUtils.isEmpty(questionModel.author.briefIntroduction)? View.GONE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_author_avatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/tv_author_name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_author_name" />
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier_author_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="iv_author_avatar,tv_author_name,tv_author_bio" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_content"
-            style="@style/GlobalTextStyle"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_answer_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/global_content_padding_content"
-            android:layout_marginBottom="@dimen/global_content_padding_edge"
-            app:htmlText="@{questionModel.answer}"
-            app:layout_constraintTop_toBottomOf="@+id/barrier_author_info" />
+            app:adapter="@{answerAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
