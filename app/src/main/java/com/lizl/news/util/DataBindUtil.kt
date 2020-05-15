@@ -1,6 +1,5 @@
 package com.lizl.news.util
 
-import android.util.Log
 import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
@@ -8,18 +7,16 @@ import androidx.databinding.BindingAdapter
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import com.lizl.news.GlideApp
 import com.zzhoujay.richtext.CacheType
 import com.zzhoujay.richtext.ImageHolder
 import com.zzhoujay.richtext.RichText
 import com.zzhoujay.richtext.RichType
 import com.zzhoujay.richtext.callback.ImageFixCallback
 import com.zzhoujay.richtext.ig.DefaultImageGetter
-import java.lang.Exception
 
 object DataBindUtil
 {
-    private val TAG = "DataBindUtil"
-
     @JvmStatic
     @BindingAdapter("app:adapter")
     fun bindAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<*>?)
@@ -32,7 +29,7 @@ object DataBindUtil
     fun bindImageUrl(imageView: ImageView, imageUri: String?)
     {
         if (imageUri.isNullOrEmpty()) return
-        GlideUtil.displayImage(imageView, imageUri)
+        GlideApp.with(imageView).load(imageUri).into(imageView)
     }
 
     @JvmStatic
@@ -83,7 +80,6 @@ object DataBindUtil
 
                 override fun onFailure(holder: ImageHolder?, e: Exception?)
                 {
-                    Log.d(TAG, "onFailure() called with: e = [$e]")
                     holder?.isShow = false
                     holder?.setSize(0, 0)
                 }

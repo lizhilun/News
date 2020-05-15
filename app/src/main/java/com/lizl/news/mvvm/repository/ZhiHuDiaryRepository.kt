@@ -2,12 +2,14 @@ package com.lizl.news.mvvm.repository
 
 import android.util.Log
 import com.lizl.news.constant.AppConstant
-import com.lizl.news.model.other.DateBean
 import com.lizl.news.model.news.NewsModel
-import com.lizl.news.model.news.zhihu.*
+import com.lizl.news.model.news.zhihu.ZhiHuAnswerModel
+import com.lizl.news.model.news.zhihu.ZhiHuAuthorModel
+import com.lizl.news.model.news.zhihu.ZhiHuQuestionModel
 import com.lizl.news.model.news.zhihu.diary.ZhiHuDiaryDataModel
 import com.lizl.news.model.news.zhihu.diary.ZhiHuDiaryDetailModel
 import com.lizl.news.model.news.zhihu.diary.ZhiHuDiaryDetailResponseModel
+import com.lizl.news.model.other.DateBean
 import com.lizl.news.util.HttpUtil
 import org.jsoup.Jsoup
 
@@ -51,8 +53,7 @@ class ZhiHuDiaryRepository : NewsDataRepository
             questionList.add(ZhiHuQuestionModel(questionTitle, answerList))
         }
 
-        return ZhiHuDiaryDetailModel(diaryDetailModel.title, diaryDetailModel.images?.first(),
-                questionList)
+        return ZhiHuDiaryDetailModel(diaryDetailModel.title, diaryDetailModel.images?.first(), questionList)
     }
 
     override fun canLoadMore() = true
