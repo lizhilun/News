@@ -17,11 +17,11 @@ class ZhiHuTopRepository : NewsDataRepository
         val requestUrl = "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=50&desktop=true"
         val newsList = mutableListOf<NewsModel>()
 
-        val zhiHuTopResponseModel = HttpUtil.requestData(requestUrl,ZhiHuTopResponseModel::class.java)
+        val zhiHuTopResponseModel = HttpUtil.requestData(requestUrl, ZhiHuTopResponseModel::class.java)
         zhiHuTopResponseModel?.dataList?.forEach {
             it.target ?: return@forEach
-            newsList.add(NewsModel("https://www.zhihu.com/question/${it.target.id}", it.target.title,
-                    listOf(it.children?.first()?.thumbnail.orEmpty()), AppConstant.NEWS_SOURCE_ZHIHU_TOP))
+            newsList.add(NewsModel("https://www.zhihu.com/question/${it.target.id}", it.target.title, listOf(it.children?.first()?.thumbnail.orEmpty()),
+                    AppConstant.NEWS_SOURCE_ZHIHU_TOP))
         }
 
         return newsList

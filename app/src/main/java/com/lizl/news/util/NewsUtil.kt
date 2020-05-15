@@ -13,9 +13,9 @@ object NewsUtil
         val context = Utils.getApp()
         return when (platform)
         {
-            AppConstant.NEWS_PLATFORM_ZHIHU            -> context.getString(R.string.zhihu)
-            AppConstant.NEWS_PLATFORM_HEADLINE         -> context.getString(R.string.headline_news)
-            else                                       -> ""
+            AppConstant.NEWS_PLATFORM_ZHIHU    -> context.getString(R.string.zhihu)
+            AppConstant.NEWS_PLATFORM_HEADLINE -> context.getString(R.string.headline_news)
+            else                               -> ""
         }
     }
 
@@ -43,12 +43,12 @@ object NewsUtil
     {
         return when (platform)
         {
-            AppConstant.NEWS_PLATFORM_ZHIHU            -> listOf(AppConstant.NEWS_SOURCE_ZHIHU_DIARY, AppConstant.NEWS_SOURCE_ZHIHU_TOP)
-            AppConstant.NEWS_PLATFORM_HEADLINE         -> listOf(AppConstant.NEWS_SOURCE_HEADLINE_GAME, AppConstant.NEWS_SOURCE_HEADLINE_ANIMATION,
+            AppConstant.NEWS_PLATFORM_ZHIHU    -> listOf(AppConstant.NEWS_SOURCE_ZHIHU_TOP, AppConstant.NEWS_SOURCE_ZHIHU_DIARY)
+            AppConstant.NEWS_PLATFORM_HEADLINE -> listOf(AppConstant.NEWS_SOURCE_HEADLINE_GAME, AppConstant.NEWS_SOURCE_HEADLINE_ANIMATION,
                     AppConstant.NEWS_SOURCE_HEADLINE_NBA, AppConstant.NEWS_SOURCE_HEADLINE_IT, AppConstant.NEWS_SOURCE_HEADLINE_INTERNET,
                     AppConstant.NEWS_SOURCE_HEADLINE_SCIENCE, AppConstant.NEWS_SOURCE_HEADLINE_DOMESTIC, AppConstant.NEWS_SOURCE_HEADLINE_INTERNATIONAL,
                     AppConstant.NEWS_SOURCE_HEADLINE_SOCIAL)
-            else                                       -> emptyList()
+            else                               -> emptyList()
         }
     }
 }
