@@ -3,8 +3,8 @@ package com.lizl.news.mvvm.repository
 import android.util.Log
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.model.news.NewsModel
-import com.lizl.news.model.news.zhihu.ZhiHuAnswersResponseModel
-import com.lizl.news.model.news.zhihutop.ZhiHuTopResponseModel
+import com.lizl.news.model.news.zhihu.top.ZhiHuAnswersResponseModel
+import com.lizl.news.model.news.zhihu.top.ZhiHuTopResponseModel
 import com.lizl.news.util.HttpUtil
 
 class ZhiHuTopRepository : NewsDataRepository

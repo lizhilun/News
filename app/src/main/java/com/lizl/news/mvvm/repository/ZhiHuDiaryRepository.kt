@@ -2,8 +2,12 @@ package com.lizl.news.mvvm.repository
 
 import android.util.Log
 import com.lizl.news.constant.AppConstant
+import com.lizl.news.model.other.DateBean
 import com.lizl.news.model.news.NewsModel
 import com.lizl.news.model.news.zhihu.*
+import com.lizl.news.model.news.zhihu.diary.ZhiHuDiaryDataModel
+import com.lizl.news.model.news.zhihu.diary.ZhiHuDiaryDetailModel
+import com.lizl.news.model.news.zhihu.diary.ZhiHuDiaryDetailResponseModel
 import com.lizl.news.util.HttpUtil
 import org.jsoup.Jsoup
 
@@ -29,7 +33,7 @@ class ZhiHuDiaryRepository : NewsDataRepository
     {
         Log.d(TAG, "getDiaryDetail() called with: diaryUrl = [$diaryUrl]")
 
-        val diaryDetailModel = HttpUtil.requestData(diaryUrl, DiaryDetailModel::class.java) ?: return null
+        val diaryDetailModel = HttpUtil.requestData(diaryUrl, ZhiHuDiaryDetailResponseModel::class.java) ?: return null
         val doc = Jsoup.parse(diaryDetailModel.body)
 
         val questionList = mutableListOf<ZhiHuQuestionModel>()
@@ -47,7 +51,8 @@ class ZhiHuDiaryRepository : NewsDataRepository
             questionList.add(ZhiHuQuestionModel(questionTitle, answerList))
         }
 
-        return ZhiHuDiaryDetailModel(diaryDetailModel.title, diaryDetailModel.images?.first(), questionList)
+        return ZhiHuDiaryDetailModel(diaryDetailModel.title, diaryDetailModel.images?.first(),
+                questionList)
     }
 
     override fun canLoadMore() = true
@@ -56,7 +61,7 @@ class ZhiHuDiaryRepository : NewsDataRepository
     {
         Log.d(TAG, "getDiaryData() called with: url = [$url]")
         val newsList = mutableListOf<NewsModel>()
-        val diaryDataModel = HttpUtil.requestData(url, DiaryDataModel::class.java)
+        val diaryDataModel = HttpUtil.requestData(url, ZhiHuDiaryDataModel::class.java)
         diaryDataModel?.storyList?.forEach {
             newsList.add(NewsModel("http://news-at.zhihu.com/api/4/news/${it.id}", it.title, it.imageList.orEmpty(), AppConstant.NEWS_SOURCE_ZHIHU_DIARY))
         }

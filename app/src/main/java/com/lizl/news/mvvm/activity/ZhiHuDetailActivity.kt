@@ -4,7 +4,7 @@ import com.lizl.news.constant.AppConstant
 import com.lizl.news.R
 import com.lizl.news.adapter.ZhiHuQuestionListAdapter
 import com.lizl.news.databinding.ActivityZhihuDiaryDetailBinding
-import com.lizl.news.model.news.zhihu.ZhiHuDiaryDetailModel
+import com.lizl.news.model.news.zhihu.diary.ZhiHuDiaryDetailModel
 import com.lizl.news.mvvm.base.BaseActivity
 import com.lizl.news.mvvm.repository.RepositoryManager
 import kotlinx.coroutines.Dispatchers

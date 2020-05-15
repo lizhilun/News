@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.model.news.zhihu.ZhiHuAnswerModel
-import com.lizl.news.model.news.zhihu.ZhiHuAnswersResponseModel
 import com.lizl.news.model.news.zhihu.ZhiHuAuthorModel
+import com.lizl.news.model.news.zhihu.top.ZhiHuAnswersResponseModel
 import com.lizl.news.mvvm.repository.RepositoryManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

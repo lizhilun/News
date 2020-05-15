@@ -1,4 +1,4 @@
-package com.lizl.news.model.news.zhihu
+package com.lizl.news.model.other
 
 import java.util.*
 

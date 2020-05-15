@@ -1,8 +1,8 @@
-package com.lizl.news.model.news.zhihu
+package com.lizl.news.model.news.zhihu.diary
 
 import com.google.gson.annotations.SerializedName
 
-class DiaryDetailModel
+class ZhiHuDiaryDetailResponseModel
 {
     @SerializedName("body")
     val body = ""
