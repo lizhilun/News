@@ -28,7 +28,7 @@ class HeadlineRepository(private val newsSource: String) : NewsDataRepository
         return getHeadlineData(curPage)
     }
 
-    override fun getNewsDetail(diaryUrl: String) = ""
+    override fun getNewsDetail(dailyUrl: String) = ""
 
     private fun getHeadlineData(pageIndex: Int): MutableList<NewsModel>
     {
@@ -40,7 +40,7 @@ class HeadlineRepository(private val newsSource: String) : NewsDataRepository
 
         val headlineResponseModel = HttpUtil.requestData(requestUrl, HeadlineResponseModel::class.java)
         headlineResponseModel?.newsList?.forEach {
-            newsList.add(NewsModel(it.url, it.title, listOf(it.picUrl), newsSource))
+            newsList.add(NewsModel(it.url, it.title, it.picUrl, newsSource))
         }
 
         return newsList

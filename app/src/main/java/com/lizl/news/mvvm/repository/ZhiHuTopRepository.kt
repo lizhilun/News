@@ -32,12 +32,12 @@ class ZhiHuTopRepository : NewsDataRepository
         return mutableListOf()
     }
 
-    override fun getNewsDetail(diaryUrl: String): ZhiHuAnswersResponseModel?
+    override fun getNewsDetail(dailyUrl: String): ZhiHuAnswersResponseModel?
     {
-        Log.d(TAG, "getZhiHuTopNewsDetail() called with: diaryUrl = [$diaryUrl]")
+        Log.d(TAG, "getZhiHuTopNewsDetail() called with: dailyUrl = [$dailyUrl]")
 
-        val requestUrl = if(diaryUrl.contains("answers")) diaryUrl
-        else "https://www.zhihu.com/api/v4/questions/${diaryUrl.split("/").last()}/answers?include=data%5B*%5D.is_normal%2Cadmin_closed_comment" +
+        val requestUrl = if(dailyUrl.contains("answers")) dailyUrl
+        else "https://www.zhihu.com/api/v4/questions/${dailyUrl.split("/").last()}/answers?include=data%5B*%5D.is_normal%2Cadmin_closed_comment" +
              "%2Creward_info%2Cis_collapsed%2Cannotation_action%2Cannotation_detail%2Ccollapse_reason%2Cis_sticky%2Ccollapsed_by" +
              "%2Csuggest_edit%2Ccomment_count%2Ccan_comment%2Ccontent%2Ceditable_content%2Cvoteup_count%2Creshipment_settings%2Ccomment_permission" +
              "%2Ccreated_time%2Cupdated_time%2Creview_info%2Crelevant_info%2Cquestion%2Cexcerpt%2Crelationship.is_authorized%2Cis_author%2Cvoting%2Cis_thanked" +

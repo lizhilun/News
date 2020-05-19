@@ -8,7 +8,7 @@ interface NewsDataRepository
 
     fun loadMoreNews(): MutableList<NewsModel>
 
-    fun getNewsDetail(diaryUrl: String): Any?
+    fun getNewsDetail(dailyUrl: String): Any?
 
     fun canLoadMore(): Boolean
 }

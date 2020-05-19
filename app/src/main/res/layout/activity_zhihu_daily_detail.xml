@@ -10,7 +10,7 @@
 
         <variable
             name="detailModel"
-            type="com.lizl.news.model.news.zhihu.diary.ZhiHuDiaryDetailModel" />
+            type="com.lizl.news.model.news.zhihu.daily.ZhiHuDailyDetailModel" />
 
         <variable
             name="questionAdapter"

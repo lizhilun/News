@@ -1,16 +1,16 @@
-package com.lizl.news.model.news.zhihu.diary
+package com.lizl.news.model.news.zhihu.daily
 
 import com.google.gson.annotations.SerializedName
 
-class ZhiHuDiaryDataModel
+class ZhiHuDailyDataModel
 {
     @SerializedName("date")
     val date = ""
 
     @SerializedName("stories")
-    val storyList: List<DiaryStoryModel>? = null
+    val storyList: List<DailyStoryModel>? = null
 
-    class DiaryStoryModel
+    class DailyStoryModel
     {
         @SerializedName("image_hue")
         val imageHue = ""

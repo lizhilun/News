@@ -31,17 +31,21 @@ class NewsListAdapter : BaseQuickAdapter<NewsModel, BaseViewHolder>(R.layout.ite
     override fun convert(helper: BaseViewHolder, item: NewsModel)
     {
         helper.getBinding<ItemNewsBinding>()?.apply {
+
             newsModel = item
 
-            rvImage.layoutManager = GridLayoutManager(context, 3)
-            rvImage.adapter = ImageGridAdapter(item.coverImageList.toMutableList())
+            if (item.coverImageList.size > 1)
+            {
+                rvImage.layoutManager = GridLayoutManager(context, 3)
+                rvImage.adapter = ImageGridAdapter(item.coverImageList.toMutableList())
+            }
 
             helper.itemView.setOnClickListener {
                 when (item.source)
                 {
-                    AppConstant.NEWS_SOURCE_ZHIHU_DIARY      -> ActivityUtil.turnToActivity(ZhiHuDetailActivity::class.java, item.detailUrl)
-                    AppConstant.NEWS_SOURCE_ZHIHU_TOP        -> ActivityUtil.turnToActivity(ZhiHuTopDetailActivity::class.java, item.detailUrl)
-                    else                                     -> ActivityUtil.turnToActivity(WebViewActivity::class.java, item.detailUrl)
+                    AppConstant.NEWS_SOURCE_ZHIHU_DAILY -> ActivityUtil.turnToActivity(ZhiHuDetailActivity::class.java, item.detailUrl)
+                    AppConstant.NEWS_SOURCE_ZHIHU_TOP   -> ActivityUtil.turnToActivity(ZhiHuTopDetailActivity::class.java, item.detailUrl)
+                    else                                -> ActivityUtil.turnToActivity(WebViewActivity::class.java, item.detailUrl)
                 }
             }
 

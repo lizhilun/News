@@ -4,10 +4,14 @@
     <string name="save">保存</string>
 
     <string name="zhihu">知乎</string>
+    <string name="daily_hot">每日热榜</string>
     <string name="headline_news">头条新闻</string>
 
-    <string name="zhihu_diary">知乎日报</string>
+    <string name="zhihu_daily">知乎日报</string>
     <string name="zhihu_top">知乎热榜</string>
+
+    <string name="daily_briefing">每日简报</string>
+
     <string name="game">游戏</string>
     <string name="animation">动漫</string>
     <string name="nba">NBA</string>

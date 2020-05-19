@@ -6,16 +6,17 @@ import com.lizl.news.constant.AppConstant
 
 object NewsUtil
 {
-    fun getNewsAllPlatform() = listOf(AppConstant.NEWS_PLATFORM_ZHIHU, AppConstant.NEWS_PLATFORM_HEADLINE)
+    fun getNewsAllPlatform() = listOf(AppConstant.NEWS_PLATFORM_ZHIHU, AppConstant.NEWS_PLATFORM_DAILY_HOT, AppConstant.NEWS_PLATFORM_HEADLINE)
 
     fun getNewsPlatformName(platform: String): String
     {
         val context = Utils.getApp()
         return when (platform)
         {
-            AppConstant.NEWS_PLATFORM_ZHIHU    -> context.getString(R.string.zhihu)
-            AppConstant.NEWS_PLATFORM_HEADLINE -> context.getString(R.string.headline_news)
-            else                               -> ""
+            AppConstant.NEWS_PLATFORM_ZHIHU     -> context.getString(R.string.zhihu)
+            AppConstant.NEWS_PLATFORM_HEADLINE  -> context.getString(R.string.headline_news)
+            AppConstant.NEWS_PLATFORM_DAILY_HOT -> context.getString(R.string.daily_hot)
+            else                                -> ""
         }
     }
 
@@ -24,8 +25,9 @@ object NewsUtil
         val context = Utils.getApp()
         return when (source)
         {
-            AppConstant.NEWS_SOURCE_ZHIHU_DIARY            -> context.getString(R.string.zhihu_diary)
+            AppConstant.NEWS_SOURCE_ZHIHU_DAILY            -> context.getString(R.string.zhihu_daily)
             AppConstant.NEWS_SOURCE_ZHIHU_TOP              -> context.getString(R.string.zhihu_top)
+            AppConstant.NEWS_SOURCE_DAILY_BRIEFING         -> context.getString(R.string.daily_briefing)
             AppConstant.NEWS_SOURCE_HEADLINE_GAME          -> context.getString(R.string.game)
             AppConstant.NEWS_SOURCE_HEADLINE_ANIMATION     -> context.getString(R.string.animation)
             AppConstant.NEWS_SOURCE_HEADLINE_NBA           -> context.getString(R.string.nba)
@@ -43,12 +45,13 @@ object NewsUtil
     {
         return when (platform)
         {
-            AppConstant.NEWS_PLATFORM_ZHIHU    -> listOf(AppConstant.NEWS_SOURCE_ZHIHU_TOP, AppConstant.NEWS_SOURCE_ZHIHU_DIARY)
-            AppConstant.NEWS_PLATFORM_HEADLINE -> listOf(AppConstant.NEWS_SOURCE_HEADLINE_GAME, AppConstant.NEWS_SOURCE_HEADLINE_ANIMATION,
+            AppConstant.NEWS_PLATFORM_ZHIHU     -> listOf(AppConstant.NEWS_SOURCE_ZHIHU_TOP, AppConstant.NEWS_SOURCE_ZHIHU_DAILY)
+            AppConstant.NEWS_PLATFORM_HEADLINE  -> listOf(AppConstant.NEWS_SOURCE_HEADLINE_GAME, AppConstant.NEWS_SOURCE_HEADLINE_ANIMATION,
                     AppConstant.NEWS_SOURCE_HEADLINE_NBA, AppConstant.NEWS_SOURCE_HEADLINE_IT, AppConstant.NEWS_SOURCE_HEADLINE_INTERNET,
                     AppConstant.NEWS_SOURCE_HEADLINE_SCIENCE, AppConstant.NEWS_SOURCE_HEADLINE_DOMESTIC, AppConstant.NEWS_SOURCE_HEADLINE_INTERNATIONAL,
                     AppConstant.NEWS_SOURCE_HEADLINE_SOCIAL)
-            else                               -> emptyList()
+            AppConstant.NEWS_PLATFORM_DAILY_HOT -> listOf(AppConstant.NEWS_SOURCE_DAILY_BRIEFING)
+            else                                -> emptyList()
         }
     }
 }
