@@ -5,21 +5,17 @@
 
     <string name="zhihu">知乎</string>
     <string name="daily_hot">每日热榜</string>
-    <string name="headline_news">头条新闻</string>
 
     <string name="zhihu_daily">知乎日报</string>
     <string name="zhihu_top">知乎热榜</string>
 
-    <string name="daily_briefing">每日简报</string>
-
-    <string name="game">游戏</string>
-    <string name="animation">动漫</string>
-    <string name="nba">NBA</string>
-    <string name="it">IT</string>
-    <string name="internet">互联网</string>
-    <string name="science">科技</string>
-    <string name="domestic">国内</string>
-    <string name="international">国际</string>
-    <string name="social">社会</string>
+    <string name="_36_kr">36氪</string>
+    <string name="the_paper">澎湃</string>
+    <string name="it_home">IT之家</string>
+    <string name="weibo">微博</string>
+    <string name="ss_pai">少数派</string>
+    <string name="hu_xiu">虎嗅网</string>
+    <string name="jian_dan">煎蛋网</string>
+    <string name="hu_pu">虎扑</string>
 
 </resources>
