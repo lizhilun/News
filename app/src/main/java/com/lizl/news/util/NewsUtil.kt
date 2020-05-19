@@ -6,18 +6,6 @@ import com.lizl.news.constant.AppConstant
 
 object NewsUtil
 {
-    fun getNewsAllPlatform() = listOf(AppConstant.NEWS_PLATFORM_ZHIHU, AppConstant.NEWS_PLATFORM_DAILY_HOT)
-
-    fun getNewsPlatformName(platform: String): String
-    {
-        val context = Utils.getApp()
-        return when (platform)
-        {
-            AppConstant.NEWS_PLATFORM_ZHIHU     -> context.getString(R.string.zhihu)
-            AppConstant.NEWS_PLATFORM_DAILY_HOT -> context.getString(R.string.daily_hot)
-            else                                -> ""
-        }
-    }
 
     fun getNewsSourceName(source: String): String
     {
@@ -38,15 +26,11 @@ object NewsUtil
         }
     }
 
-    fun getNewsSourceByPlatform(platform: String): List<String>
+    fun getAllNewsSource(): List<String>
     {
-        return when (platform)
-        {
-            AppConstant.NEWS_PLATFORM_ZHIHU     -> listOf(AppConstant.NEWS_SOURCE_ZHIHU_TOP, AppConstant.NEWS_SOURCE_ZHIHU_DAILY)
-            AppConstant.NEWS_PLATFORM_DAILY_HOT -> listOf(AppConstant.NEWS_SOURCE_DAILY_36_KR, AppConstant.NEWS_SOURCE_DAILY_IT_HOME,
-                    AppConstant.NEWS_SOURCE_DAILY_SS_PAI, AppConstant.NEWS_SOURCE_DAILY_HU_XIU, AppConstant.NEWS_SOURCE_DAILY_JIAN_DAN,
-                    AppConstant.NEWS_SOURCE_DAILY_HU_PU, AppConstant.NEWS_SOURCE_DAILY_THE_PAPER, AppConstant.NEWS_SOURCE_DAILY_WEIBO)
-            else                                -> emptyList()
-        }
+        return listOf(AppConstant.NEWS_SOURCE_ZHIHU_TOP, AppConstant.NEWS_SOURCE_ZHIHU_DAILY, AppConstant.NEWS_SOURCE_DAILY_36_KR,
+                AppConstant.NEWS_SOURCE_DAILY_IT_HOME, AppConstant.NEWS_SOURCE_DAILY_SS_PAI, AppConstant.NEWS_SOURCE_DAILY_HU_XIU,
+                AppConstant.NEWS_SOURCE_DAILY_JIAN_DAN, AppConstant.NEWS_SOURCE_DAILY_HU_PU, AppConstant.NEWS_SOURCE_DAILY_THE_PAPER,
+                AppConstant.NEWS_SOURCE_DAILY_WEIBO)
     }
 }
