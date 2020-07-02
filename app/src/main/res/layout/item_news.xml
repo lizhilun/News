@@ -6,6 +6,8 @@
 
         <import type="android.view.View" />
 
+        <import type="android.text.TextUtils" />
+
         <variable
             name="newsModel"
             type="com.lizl.news.model.news.NewsModel" />
@@ -35,7 +37,7 @@
             android:layout_width="90dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            android:visibility="@{newsModel.coverImageList.size() == 1? View.VISIBLE : View.GONE}"
+            android:visibility="@{(newsModel.coverImageList.size() != 1 || TextUtils.isEmpty(newsModel.coverImageList.get(0)))? View.GONE : View.VISIBLE}"
             app:imageUri="@{newsModel.coverImageList.size()>0?newsModel.coverImageList.get(0):null}"
             app:layout_constraintBottom_toTopOf="@+id/barrier"
             app:layout_constraintDimensionRatio="H,1:1"
