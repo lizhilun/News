@@ -19,6 +19,9 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
 
         val wSetting = webview.settings
         wSetting.javaScriptEnabled = true
+        wSetting.databaseEnabled = true
+        wSetting.domStorageEnabled = true
+        wSetting.safeBrowsingEnabled = true
 
         webview.webViewClient = object : WebViewClient()
         {
