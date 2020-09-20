@@ -9,14 +9,34 @@
             type="String" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <WebView
-            android:id="@+id/webview"
+        <com.daimajia.numberprogressbar.NumberProgressBar
+            android:id="@+id/npb_loading_progress"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:progress_max="100"
+            app:progress_reached_bar_height="2dp"
+            app:progress_reached_color="@color/colorPrimary"
+            app:progress_text_visibility="invisible"
+            app:progress_unreached_bar_height="5dp"
+            app:progress_unreached_color="@color/transparent" />
 
-    </androidx.core.widget.NestedScrollView>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/npb_loading_progress">
+
+            <WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

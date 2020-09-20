@@ -102,6 +102,6 @@ object DataBindUtil
             .imageClick { imageUrls, position -> PopupUtil.showImageViewerPopup(imageUrls[position]) } // 设置图片点击回调
             .urlClick { url -> false } // 设置链接点击回调
             .cache(CacheType.all) // 缓存类型，默认为Cache.ALL（缓存图片和图片大小信息和文本样式信息）
-            .into(textView) // 设置目标TextView
+            .bind(textView).into(textView) // 设置目标TextView
     }
 }

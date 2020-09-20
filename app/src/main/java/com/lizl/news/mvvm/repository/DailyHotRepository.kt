@@ -12,7 +12,7 @@ class DailyHotRepository(private val newsSource: String) : NewsDataRepository
         val doc = Jsoup.connect(getRequestUrlBySource(newsSource)).get()
         doc.getElementsByClass("al").forEach {
             val newsTitle = it.text()
-            val newsUrl = it.getElementsByTag("a").attr("href")
+            val newsUrl = getRealDetailUrl(it.getElementsByTag("a").attr("href"))
             newsList.add(NewsModel(newsUrl, newsTitle, null, AppConstant.NEWS_SOURCE_DAILY_36_KR))
         }
         return newsList
@@ -37,6 +37,15 @@ class DailyHotRepository(private val newsSource: String) : NewsDataRepository
             AppConstant.NEWS_SOURCE_DAILY_THE_PAPER -> "https://tophub.today/n/wWmoO5Rd4E"
             AppConstant.NEWS_SOURCE_DAILY_WEIBO     -> "https://tophub.today/n/KqndgxeLl9"
             else                                    -> ""
+        }
+    }
+
+    private fun getRealDetailUrl(url: String): String
+    {
+        return when
+        {
+            url.startsWith("http") || url.startsWith("https") -> url
+            else                                              -> "https://tophub.today$url"
         }
     }
 }
