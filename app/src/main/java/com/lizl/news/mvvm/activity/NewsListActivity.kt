@@ -25,7 +25,7 @@ class NewsListActivity : BaseActivity<ActivityNewsListBinding>(R.layout.activity
         tabLayoutMediator.attach()
         val fragmentList = mutableListOf<Fragment>().apply { newsSources.forEach { add(NewsListFragment(it)) } }
         fragmentPagersAdapter.setFragmentList(fragmentList)
-        vp_page.offscreenPageLimit = 1
+        vp_page.offscreenPageLimit = 2
         vp_page.setCurrentItem(0, false)
     }
 }

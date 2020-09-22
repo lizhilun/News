@@ -51,10 +51,7 @@ class NewsListFragment(private val newsSource: String) : BaseFragment<FragmentNe
         newsViewModel.newsRequestFailedLiveData.observe(this, Observer {
             ActivityUtil.turnToActivity(WebViewActivity::class.java, it)
         })
-    }
 
-    override fun initLazyData()
-    {
         newsViewModel.setNewsSource(newsSource)
     }
 }

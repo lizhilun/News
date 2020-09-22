@@ -16,8 +16,6 @@ open class BaseFragment<DB : ViewDataBinding>(private val layoutId: Int) : Fragm
 
     protected lateinit var dataBinding: DB
 
-    private var isLazyDataLoad = false
-
     override fun onCreate(savedInstanceState: Bundle?)
     {
         Log.d(TAG, "onCreate")
@@ -54,12 +52,6 @@ open class BaseFragment<DB : ViewDataBinding>(private val layoutId: Int) : Fragm
     {
         Log.d(TAG, "onResume")
         super.onResume()
-
-        if (!isLazyDataLoad)
-        {
-            isLazyDataLoad = true
-            initLazyData()
-        }
     }
 
     override fun onAttach(context: Context)
@@ -104,11 +96,6 @@ open class BaseFragment<DB : ViewDataBinding>(private val layoutId: Int) : Fragm
     }
 
     open fun initData()
-    {
-
-    }
-
-    open fun initLazyData()
     {
 
     }
