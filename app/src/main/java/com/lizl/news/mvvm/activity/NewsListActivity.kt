@@ -1,9 +1,12 @@
 package com.lizl.news.mvvm.activity
 
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.google.android.material.tabs.TabLayoutMediator
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.lizl.news.R
 import com.lizl.news.adapter.FragmentPagerAdapter
+import com.lizl.news.constant.EventConstant
 import com.lizl.news.custom.view.MenuDrawLayout
 import com.lizl.news.databinding.ActivityNewsListBinding
 import com.lizl.news.mvvm.base.BaseActivity
@@ -17,29 +20,39 @@ class NewsListActivity : BaseActivity<ActivityNewsListBinding>(R.layout.activity
 {
 
     private val menuDrawLayout: MenuDrawLayout by lazy { MenuDrawLayout(this) }
+    private val fragmentPagersAdapter: FragmentPagerAdapter by lazy { FragmentPagerAdapter(this) }
+    private var tabLayoutMediator: TabLayoutMediator? = null
 
     override fun initView()
     {
-        val fragmentPagersAdapter = FragmentPagerAdapter(this)
         vp_page.adapter = fragmentPagersAdapter
 
-        val newsSources = NewsUtil.getAllNewsSource()
-        val tabLayoutMediator = TabLayoutMediator(tl_source_title, vp_page, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-            if (position >= newsSources.size) return@TabConfigurationStrategy
-            tab.text = NewsUtil.getNewsSourceName(newsSources[position])
-        })
-        tabLayoutMediator.attach()
-        val fragmentList = mutableListOf<Fragment>().apply { newsSources.forEach { add(NewsListFragment(it)) } }
+        iv_menu.setOnClickListener {
+            XPopup.Builder(this).popupPosition(PopupPosition.Left).hasStatusBarShadow(false).asCustom(menuDrawLayout).show()
+        }
+    }
+
+    override fun initData()
+    {
+        LiveEventBus.get(EventConstant.EVENT_NEWS_SOURCES_UPDATE).observe(this, Observer { setNewsSources() })
+
+        setNewsSources()
+    }
+
+    private fun setNewsSources()
+    {
+        val newsSources = NewsUtil.getVisibleNewsSource()
+
+        val fragmentList = mutableListOf<Fragment>().apply { newsSources.forEach { add(NewsListFragment(it.newSource)) } }
         fragmentPagersAdapter.setFragmentList(fragmentList)
         vp_page.offscreenPageLimit = 2
         vp_page.setCurrentItem(0, false)
 
-        iv_menu.setOnClickListener {
-            XPopup.Builder(this)
-                .popupPosition(PopupPosition.Left)//右边
-                .hasStatusBarShadow(false)
-                .asCustom(menuDrawLayout)
-                .show();
-        }
+        tabLayoutMediator?.detach()
+        tabLayoutMediator = TabLayoutMediator(tl_source_title, vp_page, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+            if (position >= newsSources.size) return@TabConfigurationStrategy
+            tab.text = NewsUtil.getNewsSourceName(newsSources[position].newSource)
+        })
+        tabLayoutMediator?.attach()
     }
 }

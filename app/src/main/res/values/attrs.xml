@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomTitleBar">
+        <attr name="backBtnVisible" format="boolean" />
+        <attr name="titleText" format="string|reference" />
+        <attr name="actionText" format="string|reference" />
+    </declare-styleable>
+</resources>

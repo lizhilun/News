@@ -6,13 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
-abstract class BaseActivity<DB : ViewDataBinding>(private val layoutId: Int) : AppCompatActivity()
+open class BaseActivity<DB : ViewDataBinding>(private val layoutId: Int) : AppCompatActivity()
 {
     protected val TAG = this.javaClass.simpleName
 
     protected lateinit var dataBinding: DB
-
-    abstract fun initView()
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -23,6 +21,7 @@ abstract class BaseActivity<DB : ViewDataBinding>(private val layoutId: Int) : A
         dataBinding.lifecycleOwner = this
 
         initView()
+        initData()
     }
 
     override fun onResume()
@@ -59,5 +58,15 @@ abstract class BaseActivity<DB : ViewDataBinding>(private val layoutId: Int) : A
     {
         Log.d(TAG, "onDestroy")
         super.onDestroy()
+    }
+
+    open fun initView()
+    {
+
+    }
+
+    open fun initData()
+    {
+
     }
 }

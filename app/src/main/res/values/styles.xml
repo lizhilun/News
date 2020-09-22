@@ -12,6 +12,12 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <style name="ToolbarLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/global_toolbar_height</item>
+        <item name="android:paddingStart">@dimen/toolbar_content_padding_edge</item>
+    </style>
+
     <style name="GlobalTitleTextStyle">
         <item name="android:textSize">@dimen/global_text_size_biggest</item>
         <item name="android:textColor">@color/colorTextColor</item>
@@ -41,6 +47,15 @@
     <style name="GlobalSecondarySmallerTextStyle">
         <item name="android:textSize">@dimen/global_text_size_smallest</item>
         <item name="android:textColor">@color/colorSecondaryTextColor</item>
+    </style>
+
+    <style name="NewsSourceItemImageStyle">
+        <item name="android:layout_width">@dimen/news_source_item_image_size</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingStart">@dimen/news_source_item_image_padding</item>
+        <item name="android:paddingEnd">@dimen/news_source_item_image_padding</item>
+        <item name="android:tint">@color/colorTextColor</item>
+        <item name="android:scaleType">fitCenter</item>
     </style>
 
 </resources>

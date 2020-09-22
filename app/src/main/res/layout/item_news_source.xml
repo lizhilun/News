@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lizl.news.util.NewsUtil" />
+
+        <variable
+            name="newsSourceModel"
+            type="com.lizl.news.model.other.NewsSourceModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/global_short_list_item_height">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_name"
+            style="@style/GlobalTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/global_content_padding_edge"
+            android:gravity="start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_top"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_top"
+            style="@style/NewsSourceItemImageStyle"
+            android:src="@drawable/ic_arrow_upward"
+            app:layout_constraintEnd_toStartOf="@+id/iv_down" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_down"
+            style="@style/NewsSourceItemImageStyle"
+            android:src="@drawable/ic_arrow_downward"
+            app:layout_constraintEnd_toStartOf="@+id/iv_show" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_show"
+            style="@style/NewsSourceItemImageStyle"
+            android:src="@drawable/ic_visible"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
