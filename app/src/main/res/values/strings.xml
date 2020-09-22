@@ -23,4 +23,6 @@
 
     <string name="data_request_failed">数据请求失败，点击前往解决问题</string>
 
+    <string name="app_introduce">Hello World, Current %d Sources of News</string>
+
 </resources>
