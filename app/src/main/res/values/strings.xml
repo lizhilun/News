@@ -21,4 +21,6 @@
     <string name="game_core">机核网</string>
     <string name="yys">游研社</string>
 
+    <string name="data_request_failed">数据请求失败，点击前往解决问题</string>
+
 </resources>

@@ -1,5 +1,6 @@
 package com.lizl.news.mvvm.fragment
 
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.lizl.news.R
@@ -49,9 +50,15 @@ class NewsListFragment(private val newsSource: String) : BaseFragment<FragmentNe
         newsViewModel.hasMoreDataLiveData.observe(this, Observer { newsListAdapter.loadMoreModule?.isEnableLoadMore = it })
 
         newsViewModel.newsRequestFailedLiveData.observe(this, Observer {
-            ActivityUtil.turnToActivity(WebViewActivity::class.java, it)
+            rv_news_list.isVisible = false
+            tv_notify.isVisible = true
         })
 
         newsViewModel.setNewsSource(newsSource)
+
+        tv_notify.setOnClickListener {
+            val requestUrl = newsViewModel.newsRequestFailedLiveData.value ?: return@setOnClickListener
+            ActivityUtil.turnToActivity(WebViewActivity::class.java, requestUrl)
+        }
     }
 }
