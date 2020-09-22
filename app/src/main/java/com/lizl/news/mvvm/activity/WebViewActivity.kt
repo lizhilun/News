@@ -25,6 +25,7 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
         wSetting.databaseEnabled = true
         wSetting.domStorageEnabled = true
         wSetting.safeBrowsingEnabled = true
+        wSetting.blockNetworkImage = false
 
         npb_loading_progress.progress = 0
 

@@ -13,7 +13,11 @@ class DailyHotRepository(private val newsSource: String) : NewsDataRepository
         doc.getElementsByClass("al").forEach {
             val newsTitle = it.text()
             val newsUrl = getRealDetailUrl(it.getElementsByTag("a").attr("href"))
-            newsList.add(NewsModel(newsUrl, newsTitle, null, AppConstant.NEWS_SOURCE_DAILY_36_KR))
+            if (newsList.find { newsModel -> newsModel.title == newsTitle && newsModel.detailUrl == newsUrl } != null)
+            {
+                return@forEach
+            }
+            newsList.add(NewsModel(newsUrl, newsTitle, null, newsSource))
         }
         return newsList
     }
@@ -36,6 +40,7 @@ class DailyHotRepository(private val newsSource: String) : NewsDataRepository
             AppConstant.NEWS_SOURCE_DAILY_HU_PU     -> "https://tophub.today/n/G47o8weMmN"
             AppConstant.NEWS_SOURCE_DAILY_THE_PAPER -> "https://tophub.today/n/wWmoO5Rd4E"
             AppConstant.NEWS_SOURCE_DAILY_WEIBO     -> "https://tophub.today/n/KqndgxeLl9"
+            AppConstant.NEWS_SOURCE_DAILY_V2EX      -> "https://tophub.today/n/wWmoORe4EO"
             else                                    -> ""
         }
     }

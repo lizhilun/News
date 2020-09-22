@@ -22,6 +22,7 @@ object NewsUtil
             AppConstant.NEWS_SOURCE_DAILY_HU_XIU    -> context.getString(R.string.hu_xiu)
             AppConstant.NEWS_SOURCE_DAILY_JIAN_DAN  -> context.getString(R.string.jian_dan)
             AppConstant.NEWS_SOURCE_DAILY_HU_PU     -> context.getString(R.string.hu_pu)
+            AppConstant.NEWS_SOURCE_DAILY_V2EX      -> context.getString(R.string.v2ex)
             else                                    -> ""
         }
     }
@@ -31,6 +32,6 @@ object NewsUtil
         return listOf(AppConstant.NEWS_SOURCE_ZHIHU_TOP, AppConstant.NEWS_SOURCE_ZHIHU_DAILY, AppConstant.NEWS_SOURCE_DAILY_36_KR,
                 AppConstant.NEWS_SOURCE_DAILY_IT_HOME, AppConstant.NEWS_SOURCE_DAILY_SS_PAI, AppConstant.NEWS_SOURCE_DAILY_HU_XIU,
                 AppConstant.NEWS_SOURCE_DAILY_JIAN_DAN, AppConstant.NEWS_SOURCE_DAILY_HU_PU, AppConstant.NEWS_SOURCE_DAILY_THE_PAPER,
-                AppConstant.NEWS_SOURCE_DAILY_WEIBO)
+                AppConstant.NEWS_SOURCE_DAILY_V2EX, AppConstant.NEWS_SOURCE_DAILY_WEIBO)
     }
 }
