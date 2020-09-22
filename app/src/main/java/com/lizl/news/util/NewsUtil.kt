@@ -23,15 +23,18 @@ object NewsUtil
             AppConstant.NEWS_SOURCE_DAILY_JIAN_DAN  -> context.getString(R.string.jian_dan)
             AppConstant.NEWS_SOURCE_DAILY_HU_PU     -> context.getString(R.string.hu_pu)
             AppConstant.NEWS_SOURCE_DAILY_V2EX      -> context.getString(R.string.v2ex)
+            AppConstant.NEWS_SOURCE_DAILY_GAME_CORE -> context.getString(R.string.game_core)
+            AppConstant.NEWS_SOURCE_DAILY_YYS       -> context.getString(R.string.yys)
             else                                    -> ""
         }
     }
 
     fun getAllNewsSource(): List<String>
     {
-        return listOf(AppConstant.NEWS_SOURCE_ZHIHU_TOP, AppConstant.NEWS_SOURCE_ZHIHU_DAILY, AppConstant.NEWS_SOURCE_DAILY_36_KR,
-                AppConstant.NEWS_SOURCE_DAILY_IT_HOME, AppConstant.NEWS_SOURCE_DAILY_SS_PAI, AppConstant.NEWS_SOURCE_DAILY_HU_XIU,
-                AppConstant.NEWS_SOURCE_DAILY_JIAN_DAN, AppConstant.NEWS_SOURCE_DAILY_HU_PU, AppConstant.NEWS_SOURCE_DAILY_THE_PAPER,
-                AppConstant.NEWS_SOURCE_DAILY_V2EX, AppConstant.NEWS_SOURCE_DAILY_WEIBO)
+        return listOf(AppConstant.NEWS_SOURCE_ZHIHU_TOP, AppConstant.NEWS_SOURCE_ZHIHU_DAILY, AppConstant.NEWS_SOURCE_DAILY_GAME_CORE,
+                AppConstant.NEWS_SOURCE_DAILY_YYS, AppConstant.NEWS_SOURCE_DAILY_36_KR, AppConstant.NEWS_SOURCE_DAILY_IT_HOME,
+                AppConstant.NEWS_SOURCE_DAILY_SS_PAI, AppConstant.NEWS_SOURCE_DAILY_HU_XIU, AppConstant.NEWS_SOURCE_DAILY_JIAN_DAN,
+                AppConstant.NEWS_SOURCE_DAILY_HU_PU, AppConstant.NEWS_SOURCE_DAILY_THE_PAPER, AppConstant.NEWS_SOURCE_DAILY_V2EX,
+                AppConstant.NEWS_SOURCE_DAILY_WEIBO)
     }
 }
