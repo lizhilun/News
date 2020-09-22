@@ -2,6 +2,7 @@ package com.lizl.news
 
 import android.app.Application
 import androidx.core.content.ContextCompat
+import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
 import com.scwang.smartrefresh.header.DeliveryHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -31,6 +32,6 @@ class UiApplication : Application(), Thread.UncaughtExceptionHandler
 
     override fun uncaughtException(t: Thread, e: Throwable)
     {
-//        AppUtils.relaunchApp(true)
+        AppUtils.relaunchApp(true)
     }
 }
