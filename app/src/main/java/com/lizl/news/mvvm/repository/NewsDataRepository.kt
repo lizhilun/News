@@ -11,4 +11,6 @@ interface NewsDataRepository
     fun getNewsDetail(dailyUrl: String): Any?
 
     fun canLoadMore(): Boolean
+
+    fun getNewsRequestUrl(): String
 }

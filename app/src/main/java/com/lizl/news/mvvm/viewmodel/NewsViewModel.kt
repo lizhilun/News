@@ -10,14 +10,11 @@ import kotlinx.coroutines.launch
 
 class NewsViewModel : ViewModel()
 {
-    private val newsLiveData = MutableLiveData<MutableList<NewsModel>>()
-    private var hasMoreDataLiveData = MutableLiveData<Boolean>()
+    val newsLiveData = MutableLiveData<MutableList<NewsModel>>()
+    var hasMoreDataLiveData = MutableLiveData<Boolean>()
+    val newsRequestFailedLiveData = MutableLiveData<String>()
 
     private lateinit var newsDataRepository: NewsDataRepository
-
-    fun getNewLiveData() = newsLiveData
-
-    fun getHasMoreDataLiveData() = hasMoreDataLiveData
 
     fun setNewsSource(source: String)
     {
@@ -32,6 +29,10 @@ class NewsViewModel : ViewModel()
             val newsList = mutableListOf<NewsModel>()
             newsList.addAll(newsDataRepository.getLatestNews())
             newsLiveData.postValue(newsList)
+            if (newsList.isEmpty())
+            {
+                newsRequestFailedLiveData.postValue(newsDataRepository.getNewsRequestUrl())
+            }
         }
     }
 

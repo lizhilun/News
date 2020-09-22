@@ -22,7 +22,7 @@ class ZhiHuDailyRepository : NewsDataRepository
     override fun getLatestNews(): MutableList<NewsModel>
     {
         curDataDate = DateBean(System.currentTimeMillis())
-        return getDailyData("http://news-at.zhihu.com/api/4/news/latest")
+        return getDailyData(getNewsRequestUrl())
     }
 
     override fun loadMoreNews(): MutableList<NewsModel>
@@ -57,6 +57,8 @@ class ZhiHuDailyRepository : NewsDataRepository
     }
 
     override fun canLoadMore() = true
+
+    override fun getNewsRequestUrl() = "http://news-at.zhihu.com/api/4/news/latest"
 
     private fun getDailyData(url: String): MutableList<NewsModel>
     {

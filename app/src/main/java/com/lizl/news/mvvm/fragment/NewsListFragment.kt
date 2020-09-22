@@ -6,8 +6,10 @@ import com.lizl.news.R
 import com.lizl.news.adapter.NewsListAdapter
 import com.lizl.news.custom.recylerviewitemdivider.ListDividerItemDecoration
 import com.lizl.news.databinding.FragmentNewsListBinding
+import com.lizl.news.mvvm.activity.WebViewActivity
 import com.lizl.news.mvvm.base.BaseFragment
 import com.lizl.news.mvvm.viewmodel.NewsViewModel
+import com.lizl.news.util.ActivityUtil
 import kotlinx.android.synthetic.main.fragment_news_list.*
 
 class NewsListFragment(private val newsSource: String) : BaseFragment<FragmentNewsListBinding>(R.layout.fragment_news_list)
@@ -38,14 +40,21 @@ class NewsListFragment(private val newsSource: String) : BaseFragment<FragmentNe
 
         rv_news_list.addItemDecoration(ListDividerItemDecoration(resources.getDimensionPixelSize(R.dimen.global_content_padding_content)))
 
-        newsViewModel.getNewLiveData().observe(this, Observer {
+        newsViewModel.newsLiveData.observe(this, Observer {
             dataBinding.refreshLayout.finishRefresh()
             newsListAdapter.loadMoreModule?.loadMoreComplete()
             newsListAdapter.setDiffNewData(it.toMutableList())
         })
 
-        newsViewModel.getHasMoreDataLiveData().observe(this, Observer { newsListAdapter.loadMoreModule?.isEnableLoadMore = it })
+        newsViewModel.hasMoreDataLiveData.observe(this, Observer { newsListAdapter.loadMoreModule?.isEnableLoadMore = it })
 
+        newsViewModel.newsRequestFailedLiveData.observe(this, Observer {
+            ActivityUtil.turnToActivity(WebViewActivity::class.java, it)
+        })
+    }
+
+    override fun initLazyData()
+    {
         newsViewModel.setNewsSource(newsSource)
     }
 }

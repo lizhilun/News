@@ -13,7 +13,7 @@ class DailyHotRepository(private val newsSource: String) : NewsDataRepository
         doc.getElementsByClass("al").forEach {
             val newsTitle = it.text()
             val newsUrl = getRealDetailUrl(it.getElementsByTag("a").attr("href"))
-            if (newsList.find { newsModel -> newsModel.title == newsTitle} != null)
+            if (newsList.find { newsModel -> newsModel.title == newsTitle } != null)
             {
                 return@forEach
             }
@@ -27,6 +27,8 @@ class DailyHotRepository(private val newsSource: String) : NewsDataRepository
     override fun getNewsDetail(dailyUrl: String) = ""
 
     override fun canLoadMore() = false
+
+    override fun getNewsRequestUrl() = getRequestUrlBySource(newsSource)
 
     private fun getRequestUrlBySource(newsSource: String): String
     {

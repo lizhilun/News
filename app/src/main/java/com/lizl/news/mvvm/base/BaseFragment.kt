@@ -10,11 +10,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment<DB : ViewDataBinding>(private val layoutId: Int) : Fragment()
+open class BaseFragment<DB : ViewDataBinding>(private val layoutId: Int) : Fragment()
 {
     protected var TAG = this.javaClass.simpleName
 
     protected lateinit var dataBinding: DB
+
+    private var isLazyDataLoad = false
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -39,6 +41,7 @@ abstract class BaseFragment<DB : ViewDataBinding>(private val layoutId: Int) : F
         super.onActivityCreated(savedInstanceState)
 
         initView()
+        initData()
     }
 
     override fun onStart()
@@ -51,6 +54,12 @@ abstract class BaseFragment<DB : ViewDataBinding>(private val layoutId: Int) : F
     {
         Log.d(TAG, "onResume")
         super.onResume()
+
+        if (!isLazyDataLoad)
+        {
+            isLazyDataLoad = true
+            initLazyData()
+        }
     }
 
     override fun onAttach(context: Context)
@@ -89,5 +98,18 @@ abstract class BaseFragment<DB : ViewDataBinding>(private val layoutId: Int) : F
         super.onDestroy()
     }
 
-    abstract fun initView()
+    open fun initView()
+    {
+
+    }
+
+    open fun initData()
+    {
+
+    }
+
+    open fun initLazyData()
+    {
+
+    }
 }
