@@ -30,19 +30,19 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_top"
             style="@style/NewsSourceItemImageStyle"
-            android:src="@drawable/ic_arrow_upward"
+            android:src="@drawable/ic_baseline_arrow_upward_24"
             app:layout_constraintEnd_toStartOf="@+id/iv_down" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_down"
             style="@style/NewsSourceItemImageStyle"
-            android:src="@drawable/ic_arrow_downward"
+            android:src="@drawable/ic_baseline_arrow_downward_24"
             app:layout_constraintEnd_toStartOf="@+id/iv_show" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_show"
             style="@style/NewsSourceItemImageStyle"
-            android:src="@drawable/ic_visible"
+            android:src="@drawable/ic_visibility"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

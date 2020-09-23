@@ -20,7 +20,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
             android:padding="10dp"
-            android:src="@drawable/ic_menu"
+            android:src="@drawable/ic_baseline_menu_24"
             android:tint="@color/colorTextColor"
             app:layout_constraintBottom_toBottomOf="@+id/tl_source_title"
             app:layout_constraintDimensionRatio="H,1:1"

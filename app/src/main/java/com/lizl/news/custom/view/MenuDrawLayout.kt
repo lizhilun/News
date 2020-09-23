@@ -2,8 +2,10 @@ package com.lizl.news.custom.view
 
 import android.content.Context
 import com.lizl.news.R
-import com.lizl.news.adapter.OperationListAdapter
-import com.lizl.news.model.other.OperationItem
+import com.lizl.news.adapter.SettingListAdapter
+import com.lizl.news.model.setting.BaseSettingModel
+import com.lizl.news.model.setting.BooleanSettingModel
+import com.lizl.news.model.setting.TextSettingModel
 import com.lizl.news.mvvm.activity.NewsSourcesConfigActivity
 import com.lizl.news.util.ActivityUtil
 import com.lizl.news.util.NewsUtil
@@ -20,10 +22,14 @@ class MenuDrawLayout(context: Context) : DrawerPopupView(context)
 
         tv_app_introduce.text = context.getString(R.string.app_introduce, NewsUtil.getAllNewsSource().size)
 
-        rv_menu.adapter = OperationListAdapter(mutableListOf<OperationItem>().apply {
+        rv_menu.adapter = SettingListAdapter(mutableListOf<BaseSettingModel>().apply {
 
-            add(OperationItem(context.getString(R.string.news_source), R.drawable.ic_news_source) {
+            add(TextSettingModel(context.getString(R.string.news_source), R.drawable.ic_baseline_news_source_24) {
                 ActivityUtil.turnToActivity(NewsSourcesConfigActivity::class.java)
+            })
+
+            add(BooleanSettingModel(context.getString(R.string.dark_mode_config), R.drawable.ic_baseline_dark_mode_24, true) {
+
             })
         })
     }

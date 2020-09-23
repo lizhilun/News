@@ -28,6 +28,7 @@
     <string name="news_source">新闻源</string>
 
     <string name="news_source_config">新闻源设置</string>
+    <string name="dark_mode_config">暗黑模式</string>
     <string name="success_to_save">保存成功</string>
 
 </resources>

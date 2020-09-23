@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="operationModel"
-            type="com.lizl.news.model.other.OperationItem" />
+            name="settingModel"
+            type="com.lizl.news.model.setting.BaseSettingModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="@dimen/global_content_padding_edge"
             android:tint="@color/colorTextColor"
-            app:imageUri="@{operationModel.icon}"
+            app:imageUri="@{settingModel.icon}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,13 +27,24 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_name"
             style="@style/GlobalTextStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@{operationModel.operationName}"
+            android:gravity="start"
+            android:text="@{settingModel.name}"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_toggle"
             app:layout_constraintStart_toEndOf="@+id/iv_icon"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_toggle"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/global_content_padding_edge"
+            android:src="@drawable/ic_toggle"
+            android:tint="@color/colorSvgTint"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

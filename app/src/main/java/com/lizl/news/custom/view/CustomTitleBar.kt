@@ -38,7 +38,7 @@ class CustomTitleBar(context: Context, attrs: AttributeSet?, defStyleAttr: Int) 
         backBtn = AppCompatImageView(context).apply {
             id = generateViewId()
             scaleType = ImageView.ScaleType.FIT_START
-            setImageResource(R.drawable.ic_back)
+            setImageResource(R.drawable.ic_baseline_arrow_back_24)
             setPadding(0, padding, 0, padding)
             addView(this)
         }

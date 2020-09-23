@@ -4,7 +4,7 @@ import android.view.View
 import com.blankj.utilcode.util.ActivityUtils
 import com.lizl.news.custom.popup.PopupImageViewer
 import com.lizl.news.custom.popup.PopupInfo
-import com.lizl.news.model.other.OperationItem
+import com.lizl.news.model.other.OperationModel
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import kotlinx.coroutines.*
@@ -26,7 +26,7 @@ object PopupUtil
         showPopup(XPopup.Builder(context).asCustom(PopupImageViewer(context, imageList, position)))
     }
 
-    fun showBindViewOperationListPopup(view: View, operationList: List<OperationItem>)
+    fun showBindViewOperationListPopup(view: View, operationList: List<OperationModel>)
     {
         val context = ActivityUtils.getTopActivity() ?: return
 

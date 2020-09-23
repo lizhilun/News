@@ -36,6 +36,8 @@ android {
     dataBinding {
         enabled = true
     }
+
+    sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res-dark'] } }
 }
 
 dependencies {
@@ -67,4 +69,9 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
     implementation 'com.jeremyliao:live-event-bus:1.5.1'
+    def skin_version = '4.0.4'
+    implementation "skin.support:skin-support:${skin_version}"                   // skin-support
+    implementation "skin.support:skin-support-appcompat:${skin_version}"         // skin-support 基础控件支持
+    implementation "skin.support:skin-support-design:${skin_version}"            // skin-support-design material design 控件支持[可选]
+    implementation "skin.support:skin-support-constraint-layout:${skin_version}" // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
 }

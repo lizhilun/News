@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
+import com.lizl.news.config.util.ConfigUtil
+import com.lizl.news.util.SkinUtil
 import com.scwang.smartrefresh.header.DeliveryHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
@@ -16,6 +18,10 @@ class UiApplication : Application(), Thread.UncaughtExceptionHandler
         super.onCreate()
 
         Utils.init(this)
+
+        ConfigUtil.initConfig()
+
+        SkinUtil.init(this)
 
         RichText.initCacheDir(this)
 
