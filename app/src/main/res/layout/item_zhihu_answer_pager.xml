@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:overScrollMode="never">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <skin.support.constraint.SkinCompatConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="@dimen/global_content_padding_edge"
@@ -32,7 +32,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <skin.support.widget.SkinCompatTextView
                 android:id="@+id/tv_author_name"
                 style="@style/GlobalSmallTextStyle"
                 android:layout_width="0dp"
@@ -46,7 +46,7 @@
                 app:layout_constraintTop_toTopOf="@+id/iv_author_avatar"
                 app:layout_constraintVertical_chainStyle="packed" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <skin.support.widget.SkinCompatTextView
                 android:id="@+id/tv_author_bio"
                 style="@style/GlobalSmallTextStyle"
                 android:layout_width="0dp"
@@ -68,7 +68,7 @@
                 app:barrierDirection="bottom"
                 app:constraint_referenced_ids="iv_author_avatar,tv_author_name,tv_author_bio" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <skin.support.widget.SkinCompatTextView
                 android:id="@+id/tv_content"
                 style="@style/GlobalTextStyle"
                 android:layout_width="match_parent"
@@ -77,7 +77,7 @@
                 app:htmlText="@{answerModel.answer}"
                 app:layout_constraintTop_toBottomOf="@+id/barrier_author_info" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </skin.support.constraint.SkinCompatConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 

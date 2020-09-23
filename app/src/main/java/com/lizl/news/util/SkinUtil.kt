@@ -13,7 +13,7 @@ import skin.support.design.app.SkinMaterialViewInflater
 
 object SkinUtil
 {
-    private const val SKIN_DARK = "drak"
+    private const val SKIN_DARK = "dark"
 
     fun init(application: Application)
     {

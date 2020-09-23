@@ -38,6 +38,6 @@ class UiApplication : Application(), Thread.UncaughtExceptionHandler
 
     override fun uncaughtException(t: Thread, e: Throwable)
     {
-        AppUtils.relaunchApp(true)
+//        AppUtils.relaunchApp(true)
     }
 }

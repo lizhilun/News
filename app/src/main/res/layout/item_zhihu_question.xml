@@ -17,11 +17,11 @@
             type="com.lizl.news.adapter.ZhiHuAnswerListAdapter" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <skin.support.constraint.SkinCompatConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <skin.support.widget.SkinCompatTextView
             android:id="@+id/tv_title"
             style="@style/GlobalTitleTextStyle"
             android:layout_width="match_parent"
@@ -40,5 +40,5 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </skin.support.constraint.SkinCompatConstraintLayout>
 </layout>

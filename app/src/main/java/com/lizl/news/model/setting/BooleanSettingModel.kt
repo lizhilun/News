@@ -1,4 +1,10 @@
 package com.lizl.news.model.setting
 
-class BooleanSettingModel(override val name: String, override val icon: Int = -1, var isChecked: Boolean, override val callback: () -> Unit) :
-    BaseSettingModel(name, icon, callback)
+import com.lizl.news.config.util.ConfigUtil
+
+class BooleanSettingModel(val name: String, val key: String, val icon: Int? = null, val callback: ((BooleanSettingModel) -> Unit)? = null) : BaseSettingModel()
+{
+    fun getValue() = ConfigUtil.getBoolean(key)
+
+    fun saveValue(value: Boolean) = ConfigUtil.set(key, value)
+}

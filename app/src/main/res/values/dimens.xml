@@ -19,7 +19,7 @@
     <dimen name="global_toolbar_height">56dp</dimen>
     <dimen name="global_divider_view_height">20dp</dimen>
     <dimen name="global_content_padding_status_bar">5dp</dimen>
-    <dimen name="global_search_height">40dp</dimen>
+    <dimen name="global_check_btn_size">24dp</dimen>
 
     <dimen name="toolbar_content_padding_edge">16dp</dimen>
     <dimen name="toolbar_back_icon_size">@dimen/global_toolbar_height</dimen>
@@ -31,4 +31,8 @@
 
     <dimen name="news_source_item_image_size">48dp</dimen>
     <dimen name="news_source_item_image_padding">12dp</dimen>
+
+    <dimen name="dialog_button_height">60dp</dimen>
+    <dimen name="dialog_button_width">60dp</dimen>
+    <dimen name="dialog_title_text_size">@dimen/global_text_size_biggest</dimen>
 </resources>

@@ -11,11 +11,11 @@
             type="com.lizl.news.model.other.NewsSourceModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <skin.support.constraint.SkinCompatConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/global_short_list_item_height">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <skin.support.widget.SkinCompatTextView
             android:id="@+id/tv_name"
             style="@style/GlobalTextStyle"
             android:layout_width="0dp"
@@ -27,23 +27,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <skin.support.widget.SkinCompatImageView
             android:id="@+id/iv_top"
             style="@style/NewsSourceItemImageStyle"
             android:src="@drawable/ic_baseline_arrow_upward_24"
             app:layout_constraintEnd_toStartOf="@+id/iv_down" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <skin.support.widget.SkinCompatImageView
             android:id="@+id/iv_down"
             style="@style/NewsSourceItemImageStyle"
             android:src="@drawable/ic_baseline_arrow_downward_24"
             app:layout_constraintEnd_toStartOf="@+id/iv_show" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <skin.support.widget.SkinCompatImageView
             android:id="@+id/iv_show"
             style="@style/NewsSourceItemImageStyle"
             android:src="@drawable/ic_visibility"
             app:layout_constraintEnd_toEndOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </skin.support.constraint.SkinCompatConstraintLayout>
 </layout>

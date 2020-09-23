@@ -4,6 +4,7 @@ import android.view.View
 import com.blankj.utilcode.util.ActivityUtils
 import com.lizl.news.custom.popup.PopupImageViewer
 import com.lizl.news.custom.popup.PopupInfo
+import com.lizl.news.custom.popup.PopupRadioGroup
 import com.lizl.news.model.other.OperationModel
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
@@ -42,6 +43,12 @@ object PopupUtil
     {
         val context = ActivityUtils.getTopActivity() ?: return
         showPopup(XPopup.Builder(context).asCustom(PopupInfo(context, content)))
+    }
+
+    fun showRadioGroupPopup(title: String, radioList: List<String>, checkedRadio: String, onSelectFinishListener: (result: String) -> Unit)
+    {
+        val context = ActivityUtils.getTopActivity() ?: return
+        showPopup(XPopup.Builder(context).asCustom(PopupRadioGroup(context, title, radioList, checkedRadio, onSelectFinishListener)))
     }
 
     fun dismissAll()

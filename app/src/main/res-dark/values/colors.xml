@@ -12,4 +12,8 @@
     <color name="colorTransparentBlackBg_night">#CCFFFFFF</color>
     <color name="colorTransparentWhiteBg_night">#CC000000</color>
     <color name="colorSvgTint_night">@color/colorTextColor_night</color>
+
+    <color name="color_dialog_bg_night">#424242</color>
+    <color name="color_dialog_button_text_enable_night">@color/colorPrimary_night</color>
+    <color name="color_dialog_button_text_disable_night">#cc999999</color>
 </resources>

@@ -16,4 +16,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
 
+    <color name="color_dialog_bg">#FFFFFF</color>
+    <color name="color_dialog_button_text_enable">@color/colorPrimary</color>
+    <color name="color_dialog_button_text_disable">#cc999999</color>
+
 </resources>

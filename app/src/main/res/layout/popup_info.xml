@@ -5,7 +5,7 @@
     android:background="@color/colorTransparentWhiteBg"
     android:padding="@dimen/global_content_padding_edge">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <skin.support.widget.SkinCompatTextView
         android:id="@+id/tv_content"
         style="@style/GlobalTextStyle"
         android:layout_width="match_parent"
