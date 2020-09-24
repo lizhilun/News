@@ -39,7 +39,6 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
 
         var dismissProgressBarJob: Job? = null
 
-        webview.isForceDarkAllowed = SkinUtil.isNightModeOn()
         webview.webViewClient = object : WebViewClient()
         {
             override fun onPageFinished(view: WebView, url: String)

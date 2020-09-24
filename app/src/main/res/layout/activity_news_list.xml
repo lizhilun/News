@@ -31,6 +31,7 @@
             android:id="@+id/tl_source_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:overScrollMode="never"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_menu"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,6 +44,7 @@
             android:id="@+id/vp_page"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tl_source_title" />
     </skin.support.constraint.SkinCompatConstraintLayout>

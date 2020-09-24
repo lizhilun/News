@@ -59,6 +59,7 @@
     <style name="SettingItemIconStyle">
         <item name="android:layout_width">24dp</item>
         <item name="android:layout_height">24dp</item>
+        <item name="android:tint">@color/colorSvgTint</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
