@@ -39,8 +39,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tabIndicatorFullWidth="false"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/colorTextColor"
-            app:tabTextColor="@color/colorTextColor" />
+            app:tabTextAppearance="@style/GlobalTextStyle" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_page"
