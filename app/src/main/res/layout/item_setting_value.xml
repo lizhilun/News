@@ -6,7 +6,7 @@
     android:paddingStart="@dimen/global_content_padding_edge"
     android:paddingEnd="@dimen/global_content_padding_edge">
 
-    <skin.support.widget.SkinCompatImageView
+    <com.lizl.news.custom.skin.SkinImageView
         android:id="@+id/iv_value_icon"
         style="@style/SettingItemIconStyle" />
 

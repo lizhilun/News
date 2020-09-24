@@ -3,8 +3,16 @@ package com.lizl.news.mvvm.base
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.SkinAppCompatDelegateImpl
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
+import com.blankj.utilcode.util.BarUtils
+import com.jeremyliao.liveeventbus.LiveEventBus
+import com.lizl.news.R
+import com.lizl.news.constant.EventConstant
+import com.lizl.news.util.SkinUtil
 
 open class BaseActivity<DB : ViewDataBinding>(private val layoutId: Int) : AppCompatActivity()
 {
@@ -20,8 +28,17 @@ open class BaseActivity<DB : ViewDataBinding>(private val layoutId: Int) : AppCo
         dataBinding = DataBindingUtil.setContentView(this, layoutId)
         dataBinding.lifecycleOwner = this
 
+        updateStatusBarColor()
+
         initView()
         initData()
+
+        LiveEventBus.get(EventConstant.EVENT_DARK_MODE_UPDATE).observe(this, Observer { updateStatusBarColor() })
+    }
+
+    private fun updateStatusBarColor()
+    {
+        BarUtils.setStatusBarColor(this, SkinUtil.getColor(this, R.color.colorContentBg))
     }
 
     override fun onResume()
@@ -58,6 +75,11 @@ open class BaseActivity<DB : ViewDataBinding>(private val layoutId: Int) : AppCo
     {
         Log.d(TAG, "onDestroy")
         super.onDestroy()
+    }
+
+    override fun getDelegate(): AppCompatDelegate
+    {
+        return SkinAppCompatDelegateImpl.get(this, this)
     }
 
     open fun initView()

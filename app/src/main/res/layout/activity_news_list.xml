@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <skin.support.widget.SkinCompatImageView
+        <com.lizl.news.custom.skin.SkinImageView
             android:id="@+id/iv_menu"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tl_source_title" />
 
-        <com.google.android.material.tabs.TabLayout
+        <skin.support.design.widget.SkinMaterialTabLayout
             android:id="@+id/tl_source_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,7 +35,9 @@
             app:layout_constraintStart_toEndOf="@+id/iv_menu"
             app:layout_constraintTop_toTopOf="parent"
             app:tabIndicatorFullWidth="false"
-            app:tabMode="scrollable" />
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/colorTextColor"
+            app:tabTextColor="@color/colorTextColor" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_page"

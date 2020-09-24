@@ -5,10 +5,13 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.view.isVisible
+import androidx.webkit.WebSettingsCompat
+import androidx.webkit.WebViewFeature
 import com.lizl.news.R
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.databinding.ActivityWebviewBinding
 import com.lizl.news.mvvm.base.BaseActivity
+import com.lizl.news.util.SkinUtil
 import kotlinx.android.synthetic.main.activity_webview.*
 import kotlinx.coroutines.*
 
@@ -27,10 +30,16 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
         wSetting.safeBrowsingEnabled = true
         wSetting.blockNetworkImage = false
 
+        if (SkinUtil.isNightModeOn() && WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK))
+        {
+            WebSettingsCompat.setForceDark(wSetting, WebSettingsCompat.FORCE_DARK_ON)
+        }
+
         npb_loading_progress.progress = 0
 
         var dismissProgressBarJob: Job? = null
 
+        webview.isForceDarkAllowed = SkinUtil.isNightModeOn()
         webview.webViewClient = object : WebViewClient()
         {
             override fun onPageFinished(view: WebView, url: String)

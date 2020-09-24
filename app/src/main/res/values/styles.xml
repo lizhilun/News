@@ -7,7 +7,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/colorContentBg</item>
-        <item name="android:statusBarColor">@color/colorContentBg</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
@@ -72,5 +71,4 @@
         <item name="android:layout_width">@dimen/dialog_button_width</item>
         <item name="android:gravity">center</item>
     </style>
-
 </resources>

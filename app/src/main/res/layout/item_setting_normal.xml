@@ -6,7 +6,7 @@
     android:paddingStart="@dimen/global_content_padding_edge"
     android:paddingEnd="@dimen/global_content_padding_edge">
 
-    <skin.support.widget.SkinCompatImageView
+    <com.lizl.news.custom.skin.SkinImageView
         android:id="@+id/iv_normal_icon"
         style="@style/SettingItemIconStyle" />
 
@@ -15,8 +15,8 @@
         style="@style/GlobalTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="start"
         android:layout_marginStart="10dp"
+        android:gravity="start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_normal_icon"
         app:layout_constraintTop_toTopOf="parent" />

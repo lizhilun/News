@@ -25,7 +25,7 @@ class PopupRadioGroup(context: Context, private val title: String, private val r
         radioList.forEach {
             val radioButton = SkinCompatRadioButton(context)
             radioButton.setPadding(padding, padding, padding, padding)
-            radioButton.setTextColor(SkinUtil.getGlobalTextColor())
+            radioButton.setTextColor(SkinUtil.getColor(context, R.color.colorTextColor))
             radioButton.setButtonDrawable(R.drawable.ic_check_button)
             radioButton.id = View.generateViewId()
             radioButton.text = it

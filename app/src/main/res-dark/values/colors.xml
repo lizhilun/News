@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary_night">#1B1B1B</color>
-    <color name="colorPrimaryDark_night">#121212</color>
-    <color name="colorAccent_night">#000000</color>
-    <color name="colorDivideLine_night">#888888</color>
-    <color name="colorTextColor_night">#DDDDDD</color>
-    <color name="colorSecondaryTextColor_night">#BBBBBB</color>
-    <color name="colorThirdTextColor_night">#999999</color>
-    <color name="colorWindowBg_night">#272727</color>
-    <color name="colorDivideView_night">#EEEEEE</color>
-    <color name="colorTransparentBlackBg_night">#CCFFFFFF</color>
-    <color name="colorTransparentWhiteBg_night">#CC000000</color>
-    <color name="colorSvgTint_night">@color/colorTextColor_night</color>
+    <color name="colorPrimary_dark">#1B1B1B</color>
+    <color name="colorPrimaryDark_dark">#121212</color>
+    <color name="colorAccent_dark">#000000</color>
+    <color name="colorDivideLine_dark">#888888</color>
+    <color name="colorTextColor_dark">#DDDDDD</color>
+    <color name="colorSecondaryTextColor_dark">#BBBBBB</color>
+    <color name="colorThirdTextColor_dark">#999999</color>
+    <color name="colorContentBg_dark">#272727</color>
+    <color name="colorDivideView_dark">#EEEEEE</color>
+    <color name="colorTransparentBlackBg_dark">#CCFFFFFF</color>
+    <color name="colorTransparentWhiteBg_dark">#CC000000</color>
+    <color name="colorSvgTint_dark">@color/colorTextColor_dark</color>
 
-    <color name="color_dialog_bg_night">#424242</color>
-    <color name="color_dialog_button_text_enable_night">@color/colorPrimary_night</color>
-    <color name="color_dialog_button_text_disable_night">#cc999999</color>
+    <color name="color_dialog_bg_dark">#424242</color>
+    <color name="color_dialog_button_text_enable_dark">@color/colorPrimary_dark</color>
+    <color name="color_dialog_button_text_disable_dark">#cc999999</color>
 </resources>

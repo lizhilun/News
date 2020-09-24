@@ -1,8 +1,8 @@
 package com.lizl.news
 
 import android.app.Application
+import android.util.Log
 import androidx.core.content.ContextCompat
-import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
 import com.lizl.news.config.util.ConfigUtil
 import com.lizl.news.util.SkinUtil
@@ -13,6 +13,8 @@ import com.zzhoujay.richtext.RichText
 
 class UiApplication : Application(), Thread.UncaughtExceptionHandler
 {
+    private val TAG = "UiApplication"
+
     override fun onCreate()
     {
         super.onCreate()
@@ -38,6 +40,7 @@ class UiApplication : Application(), Thread.UncaughtExceptionHandler
 
     override fun uncaughtException(t: Thread, e: Throwable)
     {
+        Log.d(TAG, "uncaughtException() called with: t = [$t], e = [$e]")
 //        AppUtils.relaunchApp(true)
     }
 }

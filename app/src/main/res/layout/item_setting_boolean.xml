@@ -6,7 +6,7 @@
     android:paddingStart="@dimen/global_content_padding_edge"
     android:paddingEnd="@dimen/global_content_padding_edge">
 
-    <skin.support.widget.SkinCompatImageView
+    <com.lizl.news.custom.skin.SkinImageView
         android:id="@+id/iv_boolean_icon"
         style="@style/SettingItemIconStyle" />
 
@@ -23,7 +23,7 @@
         app:layout_constraintStart_toEndOf="@+id/iv_boolean_icon"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <skin.support.widget.SkinCompatImageView
+    <com.lizl.news.custom.skin.SkinImageView
         android:id="@+id/iv_boolean_setting_checked"
         android:layout_width="@dimen/global_check_btn_size"
         android:layout_height="@dimen/global_check_btn_size"

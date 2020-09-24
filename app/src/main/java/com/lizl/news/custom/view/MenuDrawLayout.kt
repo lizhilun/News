@@ -1,9 +1,11 @@
 package com.lizl.news.custom.view
 
 import android.content.Context
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.lizl.news.R
 import com.lizl.news.adapter.SettingListAdapter
 import com.lizl.news.config.constant.ConfigConstant
+import com.lizl.news.constant.EventConstant
 import com.lizl.news.model.setting.BaseSettingModel
 import com.lizl.news.model.setting.NormalSettingModel
 import com.lizl.news.model.setting.StringRadioSettingModel
@@ -32,10 +34,13 @@ class MenuDrawLayout(context: Context) : DrawerPopupView(context)
 
             val darkModeMap = mapOf(ConfigConstant.APP_NIGHT_MODE_ON to context.getString(R.string.on),
                     ConfigConstant.APP_NIGHT_MODE_OFF to context.getString(R.string.off),
-                        ConfigConstant.APP_NIGHT_MODE_FOLLOW_SYSTEM to context.getString(R.string.follow_system))
+                    ConfigConstant.APP_NIGHT_MODE_FOLLOW_SYSTEM to context.getString(R.string.follow_system))
 
             add(StringRadioSettingModel(context.getString(R.string.dark_mode_config), ConfigConstant.CONFIG_DARK_MODE, R.drawable.ic_baseline_dark_mode_24,
-                    darkModeMap) { SkinUtil.loadSkin() })
+                    darkModeMap) {
+                SkinUtil.loadSkin()
+                LiveEventBus.get(EventConstant.EVENT_DARK_MODE_UPDATE).post(true)
+            })
         })
     }
 }
