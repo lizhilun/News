@@ -4,6 +4,7 @@
 
     <data>
 
+        <import type="android.view.View" />
     </data>
 
     <skin.support.constraint.SkinCompatConstraintLayout
@@ -17,9 +18,9 @@
             android:layout_height="56dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="@dimen/global_content_padding_content"
+            android:ellipsize="end"
             android:gravity="start|center_vertical"
             android:maxLines="1"
-            android:ellipsize="end"
             app:layout_constraintEnd_toStartOf="@+id/tv_indicator"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,9 +39,9 @@
             android:id="@+id/vp_answer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            app:overScrollMode="@{View.OVER_SCROLL_NEVER}" />
 
     </skin.support.constraint.SkinCompatConstraintLayout>
 </layout>
