@@ -1,0 +1,24 @@
+package com.lizl.news.model.news.colletion
+
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "newsCollections")
+class NewsCollectionModel(@PrimaryKey(autoGenerate = true)
+                          var id: Long = 0L,
+
+                          @ColumnInfo
+                          var newsSource: String = "",
+
+                          @ColumnInfo
+                          var newsUrl: String = "",
+
+                          @ColumnInfo
+                          var newsContent: String = "",
+
+                          @ColumnInfo
+                          var newsTitle: String = "",
+
+                          @ColumnInfo
+                          var collectionTime: Long = 0L)

@@ -8,7 +8,7 @@
 
         <variable
             name="newsSourceModel"
-            type="com.lizl.news.model.other.NewsSourceModel" />
+            type="com.lizl.news.model.news.source.NewsSourceModel" />
     </data>
 
     <skin.support.constraint.SkinCompatConstraintLayout

@@ -6,12 +6,12 @@ import com.lizl.news.R
 import com.lizl.news.adapter.SettingListAdapter
 import com.lizl.news.config.constant.ConfigConstant
 import com.lizl.news.constant.EventConstant
+import com.lizl.news.dao.AppDatabase
 import com.lizl.news.model.setting.BaseSettingModel
 import com.lizl.news.model.setting.NormalSettingModel
 import com.lizl.news.model.setting.StringRadioSettingModel
 import com.lizl.news.mvvm.activity.NewsSourcesConfigActivity
 import com.lizl.news.util.ActivityUtil
-import com.lizl.news.util.NewsUtil
 import com.lizl.news.util.SkinUtil
 import com.lxj.xpopup.core.DrawerPopupView
 import kotlinx.android.synthetic.main.layout_drawer_menu.view.*
@@ -24,7 +24,7 @@ class MenuDrawLayout(context: Context) : DrawerPopupView(context)
     {
         super.onCreate()
 
-        tv_app_introduce.text = context.getString(R.string.app_introduce, NewsUtil.getAllNewsSource().size)
+        tv_app_introduce.text = context.getString(R.string.app_introduce, AppDatabase.instance.getNewsSourceDao().getAllNewsSourceCount())
 
         rv_menu.adapter = SettingListAdapter(mutableListOf<BaseSettingModel>().apply {
 

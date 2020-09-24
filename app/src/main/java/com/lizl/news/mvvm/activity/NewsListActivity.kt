@@ -3,11 +3,10 @@ package com.lizl.news.mvvm.activity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.tabs.TabLayoutMediator
-import com.jeremyliao.liveeventbus.LiveEventBus
 import com.lizl.news.R
 import com.lizl.news.adapter.FragmentPagerAdapter
-import com.lizl.news.constant.EventConstant
 import com.lizl.news.custom.view.MenuDrawLayout
+import com.lizl.news.dao.AppDatabase
 import com.lizl.news.databinding.ActivityNewsListBinding
 import com.lizl.news.mvvm.base.BaseActivity
 import com.lizl.news.mvvm.fragment.NewsListFragment
@@ -34,25 +33,18 @@ class NewsListActivity : BaseActivity<ActivityNewsListBinding>(R.layout.activity
 
     override fun initData()
     {
-        LiveEventBus.get(EventConstant.EVENT_NEWS_SOURCES_UPDATE).observe(this, Observer { setNewsSources() })
+        AppDatabase.instance.getNewsSourceDao().getVisibleNewsSourceLiveData().observe(this, Observer { newsSources ->
+            val fragmentList = mutableListOf<Fragment>().apply { newsSources.forEach { add(NewsListFragment(it.newSource)) } }
+            fragmentPagersAdapter.setFragmentList(fragmentList)
+            vp_page.offscreenPageLimit = 2
+            vp_page.setCurrentItem(0, false)
 
-        setNewsSources()
-    }
-
-    private fun setNewsSources()
-    {
-        val newsSources = NewsUtil.getVisibleNewsSource()
-
-        val fragmentList = mutableListOf<Fragment>().apply { newsSources.forEach { add(NewsListFragment(it.newSource)) } }
-        fragmentPagersAdapter.setFragmentList(fragmentList)
-        vp_page.offscreenPageLimit = 2
-        vp_page.setCurrentItem(0, false)
-
-        tabLayoutMediator?.detach()
-        tabLayoutMediator = TabLayoutMediator(tl_source_title, vp_page, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-            if (position >= newsSources.size) return@TabConfigurationStrategy
-            tab.text = NewsUtil.getNewsSourceName(newsSources[position].newSource)
+            tabLayoutMediator?.detach()
+            tabLayoutMediator = TabLayoutMediator(tl_source_title, vp_page, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+                if (position >= newsSources.size) return@TabConfigurationStrategy
+                tab.text = NewsUtil.getNewsSourceName(newsSources[position].newSource)
+            })
+            tabLayoutMediator?.attach()
         })
-        tabLayoutMediator?.attach()
     }
 }

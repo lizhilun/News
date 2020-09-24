@@ -5,7 +5,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lizl.news.R
 import com.lizl.news.databinding.ItemNewsSourceBinding
-import com.lizl.news.model.other.NewsSourceModel
+import com.lizl.news.model.news.source.NewsSourceModel
 import com.lizl.news.util.NewsUtil
 
 class NewsSourceListAdapter(sourceList: MutableList<NewsSourceModel> = mutableListOf()) :
@@ -44,8 +44,8 @@ class NewsSourceListAdapter(sourceList: MutableList<NewsSourceModel> = mutableLi
         val position = getItemPosition(model)
         if (position <= 0) return
         val upperModel = getItemOrNull(position - 1) ?: return
-        model.index = position - 1
-        upperModel.index = position
+        model.position = position - 1
+        upperModel.position = position
         data[position - 1] = model
         data[position] = upperModel
         notifyItemMoved(position, position - 1)
@@ -56,8 +56,8 @@ class NewsSourceListAdapter(sourceList: MutableList<NewsSourceModel> = mutableLi
         val position = getItemPosition(model)
         if (position < 0 || position >= getDefItemCount() - 1) return
         val downModel = getItemOrNull(position + 1) ?: return
-        model.index = position + 1
-        downModel.index = position
+        model.position = position + 1
+        downModel.position = position
         data[position + 1] = model
         data[position] = downModel
         notifyItemMoved(position, position + 1)
