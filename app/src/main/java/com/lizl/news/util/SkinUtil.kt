@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.Utils
 import com.lizl.news.config.AppConfig
 import com.lizl.news.config.constant.ConfigConstant
 import skin.support.SkinCompatManager
+import skin.support.SkinCompatManager.SkinLoaderListener
 import skin.support.app.SkinAppCompatViewInflater
 import skin.support.constraint.app.SkinConstraintViewInflater
 import skin.support.content.res.SkinCompatResources
@@ -22,18 +23,36 @@ object SkinUtil
             .addInflater(SkinMaterialViewInflater())            // material design 控件换肤初始化[可选]
             .addInflater(SkinConstraintViewInflater())          // ConstraintLayout 控件换肤初始化[可选]
             .setSkinWindowBackgroundEnable(true)               // windowBg换肤
+            .setSkinStatusBarColorEnable(true)
         loadSkin()
     }
 
-    fun loadSkin()
+    fun loadSkin(callback: ((Boolean) -> Unit)? = null)
     {
+        val skinLoadListener = object : SkinLoaderListener
+        {
+            override fun onSuccess()
+            {
+                callback?.invoke(true)
+            }
+
+            override fun onFailed(errMsg: String?)
+            {
+                callback?.invoke(false)
+            }
+
+            override fun onStart()
+            {
+            }
+        }
+
         if (isNightModeOn())
         {
-            SkinCompatManager.getInstance().loadSkin(SKIN_DARK, SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN)
+            SkinCompatManager.getInstance().loadSkin(SKIN_DARK, skinLoadListener, SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN)
         }
         else
         {
-            SkinCompatManager.getInstance().restoreDefaultTheme()
+            SkinCompatManager.getInstance().loadSkin("", skinLoadListener, SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN)
         }
     }
 

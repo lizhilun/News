@@ -38,8 +38,9 @@ class MenuDrawLayout(context: Context) : DrawerPopupView(context)
 
             add(StringRadioSettingModel(context.getString(R.string.dark_mode_config), ConfigConstant.CONFIG_DARK_MODE, R.drawable.ic_baseline_dark_mode_24,
                     darkModeMap) {
-                SkinUtil.loadSkin()
-                LiveEventBus.get(EventConstant.EVENT_DARK_MODE_UPDATE).post(true)
+                SkinUtil.loadSkin {
+                    LiveEventBus.get(EventConstant.EVENT_DARK_MODE_UPDATE).post(true)
+                }
             })
         })
     }

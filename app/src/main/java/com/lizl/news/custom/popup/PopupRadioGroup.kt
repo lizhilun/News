@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatRadioButton
 import com.lizl.news.R
-import com.lizl.news.util.SkinUtil
 import com.lxj.xpopup.core.CenterPopupView
 import kotlinx.android.synthetic.main.popup_radio_group.view.*
 import skin.support.widget.SkinCompatRadioButton
@@ -25,7 +24,7 @@ class PopupRadioGroup(context: Context, private val title: String, private val r
         radioList.forEach {
             val radioButton = SkinCompatRadioButton(context)
             radioButton.setPadding(padding, padding, padding, padding)
-            radioButton.setTextColor(SkinUtil.getColor(context, R.color.colorTextColor))
+            radioButton.setTextAppearance(R.style.GlobalTextStyle)
             radioButton.setButtonDrawable(R.drawable.ic_check_button)
             radioButton.id = View.generateViewId()
             radioButton.text = it

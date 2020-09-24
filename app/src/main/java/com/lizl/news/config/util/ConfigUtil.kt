@@ -44,9 +44,9 @@ object ConfigUtil
     {
         when (value)
         {
-            is Boolean -> SPUtils.getInstance().put(configKey, value)
-            is String  -> SPUtils.getInstance().put(configKey, value)
-            is Long    -> SPUtils.getInstance().put(configKey, value)
+            is Boolean -> SPUtils.getInstance().put(configKey, value, true)
+            is String  -> SPUtils.getInstance().put(configKey, value, true)
+            is Long    -> SPUtils.getInstance().put(configKey, value, true)
         }
     }
 
