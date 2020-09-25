@@ -10,6 +10,7 @@ import com.lizl.news.model.news.colletion.NewsCollectionModel
 import com.lizl.news.model.news.zhihu.daily.ZhiHuDailyDetailModel
 import com.lizl.news.mvvm.base.BaseActivity
 import com.lizl.news.mvvm.repository.RepositoryManager
+import com.zzhoujay.richtext.RichText
 import kotlinx.android.synthetic.main.activity_webview.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -55,5 +56,12 @@ class ZhiHuDetailActivity : BaseActivity<ActivityZhihuDailyDetailBinding>(R.layo
                 }
             }
         }
+    }
+
+    override fun onDestroy()
+    {
+        super.onDestroy()
+
+        RichText.recycle()
     }
 }

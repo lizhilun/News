@@ -10,6 +10,7 @@ import com.lizl.news.custom.function.registerOnPageChangeCallback
 import com.lizl.news.databinding.ActivityZhihuTopDetailBinding
 import com.lizl.news.mvvm.base.BaseActivity
 import com.lizl.news.mvvm.viewmodel.ZhiHuTopViewModel
+import com.zzhoujay.richtext.RichText
 import kotlinx.android.synthetic.main.activity_zhihu_top_detail.*
 
 class ZhiHuTopDetailActivity : BaseActivity<ActivityZhihuTopDetailBinding>(R.layout.activity_zhihu_top_detail)
@@ -43,5 +44,12 @@ class ZhiHuTopDetailActivity : BaseActivity<ActivityZhihuTopDetailBinding>(R.lay
     private fun updateIndicator()
     {
         tv_indicator.text = "${vp_answer.currentItem + 1}/${viewModel.getAnswerCountLiveData().value ?: 0}"
+    }
+
+    override fun onDestroy()
+    {
+        super.onDestroy()
+
+        RichText.recycle()
     }
 }
