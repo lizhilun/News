@@ -39,6 +39,12 @@
                 android:background="@color/transparent" />
 
         </androidx.core.widget.NestedScrollView>
+
+        <skin.support.design.widget.SkinMaterialFloatingActionButton
+            android:id="@+id/fab_collect"
+            style="@style/GlobalFABStyle"
+            app:srcCompat="@drawable/ic_collect" />
+
     </skin.support.constraint.SkinCompatConstraintLayout>
 
 </layout>

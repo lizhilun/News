@@ -39,6 +39,10 @@
         <activity
             android:name=".mvvm.activity.NewsSourcesConfigActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".mvvm.activity.NewsCollectionActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

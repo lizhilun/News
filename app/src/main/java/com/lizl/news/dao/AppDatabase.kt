@@ -31,6 +31,7 @@ abstract class AppDatabase : RoomDatabase()
                     var index = 0
                     sourceList.forEach { add(NewsSourceModel(newSource = it, position = index++, visible = true)) }
                     GlobalScope.launch {
+                        //TODO:延时处理防止死锁
                         delay(200)
                         instance.getNewsSourceDao().insertList(this@apply)
                     }

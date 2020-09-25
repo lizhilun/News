@@ -6,13 +6,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lizl.news.R
-import com.lizl.news.constant.AppConstant
 import com.lizl.news.custom.other.CustomDiffUtil
 import com.lizl.news.databinding.ItemNewsBinding
 import com.lizl.news.model.news.NewsModel
-import com.lizl.news.mvvm.activity.WebViewActivity
-import com.lizl.news.mvvm.activity.ZhiHuDetailActivity
-import com.lizl.news.mvvm.activity.ZhiHuTopDetailActivity
 import com.lizl.news.util.ActivityUtil
 
 class NewsListAdapter : BaseQuickAdapter<NewsModel, BaseViewHolder>(R.layout.item_news), LoadMoreModule
@@ -40,14 +36,7 @@ class NewsListAdapter : BaseQuickAdapter<NewsModel, BaseViewHolder>(R.layout.ite
                 rvImage.adapter = ImageGridAdapter(item.coverImageList.toMutableList())
             }
 
-            helper.itemView.setOnClickListener {
-                when (item.source)
-                {
-                    AppConstant.NEWS_SOURCE_ZHIHU_DAILY -> ActivityUtil.turnToActivity(ZhiHuDetailActivity::class.java, item.detailUrl)
-                    AppConstant.NEWS_SOURCE_ZHIHU_TOP   -> ActivityUtil.turnToActivity(ZhiHuTopDetailActivity::class.java, item.detailUrl)
-                    else                                -> ActivityUtil.turnToActivity(WebViewActivity::class.java, item.detailUrl)
-                }
-            }
+            helper.itemView.setOnClickListener { ActivityUtil.turnToNewsDetailActivity(item.source, item.title, item.detailUrl) }
 
             executePendingBindings()
         }

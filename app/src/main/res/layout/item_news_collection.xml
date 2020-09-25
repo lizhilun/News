@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="newsCollectionModel"
+            type="com.lizl.news.model.news.colletion.NewsCollectionModel" />
+    </data>
+
+    <skin.support.constraint.SkinCompatConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/global_content_padding_edge"
+        android:paddingEnd="@dimen/global_content_padding_edge"
+        android:paddingBottom="@dimen/global_content_padding_edge">
+
+        <skin.support.widget.SkinCompatTextView
+            android:id="@+id/tv_title"
+            style="@style/GlobalTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{newsCollectionModel.newsTitle}"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <skin.support.widget.SkinCompatTextView
+            android:id="@+id/tv_news_source"
+            style="@style/GlobalSecondarySmallerTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    </skin.support.constraint.SkinCompatConstraintLayout>
+</layout>

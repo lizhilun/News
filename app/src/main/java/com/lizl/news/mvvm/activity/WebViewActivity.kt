@@ -5,11 +5,14 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import com.lizl.news.R
 import com.lizl.news.constant.AppConstant
+import com.lizl.news.dao.AppDatabase
 import com.lizl.news.databinding.ActivityWebviewBinding
+import com.lizl.news.model.news.colletion.NewsCollectionModel
 import com.lizl.news.mvvm.base.BaseActivity
 import com.lizl.news.util.SkinUtil
 import kotlinx.android.synthetic.main.activity_webview.*
@@ -19,10 +22,6 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
 {
     override fun initView()
     {
-        val detailUrl = intent?.getStringExtra(AppConstant.BUNDLE_DATA_STRING).orEmpty()
-
-        Log.d(TAG, "initView() detailUrl：${detailUrl}")
-
         val wSetting = webview.settings
         wSetting.javaScriptEnabled = true
         wSetting.databaseEnabled = true
@@ -76,7 +75,48 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
                 super.onProgressChanged(view, newProgress)
             }
         }
+    }
+
+    override fun initData()
+    {
+        val newsTitle = intent?.getStringExtra(AppConstant.BUNDLE_NEWS_TITLE)
+        val newsSource = intent?.getStringExtra(AppConstant.BUNDLE_NEWS_SOURCE).orEmpty()
+        val detailUrl = when
+        {
+            newsTitle?.isNotBlank() == true -> intent?.getStringExtra(AppConstant.BUNDLE_NEWS_URL)
+            else                            -> intent?.getStringExtra(AppConstant.BUNDLE_URL)
+        }.orEmpty()
+
+        Log.d(TAG, "initView() detailUrl：${detailUrl}")
 
         webview.loadUrl(detailUrl)
+
+        val isNewsMode = newsTitle?.isNotBlank() == true && detailUrl.isNotBlank()
+
+        fab_collect.isVisible = isNewsMode
+
+        if (isNewsMode)
+        {
+            var collectionModel: NewsCollectionModel? = null
+
+            AppDatabase.instance.getNewsCollectionDao().findCollection(newsTitle.orEmpty(), detailUrl.orEmpty()).observe(this, Observer {
+                collectionModel = it
+                fab_collect.isSelected = it != null
+            })
+
+            fab_collect.setOnClickListener {
+                if (fab_collect.isSelected && collectionModel != null)
+                {
+                    AppDatabase.instance.getNewsCollectionDao().delete(collectionModel!!)
+                }
+                else
+                {
+                    collectionModel = NewsCollectionModel(newsSource = newsSource, newsTitle = newsTitle.orEmpty(), newsUrl = detailUrl,
+                            collectionTime = System.currentTimeMillis()).apply {
+                        AppDatabase.instance.getNewsCollectionDao().insert(this)
+                    }
+                }
+            }
+        }
     }
 }

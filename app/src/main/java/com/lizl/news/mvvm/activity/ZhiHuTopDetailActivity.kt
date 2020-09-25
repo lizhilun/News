@@ -19,7 +19,7 @@ class ZhiHuTopDetailActivity : BaseActivity<ActivityZhihuTopDetailBinding>(R.lay
 
     override fun initView()
     {
-        val detailUrl = intent?.getStringExtra(AppConstant.BUNDLE_DATA_STRING).orEmpty()
+        val detailUrl = intent?.getStringExtra(AppConstant.BUNDLE_NEWS_URL).orEmpty()
 
         val zhiHuAnswerPagerAdapter = ZhiHuAnswerPagerAdapter()
         vp_answer.adapter = zhiHuAnswerPagerAdapter

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="newsCollectionListAdapter"
+            type="com.lizl.news.adapter.NewsCollectionListAdapter" />
+    </data>
+
+    <skin.support.constraint.SkinCompatConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.lizl.news.custom.view.CustomTitleBar
+            android:id="@+id/ctb_title"
+            style="@style/ToolbarLayoutStyle"
+            app:titleText="@string/news_collection" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_collection_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:overScrollMode="never"
+            app:adapter="@{newsCollectionListAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ctb_title" />
+    </skin.support.constraint.SkinCompatConstraintLayout>
+</layout>

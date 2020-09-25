@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.lizl.news.R
 import com.lizl.news.adapter.NewsListAdapter
+import com.lizl.news.constant.AppConstant
 import com.lizl.news.custom.recylerviewitemdivider.ListDividerItemDecoration
 import com.lizl.news.databinding.FragmentNewsListBinding
 import com.lizl.news.mvvm.activity.WebViewActivity
@@ -58,7 +59,7 @@ class NewsListFragment(private val newsSource: String) : BaseFragment<FragmentNe
 
         tv_notify.setOnClickListener {
             val requestUrl = newsViewModel.newsRequestFailedLiveData.value ?: return@setOnClickListener
-            ActivityUtil.turnToActivity(WebViewActivity::class.java, requestUrl)
+            ActivityUtil.turnToActivity(WebViewActivity::class.java, Pair(AppConstant.BUNDLE_URL, it))
         }
     }
 }

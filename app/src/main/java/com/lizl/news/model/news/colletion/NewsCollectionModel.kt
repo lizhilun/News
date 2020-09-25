@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "newsCollections")
-class NewsCollectionModel(@PrimaryKey(autoGenerate = true)
+data class NewsCollectionModel(@PrimaryKey(autoGenerate = true)
                           var id: Long = 0L,
 
                           @ColumnInfo
@@ -13,9 +13,6 @@ class NewsCollectionModel(@PrimaryKey(autoGenerate = true)
 
                           @ColumnInfo
                           var newsUrl: String = "",
-
-                          @ColumnInfo
-                          var newsContent: String = "",
 
                           @ColumnInfo
                           var newsTitle: String = "",
