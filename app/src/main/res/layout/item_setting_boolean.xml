@@ -15,7 +15,7 @@
         style="@style/GlobalTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="@dimen/global_content_padding_content"
         android:gravity="start|center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"

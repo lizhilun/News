@@ -2,12 +2,11 @@ package com.lizl.news
 
 import android.app.Application
 import android.util.Log
-import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
 import com.lizl.news.config.util.ConfigUtil
 import com.lizl.news.util.SkinUtil
-import com.scwang.smartrefresh.header.DeliveryHeader
+import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.zzhoujay.richtext.RichText
@@ -31,10 +30,12 @@ class UiApplication : Application(), Thread.UncaughtExceptionHandler
         //初始化SmartRefreshLayout全局Header
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
             layout.setPrimaryColorsId(R.color.colorPrimary, R.color.white) //全局设置主题颜色
-            DeliveryHeader(context).apply { setBackgroundColor(ContextCompat.getColor(context, R.color.colorDivideView)) }
+            MaterialHeader(context)
         }
         //初始化SmartRefreshLayout全局Footer
-        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout -> BallPulseFooter(context) }
+        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
+            BallPulseFooter(context)
+        }
 
         Thread.setDefaultUncaughtExceptionHandler(this)
     }
