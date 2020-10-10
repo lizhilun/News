@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<skin.support.constraint.SkinCompatConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorTransparentBlackBg">
+    android:background="@color/black">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/rv_image_pager"
@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:overScrollMode="never" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <skin.support.widget.SkinCompatTextView
         android:id="@+id/tv_indicator"
         style="@style/GlobalTextStyle"
         android:layout_width="wrap_content"
@@ -19,4 +19,4 @@
         android:padding="@dimen/global_content_padding_edge"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</skin.support.constraint.SkinCompatConstraintLayout>

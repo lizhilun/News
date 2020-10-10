@@ -38,7 +38,7 @@ class ZhiHuDetailActivity : BaseActivity<ActivityZhihuDailyDetailBinding>(R.layo
 
         var collectionModel: NewsCollectionModel? = null
 
-        AppDatabase.instance.getNewsCollectionDao().findCollection(newsTitle.orEmpty(), detailUrl.orEmpty()).observe(this, Observer {
+        AppDatabase.instance.getNewsCollectionDao().findCollection(newsTitle.orEmpty(), newsSource).observe(this, Observer {
             collectionModel = it
             fab_collect.isSelected = it != null
         })

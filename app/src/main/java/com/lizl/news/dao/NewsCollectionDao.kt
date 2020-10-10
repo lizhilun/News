@@ -11,6 +11,6 @@ interface NewsCollectionDao : BaseDao<NewsCollectionModel>
     @Query("select * from newsCollections")
     fun getAllNewConnectionLiveData(): LiveData<MutableList<NewsCollectionModel>>
 
-    @Query("select * from newsCollections where newsTitle == :title and newsUrl == :url")
-    fun findCollection(title: String, url: String): LiveData<NewsCollectionModel?>
+    @Query("select * from newsCollections where newsTitle == :title and newsSource == :source")
+    fun findCollection(title: String, source: String): LiveData<NewsCollectionModel?>
 }
