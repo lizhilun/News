@@ -66,13 +66,13 @@ class SettingListAdapter(settingList: MutableList<BaseSettingModel>) : BaseDeleg
                     iv_boolean_icon.setImageResource(it)
                 }
 
-                val isChecked = settingModel.getValue()
                 tv_boolean_setting_name.text = settingModel.name
-                iv_boolean_setting_checked.isSelected = isChecked
+                iv_boolean_setting_checked.isSelected = settingModel.getValue()
 
                 setOnClickListener {
+                    val isChecked = settingModel.getValue()
                     settingModel.saveValue(!isChecked)
-                    update(settingModel)
+                    iv_boolean_setting_checked.isSelected = !isChecked
                     settingModel.callback?.invoke(settingModel)
                 }
             }

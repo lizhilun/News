@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import com.lizl.news.R
+import com.lizl.news.config.AppConfig
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.dao.AppDatabase
 import com.lizl.news.databinding.ActivityWebviewBinding
@@ -27,7 +28,7 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
         wSetting.databaseEnabled = true
         wSetting.domStorageEnabled = true
         wSetting.safeBrowsingEnabled = true
-        wSetting.blockNetworkImage = false
+        wSetting.blockNetworkImage = AppConfig.isNoImage()
 
         if (SkinUtil.isNightModeOn() && WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK))
         {

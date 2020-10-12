@@ -7,10 +7,7 @@ import com.lizl.news.adapter.SettingListAdapter
 import com.lizl.news.config.constant.ConfigConstant
 import com.lizl.news.constant.EventConstant
 import com.lizl.news.dao.AppDatabase
-import com.lizl.news.model.setting.BaseSettingModel
-import com.lizl.news.model.setting.DividerSettingModel
-import com.lizl.news.model.setting.NormalSettingModel
-import com.lizl.news.model.setting.StringRadioSettingModel
+import com.lizl.news.model.setting.*
 import com.lizl.news.mvvm.activity.NewsCollectionActivity
 import com.lizl.news.mvvm.activity.NewsSourcesConfigActivity
 import com.lizl.news.util.ActivityUtil
@@ -44,6 +41,8 @@ class MenuDrawLayout(context: Context) : DrawerPopupView(context)
                     LiveEventBus.get(EventConstant.EVENT_DARK_MODE_UPDATE).post(true)
                 }
             })
+
+            add(BooleanSettingModel(context.getString(R.string.no_image_config), ConfigConstant.CONFIG_NO_IMAGE, R.drawable.ic_baseline_broken_image_24))
 
             add(DividerSettingModel())
 

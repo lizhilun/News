@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.lizl.news.GlideApp
+import com.lizl.news.R
+import com.lizl.news.config.AppConfig
 import com.zzhoujay.richtext.CacheType
 import com.zzhoujay.richtext.ImageHolder
 import com.zzhoujay.richtext.RichText
@@ -30,7 +32,14 @@ object DataBindUtil
     fun bindImageUrl(imageView: ImageView, imageUri: String?)
     {
         if (imageUri.isNullOrEmpty()) return
-        GlideApp.with(imageView).load(imageUri).into(imageView)
+        if (AppConfig.isNoImage())
+        {
+            GlideApp.with(imageView).load(R.drawable.ic_baseline_broken_image_24).into(imageView)
+        }
+        else
+        {
+            GlideApp.with(imageView).load(imageUri).into(imageView)
+        }
     }
 
     @JvmStatic
@@ -115,7 +124,7 @@ object DataBindUtil
                 override fun onImageReady(holder: ImageHolder?, width: Int, height: Int)
                 {
                 }
-            }).noImage(false) // 不显示并且不加载图片
+            }).noImage(AppConfig.isNoImage()) // 不显示并且不加载图片
             .resetSize(false) // 默认false，是否忽略img标签中的宽高尺寸（只在img标签中存在宽高时才有效），
             // true：忽略标签中的尺寸并触发SIZE_READY回调，false：使用img标签中的宽高尺寸，不触发SIZE_READY回调
             .clickable(true) // 是否可点击，默认只有设置了点击监听才可点击

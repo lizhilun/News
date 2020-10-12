@@ -1,5 +1,6 @@
 package com.lizl.news.config.constant
 
+import com.lizl.news.config.annotation.BooleanConfig
 import com.lizl.news.config.annotation.StringConfig
 
 object ConfigConstant
@@ -12,4 +13,8 @@ object ConfigConstant
     //暗黑模式
     @StringConfig(APP_NIGHT_MODE_FOLLOW_SYSTEM)
     const val CONFIG_DARK_MODE = "CONFIG_DARK_MODE"
+
+    //无图模式
+    @BooleanConfig(false)
+    const val CONFIG_NO_IMAGE = "CONFIG_NO_IMAGE"
 }
