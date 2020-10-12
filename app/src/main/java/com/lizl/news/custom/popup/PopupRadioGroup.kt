@@ -22,12 +22,13 @@ class PopupRadioGroup(context: Context, private val title: String, private val r
         val padding = context.resources.getDimensionPixelOffset(R.dimen.global_content_padding_content) / 2
 
         radioList.forEach {
-            val radioButton = SkinCompatRadioButton(context)
-            radioButton.setPadding(padding, padding, padding, padding)
-            radioButton.setTextAppearance(R.style.GlobalTextStyle)
-            radioButton.setButtonDrawable(R.drawable.ic_check_button)
-            radioButton.id = View.generateViewId()
-            radioButton.text = it
+            val radioButton = SkinCompatRadioButton(context).apply {
+                setPadding(padding, padding, padding, padding)
+                setTextAppearance(R.style.GlobalTextStyle)
+                setButtonDrawable(R.drawable.ic_check_button)
+                id = View.generateViewId()
+                text = it
+            }
             rv_radio_group.addView(radioButton, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             if (it == checkedRadio)
             {

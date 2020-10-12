@@ -9,7 +9,6 @@ import com.lizl.news.custom.other.CustomDiffUtil
 import com.lizl.news.databinding.ItemNewsCollectionBinding
 import com.lizl.news.model.news.colletion.NewsCollectionModel
 import com.lizl.news.util.ActivityUtil
-import com.lizl.news.util.NewsUtil
 
 class NewsCollectionListAdapter : BaseQuickAdapter<NewsCollectionModel, BaseViewHolder>(R.layout.item_news_collection), LoadMoreModule
 {
@@ -29,8 +28,6 @@ class NewsCollectionListAdapter : BaseQuickAdapter<NewsCollectionModel, BaseView
         helper.getBinding<ItemNewsCollectionBinding>()?.apply {
 
             newsCollectionModel = item
-
-            tvNewsSource.text = NewsUtil.getNewsSourceName(item.newsSource)
 
             helper.itemView.setOnClickListener { ActivityUtil.turnToNewsDetailActivity(item.newsSource, item.newsTitle, item.newsUrl) }
 

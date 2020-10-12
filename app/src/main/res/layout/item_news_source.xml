@@ -25,7 +25,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iv_top"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:strText="@{NewsUtil.INSTANCE.getNewsSourceName(newsSourceModel.newSource)}" />
 
         <com.lizl.news.custom.skin.SkinImageView
             android:id="@+id/iv_top"
@@ -44,6 +45,7 @@
             style="@style/NewsSourceItemImageStyle"
             android:layout_marginEnd="8dp"
             android:src="@drawable/ic_visibility"
+            app:isSelected="@{newsSourceModel.visible}"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </skin.support.constraint.SkinCompatConstraintLayout>

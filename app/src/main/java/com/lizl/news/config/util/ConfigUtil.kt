@@ -25,20 +25,11 @@ object ConfigUtil
         }
     }
 
-    fun getBoolean(configKey: String): Boolean
-    {
-        return SPUtils.getInstance().getBoolean(configKey, getBooleanDefault(configKey))
-    }
+    fun getBoolean(configKey: String): Boolean = SPUtils.getInstance().getBoolean(configKey, getDefault(configKey, false))
 
-    fun getLong(configKey: String): Long
-    {
-        return SPUtils.getInstance().getLong(configKey, getLongDefault(configKey))
-    }
+    fun getLong(configKey: String): Long = SPUtils.getInstance().getLong(configKey, getDefault(configKey, 0L))
 
-    fun getString(configKey: String): String
-    {
-        return SPUtils.getInstance().getString(configKey, getStringDefault(configKey))
-    }
+    fun getString(configKey: String): String = SPUtils.getInstance().getString(configKey, getDefault(configKey, ""))
 
     fun set(configKey: String, value: Any)
     {
@@ -50,33 +41,9 @@ object ConfigUtil
         }
     }
 
-    private fun getBooleanDefault(configKey: String): Boolean
+    private inline fun <reified T> getDefault(configKey: String, valueIfNotFind: T): T
     {
         val defaultValue = defaultConfigMap[configKey]
-        if (defaultValue is Boolean)
-        {
-            return defaultValue
-        }
-        return false
-    }
-
-    private fun getLongDefault(configKey: String): Long
-    {
-        val defaultValue = defaultConfigMap[configKey]
-        if (defaultValue is Long)
-        {
-            return defaultValue
-        }
-        return 0L
-    }
-
-    private fun getStringDefault(configKey: String): String
-    {
-        val defaultValue = defaultConfigMap[configKey]
-        if (defaultValue is String)
-        {
-            return defaultValue
-        }
-        return ""
+        return if (defaultValue is T) defaultValue else valueIfNotFind
     }
 }

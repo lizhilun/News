@@ -1,5 +1,6 @@
 package com.lizl.news.util
 
+import android.view.View
 import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
@@ -69,6 +70,13 @@ object DataBindUtil
     fun bindText(textView: TextView, strText: Any?)
     {
         textView.text = strText?.toString()
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:isSelected")
+    fun bindSelected(view: View, isSelected: Boolean)
+    {
+        view.isSelected = isSelected
     }
 
     @JvmStatic

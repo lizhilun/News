@@ -6,6 +6,8 @@ import org.jsoup.Jsoup
 
 class DailyHotRepository(private val newsSource: String) : NewsDataRepository
 {
+    private val baseUrl = "https://tophub.today"
+
     override fun getLatestNews(): MutableList<NewsModel>
     {
         val newsList = mutableListOf<NewsModel>()
@@ -34,17 +36,17 @@ class DailyHotRepository(private val newsSource: String) : NewsDataRepository
     {
         return when (newsSource)
         {
-            AppConstant.NEWS_SOURCE_DAILY_36_KR     -> "https://tophub.today/n/Q1Vd5Ko85R"
-            AppConstant.NEWS_SOURCE_DAILY_IT_HOME   -> "https://tophub.today/n/74Kvx59dkx"
-            AppConstant.NEWS_SOURCE_DAILY_SS_PAI    -> "https://tophub.today/n/Y2KeDGQdNP"
-            AppConstant.NEWS_SOURCE_DAILY_HU_XIU    -> "https://tophub.today/n/5VaobgvAj1"
-            AppConstant.NEWS_SOURCE_DAILY_JIAN_DAN  -> "https://tophub.today/n/NRrvWq3e5z"
-            AppConstant.NEWS_SOURCE_DAILY_HU_PU     -> "https://tophub.today/n/G47o8weMmN"
-            AppConstant.NEWS_SOURCE_DAILY_THE_PAPER -> "https://tophub.today/n/wWmoO5Rd4E"
-            AppConstant.NEWS_SOURCE_DAILY_WEIBO     -> "https://tophub.today/n/KqndgxeLl9"
-            AppConstant.NEWS_SOURCE_DAILY_V2EX      -> "https://tophub.today/n/wWmoORe4EO"
-            AppConstant.NEWS_SOURCE_DAILY_GAME_CORE -> "https://tophub.today/n/wWmoOVYe4E"
-            AppConstant.NEWS_SOURCE_DAILY_YYS       -> "https://tophub.today/n/Om4ej8mvxE"
+            AppConstant.NEWS_SOURCE_DAILY_36_KR     -> "$baseUrl/n/Q1Vd5Ko85R"
+            AppConstant.NEWS_SOURCE_DAILY_IT_HOME   -> "$baseUrl/n/74Kvx59dkx"
+            AppConstant.NEWS_SOURCE_DAILY_SS_PAI    -> "$baseUrl/n/Y2KeDGQdNP"
+            AppConstant.NEWS_SOURCE_DAILY_HU_XIU    -> "$baseUrl/n/5VaobgvAj1"
+            AppConstant.NEWS_SOURCE_DAILY_JIAN_DAN  -> "$baseUrl/n/NRrvWq3e5z"
+            AppConstant.NEWS_SOURCE_DAILY_HU_PU     -> "$baseUrl/n/G47o8weMmN"
+            AppConstant.NEWS_SOURCE_DAILY_THE_PAPER -> "$baseUrl/n/wWmoO5Rd4E"
+            AppConstant.NEWS_SOURCE_DAILY_WEIBO     -> "$baseUrl/n/KqndgxeLl9"
+            AppConstant.NEWS_SOURCE_DAILY_V2EX      -> "$baseUrl/n/wWmoORe4EO"
+            AppConstant.NEWS_SOURCE_DAILY_GAME_CORE -> "$baseUrl/n/wWmoOVYe4E"
+            AppConstant.NEWS_SOURCE_DAILY_YYS       -> "$baseUrl/n/Om4ej8mvxE"
             else                                    -> ""
         }
     }
@@ -54,7 +56,7 @@ class DailyHotRepository(private val newsSource: String) : NewsDataRepository
         return when
         {
             url.startsWith("http") || url.startsWith("https") -> url
-            else                                              -> "https://tophub.today$url"
+            else                                              -> "$baseUrl$url"
         }
     }
 }

@@ -6,10 +6,9 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lizl.news.R
 import com.lizl.news.databinding.ItemNewsSourceBinding
 import com.lizl.news.model.news.source.NewsSourceModel
-import com.lizl.news.util.NewsUtil
 
 class NewsSourceListAdapter(sourceList: MutableList<NewsSourceModel> = mutableListOf()) :
-        BaseQuickAdapter<NewsSourceModel, BaseViewHolder>(R.layout.item_news_source, sourceList)
+    BaseQuickAdapter<NewsSourceModel, BaseViewHolder>(R.layout.item_news_source, sourceList)
 {
     override fun onItemViewHolderCreated(viewHolder: BaseViewHolder, viewType: Int)
     {
@@ -21,10 +20,6 @@ class NewsSourceListAdapter(sourceList: MutableList<NewsSourceModel> = mutableLi
         helper.getBinding<ItemNewsSourceBinding>()?.apply {
 
             newsSourceModel = item
-
-            tvName.text = NewsUtil.getNewsSourceName(item.newSource)
-
-            ivShow.isSelected = item.visible
 
             ivTop.setOnClickListener { upModel(item) }
 
