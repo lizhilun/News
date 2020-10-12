@@ -59,7 +59,7 @@ class NewsListFragment(private val newsSource: String) : BaseFragment<FragmentNe
 
         tv_notify.setOnClickListener {
             val requestUrl = newsViewModel.newsRequestFailedLiveData.value ?: return@setOnClickListener
-            ActivityUtil.turnToActivity(WebViewActivity::class.java, Pair(AppConstant.BUNDLE_URL, it))
+            ActivityUtil.turnToActivity(WebViewActivity::class.java, Pair(AppConstant.BUNDLE_URL, requestUrl))
         }
     }
 }

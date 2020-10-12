@@ -65,13 +65,6 @@ object DataBindUtil
     }
 
     @JvmStatic
-    @BindingAdapter("app:offscreenPageLimit")
-    fun bindFragmentPagerAdapter(viewPager: ViewPager, offscreenPageLimit: Int?)
-    {
-        viewPager.offscreenPageLimit = offscreenPageLimit ?: 1
-    }
-
-    @JvmStatic
     @BindingAdapter("app:strText")
     fun bindText(textView: TextView, strText: Any?)
     {

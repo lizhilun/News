@@ -17,8 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/global_content_padding_edge"
-        android:paddingTop="@dimen/global_content_padding_edge"
-        android:paddingEnd="@dimen/global_content_padding_edge">
+        android:paddingTop="@dimen/global_content_padding_edge_half"
+        android:paddingEnd="@dimen/global_content_padding_edge"
+        android:paddingBottom="@dimen/global_content_padding_edge_half">
 
         <skin.support.widget.SkinCompatTextView
             android:id="@+id/tv_title"
@@ -58,7 +59,9 @@
             android:layout_marginTop="5dp"
             android:overScrollMode="never"
             android:visibility="@{newsModel.coverImageList.size() > 1? View.VISIBLE : View.GONE}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            app:spanCount="3" />
 
     </skin.support.constraint.SkinCompatConstraintLayout>
 </layout>

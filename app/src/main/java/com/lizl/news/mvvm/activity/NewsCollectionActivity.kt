@@ -14,6 +14,8 @@ class NewsCollectionActivity : BaseActivity<ActivityNewsCollectionBinding>(R.lay
     override fun initView()
     {
         dataBinding.newsCollectionListAdapter = newsCollectionListAdapter
+
+        dataBinding.ctbTitle.setOnBackBtnClickListener { super.onBackPressed() }
     }
 
     override fun initData()

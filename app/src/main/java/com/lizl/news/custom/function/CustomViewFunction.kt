@@ -1,18 +1,9 @@
 package com.lizl.news.custom.function
 
-import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
+import androidx.core.widget.NestedScrollView
 
-fun Toolbar.getTitleTextView(): TextView?
+fun NestedScrollView.scrollToTop()
 {
-    return try
-    {
-        val titleTextViewField = Toolbar::class.java.getDeclaredField("mTitleTextView")
-        titleTextViewField.isAccessible = true
-        titleTextViewField.get(this) as TextView
-    }
-    catch (e: Exception)
-    {
-        null
-    }
+    this.scrollTo(0, 0)
 }
+

@@ -31,7 +31,7 @@ object HttpUtil
         return null
     }
 
-    fun requestData(url: String): String?
+    private fun requestData(url: String): String?
     {
         Log.d(TAG, "requestData() called with: url = [$url]")
         return try

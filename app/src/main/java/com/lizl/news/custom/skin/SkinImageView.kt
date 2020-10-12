@@ -18,10 +18,8 @@ class SkinImageView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
 
     init
     {
-        mBackgroundTintHelper = SkinCompatBackgroundHelper(this)
-        mBackgroundTintHelper?.loadFromAttributes(attrs, defStyleAttr)
-        mSkinImageViewHelper = SkinImageViewHelper(this)
-        mSkinImageViewHelper?.loadFromAttributes(attrs, defStyleAttr)
+        mBackgroundTintHelper = SkinCompatBackgroundHelper(this).apply { loadFromAttributes(attrs, defStyleAttr) }
+        mSkinImageViewHelper = SkinImageViewHelper(this).apply { loadFromAttributes(attrs, defStyleAttr) }
     }
 
     override fun setBackgroundResource(@DrawableRes resId: Int)

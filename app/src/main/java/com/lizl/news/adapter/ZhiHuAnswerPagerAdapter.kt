@@ -4,6 +4,7 @@ import androidx.databinding.DataBindingUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lizl.news.R
+import com.lizl.news.custom.function.scrollToTop
 import com.lizl.news.databinding.ItemZhihuAnswerPagerBinding
 import com.lizl.news.model.news.zhihu.ZhiHuAnswerModel
 
@@ -18,6 +19,9 @@ class ZhiHuAnswerPagerAdapter : BaseQuickAdapter<ZhiHuAnswerModel, BaseViewHolde
     {
         helper.getBinding<ItemZhihuAnswerPagerBinding>()?.apply {
             answerModel = item
+
+            svContent.scrollToTop()
+
             executePendingBindings()
         }
     }
