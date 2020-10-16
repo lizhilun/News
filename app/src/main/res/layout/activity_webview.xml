@@ -45,6 +45,14 @@
             style="@style/GlobalFABStyle"
             app:srcCompat="@drawable/ic_collect" />
 
+        <skin.support.widget.SkinCompatView
+            android:id="@+id/view_cover"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorContentBg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/npb_loading_progress" />
+
     </skin.support.constraint.SkinCompatConstraintLayout>
 
 </layout>

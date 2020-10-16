@@ -37,24 +37,14 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
 
         npb_loading_progress.progress = 0
 
-        var dismissProgressBarJob: Job? = null
+        view_cover.isVisible = SkinUtil.isNightModeOn()
 
         webview.webViewClient = object : WebViewClient()
         {
-            override fun onPageFinished(view: WebView, url: String)
-            {
-                Log.d(TAG, "onPageFinished:$url")
 
-                super.onPageFinished(view, url)
-            }
-
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean
-            {
-                Log.d(TAG, "shouldOverrideUrlLoading:$url")
-
-                return super.shouldOverrideUrlLoading(view, url)
-            }
         }
+
+        var dismissProgressBarJob: Job? = null
 
         webview.webChromeClient = object : WebChromeClient()
         {
@@ -64,6 +54,7 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
                 dismissProgressBarJob?.cancel()
                 if (newProgress == 100)
                 {
+                    view_cover.isVisible = false
                     dismissProgressBarJob = GlobalScope.launch(Dispatchers.Main) {
                         delay(200)
                         npb_loading_progress.isVisible = false
@@ -119,5 +110,15 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
                 }
             }
         }
+    }
+
+    override fun onBackPressed()
+    {
+        if (webview.canGoBack())
+        {
+            webview.goBack()
+            return
+        }
+        super.onBackPressed()
     }
 }
