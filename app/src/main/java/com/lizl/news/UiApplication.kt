@@ -3,6 +3,8 @@ package com.lizl.news
 import android.app.Application
 import android.util.Log
 import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.FileIOUtils
+import com.blankj.utilcode.util.PathUtils
 import com.blankj.utilcode.util.Utils
 import com.lizl.news.config.util.ConfigUtil
 import com.lizl.news.util.SkinUtil
@@ -10,6 +12,8 @@ import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.zzhoujay.richtext.RichText
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class UiApplication : Application(), Thread.UncaughtExceptionHandler
 {
@@ -33,7 +37,7 @@ class UiApplication : Application(), Thread.UncaughtExceptionHandler
             MaterialHeader(context)
         }
         //初始化SmartRefreshLayout全局Footer
-        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
+        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ ->
             BallPulseFooter(context)
         }
 
@@ -43,6 +47,10 @@ class UiApplication : Application(), Thread.UncaughtExceptionHandler
     override fun uncaughtException(t: Thread, e: Throwable)
     {
         Log.d(TAG, "uncaughtException() called with: t = [$t], e = [$e]")
-        AppUtils.relaunchApp(true)
+        GlobalScope.launch {
+            val exceptionLogFilePath = PathUtils.getInternalAppFilesPath() + "/exception.log"
+            FileIOUtils.writeFileFromString(exceptionLogFilePath, e.message, true)
+            AppUtils.relaunchApp(true)
+        }
     }
 }
