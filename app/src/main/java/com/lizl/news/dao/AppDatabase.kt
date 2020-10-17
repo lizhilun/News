@@ -7,12 +7,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.blankj.utilcode.util.Utils
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.model.news.colletion.NewsCollectionModel
+import com.lizl.news.model.news.shieldword.ShieldWordModel
 import com.lizl.news.model.news.source.NewsSourceModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-@Database(entities = [NewsCollectionModel::class, NewsSourceModel::class], version = 1, exportSchema = false)
+@Database(entities = [NewsCollectionModel::class, NewsSourceModel::class, ShieldWordModel::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase()
 {
     private object Singleton
@@ -48,4 +49,6 @@ abstract class AppDatabase : RoomDatabase()
     abstract fun getNewsCollectionDao(): NewsCollectionDao
 
     abstract fun getNewsSourceDao(): NewsSourceDao
+
+    abstract fun getShieldWordsDao(): ShieldWordDao
 }

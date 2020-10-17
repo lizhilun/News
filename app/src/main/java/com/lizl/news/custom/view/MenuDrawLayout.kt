@@ -10,6 +10,7 @@ import com.lizl.news.dao.AppDatabase
 import com.lizl.news.model.setting.*
 import com.lizl.news.mvvm.activity.NewsCollectionActivity
 import com.lizl.news.mvvm.activity.NewsSourcesConfigActivity
+import com.lizl.news.mvvm.activity.ShieldWordsConfigActivity
 import com.lizl.news.util.ActivityUtil
 import com.lizl.news.util.SkinUtil
 import com.lxj.xpopup.core.DrawerPopupView
@@ -45,6 +46,10 @@ class MenuDrawLayout(context: Context) : DrawerPopupView(context)
             add(BooleanSettingModel(context.getString(R.string.no_image_config), ConfigConstant.CONFIG_NO_IMAGE, R.drawable.ic_baseline_broken_image_24))
 
             add(DividerSettingModel())
+
+            add(NormalSettingModel(context.getString(R.string.shield_words), R.drawable.ic_baseline_block_24) {
+                ActivityUtil.turnToActivity(ShieldWordsConfigActivity::class.java)
+            })
 
             add(NormalSettingModel(context.getString(R.string.news_collection), R.drawable.ic_baseline_collections_24) {
                 ActivityUtil.turnToActivity(NewsCollectionActivity::class.java)

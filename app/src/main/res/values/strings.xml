@@ -33,10 +33,16 @@
     <string name="news_source_config">新闻源设置</string>
     <string name="dark_mode_config">暗黑模式</string>
     <string name="no_image_config">无图模式</string>
+    <string name="shield_words">屏蔽词</string>
     <string name="success_to_save">保存成功</string>
 
     <string name="on">开</string>
     <string name="off">关</string>
     <string name="follow_system">跟随系统</string>
+
+    <string name="please_input_shield_word">请输入屏蔽词</string>
+    <string name="notify_shield_word_exist">屏蔽词已存在</string>
+    <string name="please_confirm">请确认</string>
+    <string name="sure_to_delete_shield_word">是否删除屏蔽词</string>
 
 </resources>

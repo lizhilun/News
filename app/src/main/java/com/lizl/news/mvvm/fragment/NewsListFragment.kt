@@ -7,6 +7,7 @@ import com.lizl.news.R
 import com.lizl.news.adapter.NewsListAdapter
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.custom.recylerviewitemdivider.ListDividerItemDecoration
+import com.lizl.news.dao.AppDatabase
 import com.lizl.news.databinding.FragmentNewsListBinding
 import com.lizl.news.mvvm.activity.WebViewActivity
 import com.lizl.news.mvvm.base.BaseFragment
@@ -42,10 +43,20 @@ class NewsListFragment(private val newsSource: String) : BaseFragment<FragmentNe
 
         rv_news_list.addItemDecoration(ListDividerItemDecoration(resources.getDimensionPixelSize(R.dimen.global_content_padding_content)))
 
+        tv_notify.setOnClickListener {
+            val requestUrl = newsViewModel.newsRequestFailedLiveData.value ?: return@setOnClickListener
+            ActivityUtil.turnToActivity(WebViewActivity::class.java, Pair(AppConstant.BUNDLE_URL, requestUrl))
+        }
+    }
+
+    override fun initData()
+    {
         newsViewModel.newsLiveData.observe(this, Observer {
             dataBinding.refreshLayout.finishRefresh()
             newsListAdapter.loadMoreModule?.loadMoreComplete()
-            newsListAdapter.setDiffNewData(it.toMutableList())
+            newsListAdapter.setDiffNewData(it.filter { newsModel ->
+                AppDatabase.instance.getShieldWordsDao().findShieldWordInContent(newsModel.title) == null
+            }.toMutableList())
         })
 
         newsViewModel.hasMoreDataLiveData.observe(this, Observer { newsListAdapter.loadMoreModule?.isEnableLoadMore = it })
@@ -56,10 +67,5 @@ class NewsListFragment(private val newsSource: String) : BaseFragment<FragmentNe
         })
 
         newsViewModel.setNewsSource(newsSource)
-
-        tv_notify.setOnClickListener {
-            val requestUrl = newsViewModel.newsRequestFailedLiveData.value ?: return@setOnClickListener
-            ActivityUtil.turnToActivity(WebViewActivity::class.java, Pair(AppConstant.BUNDLE_URL, requestUrl))
-        }
     }
 }

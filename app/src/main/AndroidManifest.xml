@@ -43,6 +43,10 @@
         <activity
             android:name=".mvvm.activity.NewsCollectionActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".mvvm.activity.ShieldWordsConfigActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

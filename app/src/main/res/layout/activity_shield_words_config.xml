@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="shieldAdapter"
+            type="com.lizl.news.adapter.ShieldWordListAdapter" />
+    </data>
+
+    <skin.support.constraint.SkinCompatConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.lizl.news.custom.view.CustomTitleBar
+            android:id="@+id/ctb_title"
+            style="@style/ToolbarLayoutStyle"
+            app:titleText="@string/shield_words" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:overScrollMode="never"
+            app:adapter="@{shieldAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ctb_title" />
+
+        <skin.support.design.widget.SkinMaterialFloatingActionButton
+            android:id="@+id/fab_add"
+            style="@style/GlobalFABStyle"
+            app:srcCompat="@drawable/ic_baseline_add_24" />
+
+    </skin.support.constraint.SkinCompatConstraintLayout>
+</layout>
