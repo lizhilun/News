@@ -16,6 +16,7 @@
         <com.lizl.news.custom.view.CustomTitleBar
             android:id="@+id/ctb_title"
             style="@style/ToolbarLayoutStyle"
+            app:actionText="@string/add"
             app:titleText="@string/shield_words" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -27,11 +28,6 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ctb_title" />
-
-        <skin.support.design.widget.SkinMaterialFloatingActionButton
-            android:id="@+id/fab_add"
-            style="@style/GlobalFABStyle"
-            app:srcCompat="@drawable/ic_baseline_add_24" />
 
     </skin.support.constraint.SkinCompatConstraintLayout>
 </layout>
