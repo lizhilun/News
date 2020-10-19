@@ -19,6 +19,8 @@ class UiApplication : Application(), Thread.UncaughtExceptionHandler
 {
     private val TAG = "UiApplication"
 
+    private val exceptionLogFilePath: String by lazy { PathUtils.getExternalAppFilesPath() + "/exception.log" }
+
     override fun onCreate()
     {
         super.onCreate()
@@ -48,8 +50,7 @@ class UiApplication : Application(), Thread.UncaughtExceptionHandler
     {
         Log.d(TAG, "uncaughtException() called with: t = [$t], e = [$e]")
         GlobalScope.launch {
-            val exceptionLogFilePath = PathUtils.getExternalAppFilesPath() + "/exception.log"
-            FileIOUtils.writeFileFromString(exceptionLogFilePath, e.message, true)
+            FileIOUtils.writeFileFromString(exceptionLogFilePath, Log.getStackTraceString(e), true)
             AppUtils.relaunchApp(true)
         }
     }
