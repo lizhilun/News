@@ -53,7 +53,7 @@ class ZhiHuDailyRepository : NewsDataRepository
             questionList.add(ZhiHuQuestionModel(questionTitle, answerList))
         }
 
-        return ZhiHuDailyDetailModel(dailyDetailModel.title, dailyDetailModel.images?.first(), questionList)
+        return ZhiHuDailyDetailModel(dailyDetailModel.title, dailyDetailModel.images?.firstOrNull(), questionList)
     }
 
     override fun canLoadMore() = true

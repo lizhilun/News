@@ -19,7 +19,7 @@ class ZhiHuTopRepository : NewsDataRepository
         val zhiHuTopResponseModel = HttpUtil.requestData(getNewsRequestUrl(), ZhiHuTopResponseModel::class.java)
         zhiHuTopResponseModel?.dataList?.forEach {
             it.target ?: return@forEach
-            newsList.add(NewsModel("https://www.zhihu.com/question/${it.target.id}", it.target.title, listOf(it.children?.first()?.thumbnail.orEmpty()),
+            newsList.add(NewsModel("https://www.zhihu.com/question/${it.target.id}", it.target.title, listOf(it.children?.firstOrNull()?.thumbnail.orEmpty()),
                     AppConstant.NEWS_SOURCE_ZHIHU_TOP))
         }
 

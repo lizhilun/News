@@ -44,7 +44,7 @@ class ZhiHuTopViewModel : ViewModel()
                     questionList.add(ZhiHuAnswerModel(it.content, ZhiHuAuthorModel(it.author.name, it.author.avatar_url, it.author.headline)))
                 }
                 nextUrl = zhiHuAnswersResponseModel.paging?.next.orEmpty()
-                questionTitleLiveData.postValue(zhiHuAnswersResponseModel.dataList?.first()?.question?.title)
+                questionTitleLiveData.postValue(zhiHuAnswersResponseModel.dataList?.firstOrNull()?.question?.title)
                 answerCountLiveData.postValue(zhiHuAnswersResponseModel.paging?.totals ?: questionList.size.toLong())
             }
             answerListLiveData.postValue(questionList)

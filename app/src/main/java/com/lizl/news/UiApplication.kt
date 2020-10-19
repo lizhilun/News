@@ -48,7 +48,7 @@ class UiApplication : Application(), Thread.UncaughtExceptionHandler
     {
         Log.d(TAG, "uncaughtException() called with: t = [$t], e = [$e]")
         GlobalScope.launch {
-            val exceptionLogFilePath = PathUtils.getInternalAppFilesPath() + "/exception.log"
+            val exceptionLogFilePath = PathUtils.getExternalAppFilesPath() + "/exception.log"
             FileIOUtils.writeFileFromString(exceptionLogFilePath, e.message, true)
             AppUtils.relaunchApp(true)
         }
