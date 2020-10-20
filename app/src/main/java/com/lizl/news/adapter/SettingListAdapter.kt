@@ -56,6 +56,11 @@ class SettingListAdapter : BaseDelegateMultiAdapter<BaseSettingModel, SettingLis
         }
     }
 
+    override fun convert(helper: ViewHolder, item: BaseSettingModel, payloads: List<Any>)
+    {
+        convert(helper, item)
+    }
+
     inner class ViewHolder(itemView: View) : BaseViewHolder(itemView)
     {
         fun bindBooleanViewHolder(settingModel: BooleanSettingModel)
@@ -130,6 +135,8 @@ class SettingListAdapter : BaseDelegateMultiAdapter<BaseSettingModel, SettingLis
 
     fun update(item: BaseSettingModel)
     {
-        setData(getItemPosition(item), item)
+        val position = getItemPosition(item)
+        if (position < 0) return
+        notifyItemChanged(position, "")
     }
 }

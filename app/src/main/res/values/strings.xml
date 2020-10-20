@@ -50,4 +50,7 @@
     <string name="cache_size_in_calculation">计算中</string>
     <string name="sure_to_clear_cache">确认清除所有缓存</string>
 
+    <string name="notify_success_to_save_pic">图片保存成功</string>
+    <string name="notify_failed_to_save_pic_external_storage_disable">图片保存失败：外部存储不可用</string>
+
 </resources>
