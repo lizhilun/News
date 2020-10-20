@@ -2,6 +2,8 @@ package com.lizl.news.util
 
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.PathUtils
+import com.blankj.utilcode.util.ToastUtils
+import com.lizl.news.R
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
@@ -12,8 +14,10 @@ object FileUtil
 
     fun clearAllCache(callback: () -> Unit)
     {
+        ToastUtils.showShort(R.string.in_clear_cache)
         GlobalScope.launch {
             FileUtils.deleteDir(PathUtils.getExternalAppCachePath())
+            ToastUtils.showShort(R.string.success_to_clear_cache)
             callback.invoke()
         }
     }
