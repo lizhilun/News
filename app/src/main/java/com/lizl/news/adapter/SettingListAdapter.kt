@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_setting_boolean.view.*
 import kotlinx.android.synthetic.main.item_setting_normal.view.*
 import kotlinx.android.synthetic.main.item_setting_value.view.*
 
-class SettingListAdapter(settingList: MutableList<BaseSettingModel>) : BaseDelegateMultiAdapter<BaseSettingModel, SettingListAdapter.ViewHolder>(settingList)
+class SettingListAdapter : BaseDelegateMultiAdapter<BaseSettingModel, SettingListAdapter.ViewHolder>()
 {
 
     companion object
@@ -62,9 +62,7 @@ class SettingListAdapter(settingList: MutableList<BaseSettingModel>) : BaseDeleg
         {
             with(itemView) {
 
-                settingModel.icon?.let {
-                    iv_boolean_icon.setImageResource(it)
-                }
+                settingModel.icon?.let { iv_boolean_icon.setImageResource(it) }
 
                 tv_boolean_setting_name.text = settingModel.name
                 iv_boolean_setting_checked.isSelected = settingModel.getValue()
@@ -82,13 +80,12 @@ class SettingListAdapter(settingList: MutableList<BaseSettingModel>) : BaseDeleg
         {
             with(itemView) {
 
-                settingModel.icon?.let {
-                    iv_normal_icon.setImageResource(it)
-                }
+                settingModel.icon?.let { iv_normal_icon.setImageResource(it) }
 
                 tv_normal_setting_name.text = settingModel.name
+                tv_normal_setting_value.text = settingModel.value
 
-                setOnClickListener { settingModel.callback.invoke() }
+                setOnClickListener { settingModel.callback.invoke(settingModel) }
             }
         }
 
@@ -96,9 +93,7 @@ class SettingListAdapter(settingList: MutableList<BaseSettingModel>) : BaseDeleg
         {
             with(itemView) {
 
-                settingModel.icon?.let {
-                    iv_value_icon.setImageResource(it)
-                }
+                settingModel.icon?.let { iv_value_icon.setImageResource(it) }
 
                 tv_value_setting_name.text = settingModel.name
 
