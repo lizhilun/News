@@ -12,7 +12,6 @@ import com.lizl.news.mvvm.activity.ShieldWordsConfigActivity
 import com.lizl.news.util.ActivityUtil
 import com.lizl.news.util.FileUtil
 import com.lizl.news.util.PopupUtil
-import com.lizl.news.util.SkinUtil
 import com.lxj.xpopup.core.DrawerPopupView
 import kotlinx.android.synthetic.main.layout_drawer_menu.view.*
 import kotlinx.coroutines.Dispatchers
@@ -51,7 +50,7 @@ class MenuDrawLayout(context: Context) : DrawerPopupView(context)
                     ConfigConstant.APP_NIGHT_MODE_FOLLOW_SYSTEM to context.getString(R.string.follow_system))
 
             add(StringRadioSettingModel(context.getString(R.string.dark_mode_config), ConfigConstant.CONFIG_DARK_MODE, R.drawable.ic_baseline_dark_mode_24,
-                    darkModeMap) { SkinUtil.loadSkin() })
+                    darkModeMap) { })
 
             add(BooleanSettingModel(context.getString(R.string.no_image_config), ConfigConstant.CONFIG_NO_IMAGE, R.drawable.ic_baseline_broken_image_24))
 

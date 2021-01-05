@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.Utils
 import com.lizl.news.config.AppConfig
 import com.lizl.news.config.constant.ConfigConstant
+import com.lizl.news.config.util.ConfigUtil
 import skin.support.SkinCompatManager
 import skin.support.SkinCompatManager.SkinLoaderListener
 import skin.support.app.SkinAppCompatViewInflater
@@ -28,9 +29,11 @@ object SkinUtil
             .setSkinWindowBackgroundEnable(true)               // windowBg换肤
             .setSkinStatusBarColorEnable(true)
         loadSkin()
+
+        ConfigUtil.obConfig(ConfigConstant.CONFIG_DARK_MODE).observeForever { loadSkin() }
     }
 
-    fun loadSkin()
+    private fun loadSkin()
     {
         val skinLoadListener = object : SkinLoaderListener
         {

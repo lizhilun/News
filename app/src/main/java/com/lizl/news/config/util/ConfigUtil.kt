@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.preferencesKey
 import androidx.datastore.preferences.createDataStore
+import androidx.lifecycle.MutableLiveData
 import com.lizl.news.config.annotation.BooleanConfig
 import com.lizl.news.config.annotation.LongConfig
 import com.lizl.news.config.annotation.StringConfig
@@ -19,6 +20,8 @@ object ConfigUtil
     private val defaultConfigMap = HashMap<String, Any>()
 
     private lateinit var dataStore: DataStore<Preferences>
+
+    private val configObserverMap = HashMap<String, MutableLiveData<Any>>()
 
     fun initConfig(context: Context)
     {
@@ -37,6 +40,18 @@ object ConfigUtil
         }
     }
 
+    fun obConfig(configKey: String): MutableLiveData<Any>
+    {
+        var liveData = configObserverMap[configKey]
+        if (liveData == null)
+        {
+            liveData = MutableLiveData()
+            configObserverMap[configKey] = liveData
+        }
+        configObserverMap[configKey] = liveData
+        return liveData
+    }
+
     fun getBoolean(configKey: String): Boolean = getValue(configKey, false)
 
     fun getLong(configKey: String): Long = getValue(configKey, 0L)
@@ -48,9 +63,11 @@ object ConfigUtil
         when (value)
         {
             is Boolean -> saveValue(configKey, value)
-            is String  -> saveValue(configKey, value)
-            is Long    -> saveValue(configKey, value)
+            is String -> saveValue(configKey, value)
+            is Long -> saveValue(configKey, value)
         }
+
+        configObserverMap[configKey]?.postValue(value)
     }
 
     private inline fun <reified T : Any> getValue(configKey: String, valueIfNotFind: T): T
