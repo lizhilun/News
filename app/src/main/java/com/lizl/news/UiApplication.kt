@@ -27,7 +27,7 @@ class UiApplication : Application(), Thread.UncaughtExceptionHandler
 
         Utils.init(this)
 
-        ConfigUtil.initConfig()
+        ConfigUtil.initConfig(this)
 
         SkinUtil.init(this)
 
