@@ -5,13 +5,13 @@ import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.lizl.news.GlideApp
 import com.lizl.news.R
 import com.lizl.news.config.AppConfig
+import com.lizl.news.constant.AppConstant
+import com.lizl.news.mvvm.activity.WebViewActivity
 import com.zzhoujay.richtext.CacheType
 import com.zzhoujay.richtext.ImageHolder
 import com.zzhoujay.richtext.RichText
@@ -56,13 +56,6 @@ object DataBindUtil
     fun bindWebViewUrl(webView: WebView, url: String?)
     {
         webView.loadUrl(url)
-    }
-
-    @JvmStatic
-    @BindingAdapter("app:fragmentPagerAdapter")
-    fun bindFragmentPagerAdapter(viewPager: ViewPager, fragmentPagerAdapter: FragmentPagerAdapter?)
-    {
-        viewPager.adapter = fragmentPagerAdapter
     }
 
     @JvmStatic
@@ -130,7 +123,10 @@ object DataBindUtil
             // true：忽略标签中的尺寸并触发SIZE_READY回调，false：使用img标签中的宽高尺寸，不触发SIZE_READY回调
             .clickable(true) // 是否可点击，默认只有设置了点击监听才可点击
             .imageClick { imageUrls, position -> PopupUtil.showImageViewerPopup(imageUrls[position]) } // 设置图片点击回调
-            .urlClick { url -> false } // 设置链接点击回调
+            .urlClick { url ->
+                ActivityUtil.turnToActivity(WebViewActivity::class.java, Pair(AppConstant.BUNDLE_URL, url))
+                true
+            } // 设置链接点击回调
             .cache(CacheType.all) // 缓存类型，默认为Cache.ALL（缓存图片和图片大小信息和文本样式信息）
             .into(textView) // 设置目标TextView
     }
