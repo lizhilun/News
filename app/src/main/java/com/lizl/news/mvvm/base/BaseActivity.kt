@@ -9,9 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.BarUtils
-import com.jeremyliao.liveeventbus.LiveEventBus
 import com.lizl.news.R
-import com.lizl.news.constant.EventConstant
 import com.lizl.news.util.SkinUtil
 
 open class BaseActivity<DB : ViewDataBinding>(private val layoutId: Int) : AppCompatActivity()
@@ -33,7 +31,7 @@ open class BaseActivity<DB : ViewDataBinding>(private val layoutId: Int) : AppCo
         initView()
         initData()
 
-        LiveEventBus.get(EventConstant.EVENT_DARK_MODE_UPDATE).observe(this, Observer { updateStatusBarColor() })
+        SkinUtil.obSkinMode().observe(this, Observer { updateStatusBarColor() })
     }
 
     private fun updateStatusBarColor()

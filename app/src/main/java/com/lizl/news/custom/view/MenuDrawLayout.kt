@@ -1,11 +1,9 @@
 package com.lizl.news.custom.view
 
 import android.content.Context
-import com.jeremyliao.liveeventbus.LiveEventBus
 import com.lizl.news.R
 import com.lizl.news.adapter.SettingListAdapter
 import com.lizl.news.config.constant.ConfigConstant
-import com.lizl.news.constant.EventConstant
 import com.lizl.news.dao.AppDatabase
 import com.lizl.news.model.setting.*
 import com.lizl.news.mvvm.activity.NewsCollectionActivity
@@ -53,11 +51,7 @@ class MenuDrawLayout(context: Context) : DrawerPopupView(context)
                     ConfigConstant.APP_NIGHT_MODE_FOLLOW_SYSTEM to context.getString(R.string.follow_system))
 
             add(StringRadioSettingModel(context.getString(R.string.dark_mode_config), ConfigConstant.CONFIG_DARK_MODE, R.drawable.ic_baseline_dark_mode_24,
-                    darkModeMap) {
-                SkinUtil.loadSkin {
-                    LiveEventBus.get(EventConstant.EVENT_DARK_MODE_UPDATE).post(true)
-                }
-            })
+                    darkModeMap) { SkinUtil.loadSkin() })
 
             add(BooleanSettingModel(context.getString(R.string.no_image_config), ConfigConstant.CONFIG_NO_IMAGE, R.drawable.ic_baseline_broken_image_24))
 

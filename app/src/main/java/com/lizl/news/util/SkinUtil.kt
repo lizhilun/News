@@ -3,6 +3,7 @@ package com.lizl.news.util
 import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
+import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.Utils
 import com.lizl.news.config.AppConfig
 import com.lizl.news.config.constant.ConfigConstant
@@ -17,6 +18,8 @@ object SkinUtil
 {
     private const val SKIN_DARK = "dark"
 
+    private val skinModeLiveData = MutableLiveData<Boolean>()
+
     fun init(application: Application)
     {
         SkinCompatManager.withoutActivity(application).addInflater(SkinAppCompatViewInflater())           // 基础控件换肤初始化
@@ -27,18 +30,18 @@ object SkinUtil
         loadSkin()
     }
 
-    fun loadSkin(callback: ((Boolean) -> Unit)? = null)
+    fun loadSkin()
     {
         val skinLoadListener = object : SkinLoaderListener
         {
             override fun onSuccess()
             {
-                callback?.invoke(true)
+                skinModeLiveData.postValue(isNightModeOn())
             }
 
             override fun onFailed(errMsg: String?)
             {
-                callback?.invoke(false)
+
             }
 
             override fun onStart()
@@ -56,14 +59,16 @@ object SkinUtil
         }
     }
 
+    fun obSkinMode() = skinModeLiveData
+
     fun getColor(context: Context, colorResId: Int) = SkinCompatResources.getColor(context, colorResId)
 
     fun isNightModeOn(): Boolean
     {
         return when (AppConfig.getDarkModel())
         {
-            ConfigConstant.APP_NIGHT_MODE_ON            -> true
-            ConfigConstant.APP_NIGHT_MODE_OFF           -> false
+            ConfigConstant.APP_NIGHT_MODE_ON -> true
+            ConfigConstant.APP_NIGHT_MODE_OFF -> false
             ConfigConstant.APP_NIGHT_MODE_FOLLOW_SYSTEM -> isSystemDarkMode()
             else                                        -> false
         }
@@ -73,5 +78,4 @@ object SkinUtil
     {
         return Utils.getApp().resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
-
 }
