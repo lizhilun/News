@@ -48,9 +48,10 @@ class UiApplication : Application(), Thread.UncaughtExceptionHandler
 
     override fun uncaughtException(t: Thread, e: Throwable)
     {
-        Log.d(TAG, "uncaughtException() called with: t = [$t], e = [$e]")
+        val exceptionInfo = Log.getStackTraceString(e)
+        Log.d(TAG, "uncaughtException() called with: t = [$t], e = [$exceptionInfo]")
         GlobalScope.launch {
-            FileIOUtils.writeFileFromString(exceptionLogFilePath, Log.getStackTraceString(e), true)
+            FileIOUtils.writeFileFromString(exceptionLogFilePath, exceptionInfo, true)
             AppUtils.relaunchApp(true)
         }
     }
