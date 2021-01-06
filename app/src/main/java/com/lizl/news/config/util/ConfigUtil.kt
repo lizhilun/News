@@ -13,7 +13,6 @@ import com.lizl.news.config.annotation.StringConfig
 import com.lizl.news.config.constant.ConfigConstant
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.runBlocking
 
 object ConfigUtil
 {
@@ -52,13 +51,13 @@ object ConfigUtil
         return liveData
     }
 
-    fun getBoolean(configKey: String): Boolean = getValue(configKey, false)
+    suspend fun getBoolean(configKey: String): Boolean = getValue(configKey, false)
 
-    fun getLong(configKey: String): Long = getValue(configKey, 0L)
+    suspend fun getLong(configKey: String): Long = getValue(configKey, 0L)
 
-    fun getString(configKey: String): String = getValue(configKey, "")
+    suspend fun getString(configKey: String): String = getValue(configKey, "")
 
-    fun set(configKey: String, value: Any)
+    suspend fun set(configKey: String, value: Any)
     {
         when (value)
         {
@@ -70,14 +69,14 @@ object ConfigUtil
         configObserverMap[configKey]?.postValue(value)
     }
 
-    private inline fun <reified T : Any> getValue(configKey: String, valueIfNotFind: T): T
+    private suspend inline fun <reified T : Any> getValue(configKey: String, valueIfNotFind: T): T
     {
-        return runBlocking { dataStore.data.map { preferences -> preferences[preferencesKey<T>(configKey)] ?: getDefault(configKey, valueIfNotFind) }.first() }
+        return dataStore.data.map { preferences -> preferences[preferencesKey<T>(configKey)] ?: getDefault(configKey, valueIfNotFind) }.first()
     }
 
-    private inline fun <reified T : Any> saveValue(configKey: String, value: T)
+    private suspend inline fun <reified T : Any> saveValue(configKey: String, value: T)
     {
-        runBlocking { dataStore.edit { preferences -> preferences[preferencesKey<T>(configKey)] = value } }
+        dataStore.edit { preferences -> preferences[preferencesKey<T>(configKey)] = value }
     }
 
     private inline fun <reified T> getDefault(configKey: String, valueIfNotFind: T): T

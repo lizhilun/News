@@ -30,19 +30,19 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
         wSetting.safeBrowsingEnabled = true
         wSetting.blockNetworkImage = AppConfig.isNoImage()
 
-        if (SkinUtil.isNightModeOn() && WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK))
+        val isNightModeOn = SkinUtil.obSkinMode().value ?: false
+        if (isNightModeOn && WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK))
         {
             WebSettingsCompat.setForceDark(wSetting, WebSettingsCompat.FORCE_DARK_ON)
         }
-
-        npb_loading_progress.progress = 0
-
-        view_cover.isVisible = SkinUtil.isNightModeOn()
+        view_cover.isVisible = isNightModeOn
 
         webview.webViewClient = object : WebViewClient()
         {
 
         }
+
+        npb_loading_progress.progress = 0
 
         var dismissProgressBarJob: Job? = null
 

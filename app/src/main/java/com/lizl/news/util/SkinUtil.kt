@@ -8,6 +8,8 @@ import com.blankj.utilcode.util.Utils
 import com.lizl.news.config.AppConfig
 import com.lizl.news.config.constant.ConfigConstant
 import com.lizl.news.config.util.ConfigUtil
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import skin.support.SkinCompatManager
 import skin.support.SkinCompatManager.SkinLoaderListener
 import skin.support.app.SkinAppCompatViewInflater
@@ -39,12 +41,11 @@ object SkinUtil
         {
             override fun onSuccess()
             {
-                skinModeLiveData.postValue(isNightModeOn())
+                GlobalScope.launch { skinModeLiveData.postValue(isNightModeOn()) }
             }
 
             override fun onFailed(errMsg: String?)
             {
-
             }
 
             override fun onStart()
@@ -52,13 +53,15 @@ object SkinUtil
             }
         }
 
-        if (isNightModeOn())
-        {
-            SkinCompatManager.getInstance().loadSkin(SKIN_DARK, skinLoadListener, SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN)
-        }
-        else
-        {
-            SkinCompatManager.getInstance().loadSkin("", skinLoadListener, SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN)
+        GlobalScope.launch {
+            if (isNightModeOn())
+            {
+                SkinCompatManager.getInstance().loadSkin(SKIN_DARK, skinLoadListener, SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN)
+            }
+            else
+            {
+                SkinCompatManager.getInstance().loadSkin("", skinLoadListener, SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN)
+            }
         }
     }
 
@@ -66,7 +69,7 @@ object SkinUtil
 
     fun getColor(context: Context, colorResId: Int) = SkinCompatResources.getColor(context, colorResId)
 
-    fun isNightModeOn(): Boolean
+    private suspend fun isNightModeOn(): Boolean
     {
         return when (AppConfig.getDarkModel())
         {

@@ -10,6 +10,9 @@ import com.lizl.news.util.PopupUtil
 import kotlinx.android.synthetic.main.item_setting_boolean.view.*
 import kotlinx.android.synthetic.main.item_setting_normal.view.*
 import kotlinx.android.synthetic.main.item_setting_value.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class SettingListAdapter : BaseDelegateMultiAdapter<BaseSettingModel, SettingListAdapter.ViewHolder>()
 {
@@ -50,8 +53,8 @@ class SettingListAdapter : BaseDelegateMultiAdapter<BaseSettingModel, SettingLis
     {
         when (item)
         {
-            is BooleanSettingModel     -> helper.bindBooleanViewHolder(item)
-            is NormalSettingModel      -> helper.bindNormalViewHolder(item)
+            is BooleanSettingModel -> helper.bindBooleanViewHolder(item)
+            is NormalSettingModel -> helper.bindNormalViewHolder(item)
             is StringRadioSettingModel -> helper.bindRadioViewHolder(item)
         }
     }
@@ -73,10 +76,14 @@ class SettingListAdapter : BaseDelegateMultiAdapter<BaseSettingModel, SettingLis
                 iv_boolean_setting_checked.isSelected = settingModel.getValue()
 
                 setOnClickListener {
-                    val isChecked = settingModel.getValue()
-                    settingModel.saveValue(!isChecked)
-                    iv_boolean_setting_checked.isSelected = !isChecked
-                    settingModel.callback?.invoke(settingModel)
+                    GlobalScope.launch {
+                        val isChecked = settingModel.getValue()
+                        settingModel.saveValue(!isChecked)
+                        GlobalScope.launch(Dispatchers.Main) {
+                            iv_boolean_setting_checked.isSelected = !isChecked
+                            settingModel.callback?.invoke(settingModel)
+                        }
+                    }
                 }
             }
         }
@@ -115,17 +122,18 @@ class SettingListAdapter : BaseDelegateMultiAdapter<BaseSettingModel, SettingLis
 
                 setOnClickListener {
                     PopupUtil.showRadioGroupPopup(settingModel.name, radioList, showValue) { result ->
-                        settingModel.radioMap.forEach {
-                            if (it.value == result)
+                        settingModel.radioMap.filterValues { it == result }.keys.forEach {
+                            setData(data.indexOf(settingModel), settingModel)
+                            if (settingModel is StringRadioSettingModel)
                             {
-                                setData(data.indexOf(settingModel), settingModel)
-                                if (settingModel is StringRadioSettingModel)
-                                {
-                                    settingModel.saveValue(it.key as String)
-                                    settingModel.callback.invoke(settingModel)
+                                GlobalScope.launch {
+                                    settingModel.saveValue(it as String)
+                                    GlobalScope.launch(Dispatchers.Main) {
+                                        settingModel.callback.invoke(settingModel)
+                                    }
                                 }
-                                return@showRadioGroupPopup
                             }
+                            return@showRadioGroupPopup
                         }
                     }
                 }

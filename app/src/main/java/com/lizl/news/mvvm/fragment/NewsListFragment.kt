@@ -5,6 +5,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.lizl.news.R
 import com.lizl.news.adapter.NewsListAdapter
+import com.lizl.news.config.constant.ConfigConstant
+import com.lizl.news.config.util.ConfigUtil
 import com.lizl.news.constant.AppConstant
 import com.lizl.news.custom.recylerviewitemdivider.ListDividerItemDecoration
 import com.lizl.news.dao.AppDatabase
@@ -67,5 +69,9 @@ class NewsListFragment(private val newsSource: String) : BaseFragment<FragmentNe
         })
 
         newsViewModel.setNewsSource(newsSource)
+
+        ConfigUtil.obConfig(ConfigConstant.CONFIG_NO_IMAGE).observe(this, Observer {
+            newsListAdapter.notifyDataSetChanged()
+        })
     }
 }
