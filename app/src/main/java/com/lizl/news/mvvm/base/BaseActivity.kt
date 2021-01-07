@@ -7,10 +7,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.SkinAppCompatDelegateImpl
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Observer
-import com.blankj.utilcode.util.BarUtils
-import com.lizl.news.R
-import com.lizl.news.util.SkinUtil
 
 open class BaseActivity<DB : ViewDataBinding>(private val layoutId: Int) : AppCompatActivity()
 {
@@ -26,17 +22,8 @@ open class BaseActivity<DB : ViewDataBinding>(private val layoutId: Int) : AppCo
         dataBinding = DataBindingUtil.setContentView(this, layoutId)
         dataBinding.lifecycleOwner = this
 
-        updateStatusBarColor()
-
         initView()
         initData()
-
-        SkinUtil.obSkinMode().observe(this, Observer { updateStatusBarColor() })
-    }
-
-    private fun updateStatusBarColor()
-    {
-        BarUtils.setStatusBarColor(this, SkinUtil.getColor(this, R.color.colorContentBg))
     }
 
     override fun onResume()

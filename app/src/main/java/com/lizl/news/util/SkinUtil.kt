@@ -4,10 +4,14 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import androidx.lifecycle.MutableLiveData
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.Utils
+import com.lizl.news.R
 import com.lizl.news.config.AppConfig
 import com.lizl.news.config.constant.ConfigConstant
 import com.lizl.news.config.util.ConfigUtil
+import com.lizl.news.custom.skin.CustomSkinActivityLifecycle
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import skin.support.SkinCompatManager
@@ -21,7 +25,7 @@ object SkinUtil
 {
     private const val SKIN_DARK = "dark"
 
-    private val skinModeLiveData = MutableLiveData<Boolean>()
+    private val nightModeLiveData = MutableLiveData<Boolean>()
 
     fun init(application: Application)
     {
@@ -29,8 +33,9 @@ object SkinUtil
             .addInflater(SkinMaterialViewInflater())            // material design 控件换肤初始化[可选]
             .addInflater(SkinConstraintViewInflater())          // ConstraintLayout 控件换肤初始化[可选]
             .setSkinWindowBackgroundEnable(true)               // windowBg换肤
-            .setSkinStatusBarColorEnable(true)
         loadSkin()
+
+        application.registerActivityLifecycleCallbacks(CustomSkinActivityLifecycle)
 
         ConfigUtil.obConfig(ConfigConstant.CONFIG_DARK_MODE).observeForever { loadSkin() }
     }
@@ -41,7 +46,11 @@ object SkinUtil
         {
             override fun onSuccess()
             {
-                GlobalScope.launch { skinModeLiveData.postValue(isNightModeOn()) }
+                GlobalScope.launch {
+                    nightModeLiveData.postValue(isNightModeOn())
+                    val topActivity = ActivityUtils.getTopActivity() ?: return@launch
+                    BarUtils.setStatusBarColor(topActivity, getColor(topActivity, R.color.colorContentBg))
+                }
             }
 
             override fun onFailed(errMsg: String?)
@@ -65,7 +74,7 @@ object SkinUtil
         }
     }
 
-    fun obSkinMode() = skinModeLiveData
+    fun obNightMode() = nightModeLiveData
 
     fun getColor(context: Context, colorResId: Int) = SkinCompatResources.getColor(context, colorResId)
 

@@ -30,7 +30,7 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
         wSetting.safeBrowsingEnabled = true
         wSetting.blockNetworkImage = AppConfig.isNoImage()
 
-        val isNightModeOn = SkinUtil.obSkinMode().value ?: false
+        val isNightModeOn = SkinUtil.obNightMode().value ?: false
         if (isNightModeOn && WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK))
         {
             WebSettingsCompat.setForceDark(wSetting, WebSettingsCompat.FORCE_DARK_ON)
