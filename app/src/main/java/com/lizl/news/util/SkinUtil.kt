@@ -1,5 +1,6 @@
 package com.lizl.news.util
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
@@ -12,8 +13,10 @@ import com.lizl.news.config.AppConfig
 import com.lizl.news.config.constant.ConfigConstant
 import com.lizl.news.config.util.ConfigUtil
 import com.lizl.news.custom.skin.CustomSkinActivityLifecycle
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import skin.support.SkinCompatManager
 import skin.support.SkinCompatManager.SkinLoaderListener
 import skin.support.app.SkinAppCompatViewInflater
@@ -33,14 +36,15 @@ object SkinUtil
             .addInflater(SkinMaterialViewInflater())            // material design 控件换肤初始化[可选]
             .addInflater(SkinConstraintViewInflater())          // ConstraintLayout 控件换肤初始化[可选]
             .setSkinWindowBackgroundEnable(true)               // windowBg换肤
-        loadSkin()
+
+        runBlocking { loadSkin() }
 
         application.registerActivityLifecycleCallbacks(CustomSkinActivityLifecycle)
 
-        ConfigUtil.obConfig(ConfigConstant.CONFIG_DARK_MODE).observeForever { loadSkin() }
+        ConfigUtil.obConfig(ConfigConstant.CONFIG_DARK_MODE).observeForever { GlobalScope.launch { loadSkin() } }
     }
 
-    private fun loadSkin()
+    private suspend fun loadSkin()
     {
         val skinLoadListener = object : SkinLoaderListener
         {
@@ -48,8 +52,7 @@ object SkinUtil
             {
                 GlobalScope.launch {
                     nightModeLiveData.postValue(isNightModeOn())
-                    val topActivity = ActivityUtils.getTopActivity() ?: return@launch
-                    BarUtils.setStatusBarColor(topActivity, getColor(topActivity, R.color.colorContentBg))
+                    updateStatusBarColor()
                 }
             }
 
@@ -62,21 +65,27 @@ object SkinUtil
             }
         }
 
-        GlobalScope.launch {
-            if (isNightModeOn())
-            {
-                SkinCompatManager.getInstance().loadSkin(SKIN_DARK, skinLoadListener, SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN)
-            }
-            else
-            {
-                SkinCompatManager.getInstance().loadSkin("", skinLoadListener, SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN)
-            }
+        if (isNightModeOn())
+        {
+            SkinCompatManager.getInstance().loadSkin(SKIN_DARK, skinLoadListener, SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN)
+        }
+        else
+        {
+            SkinCompatManager.getInstance().loadSkin("", skinLoadListener, SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN)
         }
     }
 
     fun obNightMode() = nightModeLiveData
 
     fun getColor(context: Context, colorResId: Int) = SkinCompatResources.getColor(context, colorResId)
+
+    fun updateStatusBarColor(activity: Activity? = ActivityUtils.getTopActivity())
+    {
+        activity ?: return
+        GlobalScope.launch(Dispatchers.Main) {
+            BarUtils.setStatusBarColor(activity, getColor(activity, R.color.colorContentBg))
+        }
+    }
 
     private suspend fun isNightModeOn(): Boolean
     {
